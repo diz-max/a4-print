@@ -49,12 +49,13 @@
                 <button onclick="clearAllOrders()">🗑️ ОЧИСТИТЬ ВСЁ</button>
                 <button onclick="exportToExcel()">📎 ЭКСПОРТ В EXCEL</button>
                 <button onclick="refreshStats()">🔄 ОБНОВИТЬ</button>
+                <button onclick="printReceipt()">🖨️ ПЕЧАТЬ КВИТАНЦИИ</button>
             </div>
             
             <table id="ordersTable">
                 <thead>
                     <tr>
-                        <th>ДАТА</th><th>ДЕНЬ</th><th>ОПЕРАТОР</th><th>ВРЕМЯ</th><th>УСЛУГА</th><th>ЦЕНА</th><th>КОЛ-ВО</th><th>СУММА</th><th>ОПЛАТА</th><th></th>
+                        <th>ДАТА</th><th>ДЕНЬ</th><th>ОПЕРАТОР</th><th>ВРЕМЯ</th><th>УСЛУГИ</th><th>КОЛ-ВО</th><th>СУММА</th><th>ОПЛАТА</th><th></th>
                     </tr>
                 </thead>
                 <tbody id="ordersBody"></tbody>
@@ -62,31 +63,67 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ЗАКАЗА -->
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ЗАКАЗА С МУЛЬТИВЫБОРОМ -->
     <div id="orderModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content modal-large">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>НОВЫЙ ЗАКАЗ</h3>
+            <h3>📝 НОВЫЙ ЗАКАЗ</h3>
             <form id="orderForm">
-                <label>Дата: <input type="date" id="orderDate" required></label>
-                <label>Оператор: 
-                    <select id="orderOperator" required></select>
-                </label>
-                <label>Время: <input type="time" id="orderTime" required></label>
-                <label>Услуга: 
-                    <select id="orderService" required onchange="updatePrice()"></select>
-                </label>
-                <label>Цена: <input type="number" id="orderPrice" readonly></label>
-                <label>Количество: <input type="number" id="orderQuantity" value="1" min="1" onchange="updateSum()"></label>
-                <label>Сумма: <input type="number" id="orderSum" readonly></label>
-                <label>Оплата: 
-                    <select id="orderPayment">
-                        <option value="Наличные">Наличные</option>
-                        <option value="Карта">Карта</option>
-                    </select>
-                </label>
-                <button type="submit">✅ ДОБАВИТЬ</button>
+                <div class="form-row">
+                    <label>Дата: <input type="date" id="orderDate" required></label>
+                    <label>Оператор: 
+                        <select id="orderOperator" required></select>
+                    </label>
+                    <label>Время: <input type="time" id="orderTime" required></label>
+                </div>
+                
+                <div class="form-row">
+                    <label>Клиент: <input type="text" id="orderClient" placeholder="ФИО клиента (опционально)"></label>
+                    <label>Оплата: 
+                        <select id="orderPayment">
+                            <option value="Наличные">Наличные</option>
+                            <option value="Карта">Карта</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <h4>📋 УСЛУГИ:</h4>
+                <div id="servicesList" class="services-list"></div>
+                
+                <div class="services-summary">
+                    <button type="button" onclick="addServiceRow()">➕ ДОБАВИТЬ УСЛУГУ</button>
+                    <div class="total-summary">
+                        <strong>ИТОГО: <span id="totalOrderSum">0</span> ₽</strong>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit">✅ ОФОРМИТЬ ЗАКАЗ</button>
+                    <button type="button" onclick="closeModal()">❌ ОТМЕНА</button>
+                </div>
             </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПЕЧАТИ КВИТАНЦИИ -->
+    <div id="receiptModal" class="modal">
+        <div class="modal-content modal-receipt">
+            <span class="close" onclick="closeReceiptModal()">&times;</span>
+            <div id="receiptContent">
+                <div class="receipt">
+                    <h2>ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</h2>
+                    <h3>КВИТАНЦИЯ ОБ ОПЛАТЕ</h3>
+                    <div id="receiptData"></div>
+                    <hr>
+                    <p>_________________________  _________________________</p>
+                    <p>Подпись оператора           Подпись клиента</p>
+                    <p style="font-size: 12px; text-align: center;">СПАСИБО ЗА ПОКУПКУ!</p>
+                </div>
+            </div>
+            <div class="receipt-actions">
+                <button onclick="printReceiptNow()">🖨️ ПЕЧАТАТЬ</button>
+                <button onclick="closeReceiptModal()">❌ ЗАКРЫТЬ</button>
+            </div>
         </div>
     </div>
 
