@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СПРАВОЧНИКИ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 СПРАВОЧНИКИ</h1>
+            <nav>
+                <button onclick="window.location.href='index.html'">📝 ЗАКАЗЫ</button>
+                <button onclick="window.location.href='service.html'">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
+                <button class="active">📚 СПРАВОЧНИКИ</button>
+            </nav>
+        </header>
 
+        <div class="directories">
+            <!-- УСЛУГИ -->
+            <div class="directory-section">
+                <h2>УСЛУГИ И ЦЕНЫ</h2>
+                <div class="toolbar">
+                    <button onclick="addService()">➕ ДОБАВИТЬ УСЛУГУ</button>
+                    <button onclick="saveServices()">💾 СОХРАНИТЬ</button>
+                </div>
+                <table id="servicesTable">
+                    <thead>
+                        <tr><th>Код</th><th>Услуга</th><th>Цена</th><th></th></tr>
+                    </thead>
+                    <tbody id="servicesBody"></tbody>
+                </table>
+            </div>
+
+            <!-- СОТРУДНИКИ -->
+            <div class="directory-section">
+                <h2>СОТРУДНИКИ</h2>
+                <div class="toolbar">
+                    <button onclick="addEmployee()">➕ ДОБАВИТЬ СОТРУДНИКА</button>
+                    <button onclick="saveEmployees()">💾 СОХРАНИТЬ</button>
+                </div>
+                <table id="employeesTable">
+                    <thead>
+                        <tr><th>Сотрудник</th><th>Оклад</th><th></th></tr>
+                    </thead>
+                    <tbody id="employeesBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="directories.js"></script>
+</body>
+</html>
