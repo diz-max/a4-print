@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</h1>
+            <nav>
+                <button class="active" onclick="showPage('orders')">📝 ЗАКАЗЫ</button>
+                <button onclick="window.location.href='service.html'">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
+                <button onclick="window.location.href='directories.html'">📚 СПРАВОЧНИКИ</button>
+            </nav>
+        </header>
 
+        <!-- СТАТИСТИКА -->
+        <div class="stats-panel">
+            <div class="stats-section">
+                <h3>СТАТИСТИКА ПО СОТРУДНИКАМ</h3>
+                <table id="employeeStats">
+                    <thead>
+                        <tr><th>Сотрудник</th><th>Смен</th><th>Продажи</th><th>Выручка</th><th>Зарплата</th></tr>
+                    </thead>
+                    <tbody id="employeeStatsBody"></tbody>
+                </table>
+            </div>
+            <div class="stats-section">
+                <h3>ОБЩАЯ СТАТИСТИКА</h3>
+                <table id="generalStats">
+                    <tbody>
+                        <tr><td>Общий доход:</td><td id="totalIncome">0 ₽</td></tr>
+                        <tr><td>Наличными:</td><td id="totalCash">0 ₽</td></tr>
+                        <tr><td>Картой:</td><td id="totalCard">0 ₽</td></tr>
+                        <tr><td>Всего заказов:</td><td id="totalOrders">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ТАБЛИЦА ЗАКАЗОВ -->
+        <div class="orders-panel">
+            <div class="toolbar">
+                <button onclick="addOrder()">➕ ДОБАВИТЬ ЗАКАЗ</button>
+                <button onclick="saveData()">💾 СОХРАНИТЬ</button>
+                <button onclick="clearAllOrders()">🗑️ ОЧИСТИТЬ ВСЁ</button>
+                <button onclick="exportToExcel()">📎 ЭКСПОРТ В EXCEL</button>
+                <button onclick="refreshStats()">🔄 ОБНОВИТЬ</button>
+            </div>
+            
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>ДАТА</th><th>ДЕНЬ</th><th>ОПЕРАТОР</th><th>ВРЕМЯ</th><th>УСЛУГА</th><th>ЦЕНА</th><th>КОЛ-ВО</th><th>СУММА</th><th>ОПЛАТА</th><th></th>
+                    </tr>
+                </thead>
+                <tbody id="ordersBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ЗАКАЗА -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>НОВЫЙ ЗАКАЗ</h3>
+            <form id="orderForm">
+                <label>Дата: <input type="date" id="orderDate" required></label>
+                <label>Оператор: 
+                    <select id="orderOperator" required></select>
+                </label>
+                <label>Время: <input type="time" id="orderTime" required></label>
+                <label>Услуга: 
+                    <select id="orderService" required onchange="updatePrice()"></select>
+                </label>
+                <label>Цена: <input type="number" id="orderPrice" readonly></label>
+                <label>Количество: <input type="number" id="orderQuantity" value="1" min="1" onchange="updateSum()"></label>
+                <label>Сумма: <input type="number" id="orderSum" readonly></label>
+                <label>Оплата: 
+                    <select id="orderPayment">
+                        <option value="Наличные">Наличные</option>
+                        <option value="Карта">Карта</option>
+                    </select>
+                </label>
+                <button type="submit">✅ ДОБАВИТЬ</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
