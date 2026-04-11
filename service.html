@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СЕРВИСНЫЙ ЦЕНТР</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 СЕРВИСНЫЙ ЦЕНТР</h1>
+            <nav>
+                <button onclick="window.location.href='index.html'">📝 ЗАКАЗЫ</button>
+                <button class="active">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
+                <button onclick="window.location.href='directories.html'">📚 СПРАВОЧНИКИ</button>
+            </nav>
+        </header>
 
+        <div class="toolbar">
+            <button onclick="addRepair()">➕ НОВЫЙ РЕМОНТ</button>
+            <button onclick="saveData()">💾 СОХРАНИТЬ</button>
+            <button onclick="printBlank()">🖨️ ПЕЧАТЬ БЛАНКА</button>
+            <button onclick="showRepairStats()">📊 СТАТИСТИКА</button>
+        </div>
+
+        <table id="repairsTable">
+            <thead>
+                <tr>
+                    <th>№</th><th>ДАТА</th><th>КЛИЕНТ</th><th>ТЕЛЕФОН</th><th>ОБОРУДОВАНИЕ</th><th>МОДЕЛЬ</th><th>НЕИСПРАВНОСТЬ</th><th>СТОИМОСТЬ</th><th>СТАТУС</th><th></th>
+                </tr>
+            </thead>
+            <tbody id="repairsBody"></tbody>
+        </table>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ РЕМОНТА -->
+    <div id="repairModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRepairModal()">&times;</span>
+            <h3>НОВЫЙ РЕМОНТ</h3>
+            <form id="repairForm">
+                <label>Клиент: <input type="text" id="repairClient" required></label>
+                <label>Телефон: <input type="tel" id="repairPhone"></label>
+                <label>Оборудование: <input type="text" id="repairEquipment" required></label>
+                <label>Модель: <input type="text" id="repairModel"></label>
+                <label>Неисправность: <textarea id="repairIssue" rows="2"></textarea></label>
+                <label>Стоимость: <input type="number" id="repairCost" value="0"></label>
+                <label>Статус: 
+                    <select id="repairStatus">
+                        <option value="Принято">Принято</option>
+                        <option value="В работе">В работе</option>
+                        <option value="Готово">Готово</option>
+                        <option value="Выдано">Выдано</option>
+                    </select>
+                </label>
+                <button type="submit">✅ ДОБАВИТЬ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- БЛАНК ДЛЯ ПЕЧАТИ (скрытый) -->
+    <div id="printBlank" style="display: none;">
+        <div id="blankContent">
+            <h2>СЕРВИСНЫЙ ЦЕНТР</h2>
+            <h3>КВИТАНЦИЯ О ПРИЁМЕ ОБОРУДОВАНИЯ</h3>
+            <p><strong>№ заказа:</strong> <span id="blankNum"></span></p>
+            <p><strong>Дата приёма:</strong> <span id="blankDate"></span></p>
+            <p><strong>Клиент:</strong> <span id="blankClient"></span></p>
+            <p><strong>Телефон:</strong> <span id="blankPhone"></span></p>
+            <p><strong>Оборудование:</strong> <span id="blankEquipment"></span></p>
+            <p><strong>Модель:</strong> <span id="blankModel"></span></p>
+            <p><strong>Неисправность:</strong> <span id="blankIssue"></span></p>
+            <p><strong>Стоимость ремонта:</strong> <span id="blankCost"></span> ₽</p>
+            <p><strong>Статус:</strong> <span id="blankStatus"></span></p>
+            <hr>
+            <p>_________________________  _________________________</p>
+            <p>Подпись клиента           Подпись мастера</p>
+        </div>
+    </div>
+
+    <script src="service.js"></script>
+</body>
+</html>
