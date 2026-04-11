@@ -20,8 +20,10 @@
         <div class="toolbar">
             <button onclick="addRepair()">➕ НОВЫЙ РЕМОНТ</button>
             <button onclick="saveData()">💾 СОХРАНИТЬ</button>
-            <button onclick="printBlank()">🖨️ ПЕЧАТЬ БЛАНКА</button>
+            <button onclick="printAcceptanceBlank()">📄 ПЕЧАТЬ БЛАНКА ПРИЁМА</button>
+            <button onclick="printIssueBlank()">📋 ПЕЧАТЬ БЛАНКА ВЫДАЧИ</button>
             <button onclick="showRepairStats()">📊 СТАТИСТИКА</button>
+            <button onclick="exportRepairsToExcel()">📎 ЭКСПОРТ В EXCEL</button>
         </div>
 
         <table id="repairsTable">
@@ -38,13 +40,15 @@
     <div id="repairModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeRepairModal()">&times;</span>
-            <h3>НОВЫЙ РЕМОНТ</h3>
+            <h3>🔧 НОВЫЙ РЕМОНТ</h3>
             <form id="repairForm">
                 <label>Клиент: <input type="text" id="repairClient" required></label>
                 <label>Телефон: <input type="tel" id="repairPhone"></label>
                 <label>Оборудование: <input type="text" id="repairEquipment" required></label>
                 <label>Модель: <input type="text" id="repairModel"></label>
+                <label>Серийный номер: <input type="text" id="repairSerial"></label>
                 <label>Неисправность: <textarea id="repairIssue" rows="2"></textarea></label>
+                <label>Комплектация: <input type="text" id="repairAccessories" placeholder="Зарядное, коробка и т.д."></label>
                 <label>Стоимость: <input type="number" id="repairCost" value="0"></label>
                 <label>Статус: 
                     <select id="repairStatus">
@@ -54,28 +58,9 @@
                         <option value="Выдано">Выдано</option>
                     </select>
                 </label>
+                <label>Примечание: <input type="text" id="repairNote"></label>
                 <button type="submit">✅ ДОБАВИТЬ</button>
             </form>
-        </div>
-    </div>
-
-    <!-- БЛАНК ДЛЯ ПЕЧАТИ (скрытый) -->
-    <div id="printBlank" style="display: none;">
-        <div id="blankContent">
-            <h2>СЕРВИСНЫЙ ЦЕНТР</h2>
-            <h3>КВИТАНЦИЯ О ПРИЁМЕ ОБОРУДОВАНИЯ</h3>
-            <p><strong>№ заказа:</strong> <span id="blankNum"></span></p>
-            <p><strong>Дата приёма:</strong> <span id="blankDate"></span></p>
-            <p><strong>Клиент:</strong> <span id="blankClient"></span></p>
-            <p><strong>Телефон:</strong> <span id="blankPhone"></span></p>
-            <p><strong>Оборудование:</strong> <span id="blankEquipment"></span></p>
-            <p><strong>Модель:</strong> <span id="blankModel"></span></p>
-            <p><strong>Неисправность:</strong> <span id="blankIssue"></span></p>
-            <p><strong>Стоимость ремонта:</strong> <span id="blankCost"></span> ₽</p>
-            <p><strong>Статус:</strong> <span id="blankStatus"></span></p>
-            <hr>
-            <p>_________________________  _________________________</p>
-            <p>Подпись клиента           Подпись мастера</p>
         </div>
     </div>
 
