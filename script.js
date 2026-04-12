@@ -97,7 +97,7 @@ function renderCart() {
     const totalSpan = document.getElementById('cartTotal');
     if (!container) return;
     if (cart.length === 0) {
-        container.innerHTML = '<div class="cart-empty">Нажмите на услугу для добавления</div>';
+        container.innerHTML = '<div class="cart-empty">➕ Нажмите на услугу для добавления</div>';
         if (totalSpan) totalSpan.textContent = '0';
         return;
     }
@@ -209,17 +209,17 @@ function printOrderForm() {
     w.document.write(`
         <html><head><title>Бланк заказа</title>
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 30px; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 30px; background: white; }
             .order-form-header { text-align: center; margin-bottom: 25px; }
             .order-form-header h2 { color: #e94560; }
             .order-row { display: flex; gap: 30px; margin-bottom: 15px; }
             .order-field label { font-weight: 600; margin-right: 10px; }
             .order-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-            .order-table th, .order-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            .order-table th, .order-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
             .order-table th { background: #f5f5f7; }
-            .order-signatures { display: flex; gap: 50px; margin: 30px 0; justify-content: center; }
+            .order-signatures { display: flex; gap: 60px; margin: 40px 0; justify-content: center; }
             .signature { text-align: center; flex: 1; }
-            .sign-line { border-bottom: 1px solid #000; width: 200px; margin: 0 auto 8px; padding-top: 20px; }
+            .sign-line { border-bottom: 1px solid #000; width: 220px; margin: 0 auto 10px; padding-top: 25px; }
             .order-footer { text-align: center; margin-top: 20px; }
             @media print { body { padding: 0; } }
         </style>
@@ -249,12 +249,12 @@ function showStats() {
         if (!workedDays[key]) { workedDays[key] = true; if (opStats[o.operator]) opStats[o.operator].shifts++; }
         if (opStats[o.operator]) opStats[o.operator].revenue += o.total;
     });
-    let html = `<div><h3>Общая статистика</h3>
+    let html = `<div><h3>💰 Общая статистика</h3>
         <p><strong>Доход:</strong> ${totalIncome.toLocaleString()} ₽</p>
         <p><strong>Наличными:</strong> ${totalCash.toLocaleString()} ₽</p>
         <p><strong>Картой:</strong> ${totalCard.toLocaleString()} ₽</p>
         <p><strong>Заказов:</strong> ${orders.length}</p>
-        <hr><h3>По сотрудникам</h3>`;
+        <hr><h3>👥 По сотрудникам</h3>`;
     employees.forEach(e => {
         const s = opStats[e.name];
         html += `<p><strong>${e.name}</strong>: ${s?.shifts || 0} смен, выручка ${(s?.revenue || 0).toLocaleString()} ₽, зарплата ${((s?.shifts || 0) * e.salary).toLocaleString()} ₽</p>`;
