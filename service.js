@@ -40,7 +40,7 @@ function addRepair() {
     repairs.unshift(repair);
     saveRepairs();
     renderRepairsList();
-    document.querySelectorAll('.service-form input, .service-form textarea').forEach(el => el.value = '');
+    document.querySelectorAll('.service-form-mobile input, .service-form-mobile textarea').forEach(el => el.value = '');
     alert('Ремонт добавлен');
 }
 
@@ -56,14 +56,17 @@ function renderRepairsList() {
         const statusClass = { 'Принято':'status-accepted', 'В работе':'status-work', 'Готово':'status-ready', 'Выдано':'status-issued' }[r.status] || 'status-accepted';
         const statusText = { 'Принято':'ПРИНЯТО', 'В работе':'В РАБОТЕ', 'Готово':'ГОТОВО', 'Выдано':'ВЫДАНО' }[r.status] || r.status;
         const card = document.createElement('div');
-        card.className = 'repair-card';
+        card.className = 'repair-card-mobile';
         card.onclick = () => selectRepair(r.id);
         card.innerHTML = `
-            <div class="repair-header"><span class="repair-id">№${r.id}</span><span class="repair-date">${r.date}</span></div>
-            <div class="repair-client">${r.client}</div>
-            <div class="repair-equipment">${r.equipment} ${r.model ? `(${r.model})` : ''}</div>
-            <div class="repair-status ${statusClass}">${statusText}</div>
-            <div class="repair-cost">${r.cost.toLocaleString()} ₽</div>
+            <div class="repair-header-mobile">
+                <span class="repair-id-mobile">№${r.id}</span>
+                <span class="repair-date-mobile">${r.date}</span>
+            </div>
+            <div class="repair-client-mobile">${r.client}</div>
+            <div class="repair-equipment-mobile">${r.equipment} ${r.model ? `(${r.model})` : ''}</div>
+            <div class="repair-status-mobile ${statusClass}">${statusText}</div>
+            <div class="repair-cost-mobile">${r.cost.toLocaleString()} ₽</div>
         `;
         container.appendChild(card);
     });
@@ -77,7 +80,7 @@ function printAcceptance() {
     const r = repairs.find(r => r.id === selectedRepairId);
     if (!r) return;
     const html = `
-        <div style="max-width:500px;margin:0 auto">
+        <div style="max-width:500px;margin:0 auto;padding:20px">
             <h2 style="text-align:center;color:#e94560">A4-PRINT</h2>
             <h3 style="text-align:center">БЛАНК ПРИЁМА №${r.id}</h3>
             <hr>
@@ -104,7 +107,7 @@ function printAcceptance() {
         </div>
     `;
     const w = window.open('', '_blank');
-    w.document.write(`<html><head><title>Бланк приёма</title><style>body{font-family:sans-serif;padding:30px}</style></head><body>${html}</body></html>`);
+    w.document.write(`<html><head><title>Бланк приёма</title><style>body{font-family:sans-serif;padding:20px}</style></head><body>${html}</body></html>`);
     w.document.close();
     w.print();
     closePrintModal();
@@ -115,7 +118,7 @@ function printIssue() {
     const r = repairs.find(r => r.id === selectedRepairId);
     if (!r) return;
     const html = `
-        <div style="max-width:500px;margin:0 auto">
+        <div style="max-width:500px;margin:0 auto;padding:20px">
             <h2 style="text-align:center;color:#e94560">A4-PRINT</h2>
             <h3 style="text-align:center">АКТ ВЫДАЧИ №${r.id}</h3>
             <hr>
@@ -143,7 +146,7 @@ function printIssue() {
         </div>
     `;
     const w = window.open('', '_blank');
-    w.document.write(`<html><head><title>Акт выдачи</title><style>body{font-family:sans-serif;padding:30px}</style></head><body>${html}</body></html>`);
+    w.document.write(`<html><head><title>Акт выдачи</title><style>body{font-family:sans-serif;padding:20px}</style></head><body>${html}</body></html>`);
     w.document.close();
     w.print();
     r.status = 'Выдано';
