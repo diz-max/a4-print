@@ -1,54 +1,143 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>A4-Print | Настройки</title>
-    <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="app">
-        <header class="header">
-            <div class="header-left">
-                <div class="logo">
-                    <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
-                    <span>A4-PRINT</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="back-btn" onclick="window.location.href='index.html'">← НАЗАД</button>
-            </div>
-        </header>
+let services = [];
+let employees = [];
 
-        <div class="directories-container">
-            <div class="directories-grid">
-                <!-- УСЛУГИ -->
-                <div class="directory-card">
-                    <div class="directory-header">
-                        <h2>📋 УСЛУГИ И ЦЕНЫ</h2>
-                        <button onclick="addService()">➕ ДОБАВИТЬ</button>
-                    </div>
-                    <div class="directory-list" id="servicesList"></div>
-                </div>
+function initDirectories() {
+    loadServices();
+    loadEmployees();
+    renderServices();
+    renderEmployees();
+}
 
-                <!-- СОТРУДНИКИ -->
-                <div class="directory-card">
-                    <div class="directory-header">
-                        <h2>👥 СОТРУДНИКИ</h2>
-                        <button onclick="addEmployee()">➕ ДОБАВИТЬ</button>
-                    </div>
-                    <div class="directory-list" id="employeesList"></div>
-                </div>
-            </div>
-        </div>
+function loadServices() {
+    const saved = localStorage.getItem('a4print_services');
+    services = saved ? JSON.parse(saved) : [
+        { id: 1, name: "Копирование ч/б A4", price: 10 },
+        { id: 2, name: "Копирование цветное A4", price: 35 },
+        { id: 3, name: "Сканирование A4", price: 25 },
+        { id: 4, name: "Ламинирование A4", price: 150 },
+        { id: 5, name: "Печать фото 10x15", price: 35 },
+        { id: 6, name: "Фото на документы", price: 350 }
+    ];
+}
 
-        <footer class="footer">
-            <button class="footer-btn" onclick="saveAllDirectories()">💾 СОХРАНИТЬ ВСЁ</button>
-            <button class="footer-btn" onclick="resetToDefault()">🔄 СБРОСИТЬ</button>
-        </footer>
-    </div>
+function loadEmployees() {
+    const saved = localStorage.getItem('a4print_employees');
+    employees = saved ? JSON.parse(saved) : [
+        { id: 1, name: "Павел", salary: 2500 },
+        { id: 2, name: "Наталья", salary: 2000 },
+        { id: 3, name: "Семён", salary: 2000 }
+    ];
+}
 
-    <script src="directories.js"></script>
-</body>
-</html>
+function saveServices() { localStorage.setItem('a4print_services', JSON.stringify(services)); }
+function saveEmployees() { localStorage.setItem('a4print_employees', JSON.stringify(employees)); }
+
+function renderServices() {
+    const container = document.getElementById('servicesList');
+    if (!container) return;
+    container.innerHTML = '';
+    services.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'directory-item';
+        div.innerHTML = `
+            <div class="directory-item-info"><strong>${s.name}</strong><br>${s.price} ₽</div>
+            <div class="directory-item-actions"><button onclick="editService(${s.id})">✏️</button><button onclick="deleteService(${s.id})">🗑️</button></div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function renderEmployees() {
+    const container = document.getElementById('employeesList');
+    if (!container) return;
+    container.innerHTML = '';
+    employees.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'directory-item';
+        div.innerHTML = `
+            <div class="directory-item-info"><strong>${e.name}</strong><br>${e.salary} ₽/смена</div>
+            <div class="directory-item-actions"><button onclick="editEmployee(${e.id})">✏️</button><button onclick="deleteEmployee(${e.id})">🗑️</button></div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function addService() {
+    const name = prompt('Название услуги:');
+    if (!name) return;
+    const price = parseFloat(prompt('Цена:'));
+    if (isNaN(price)) return;
+    const newId = Math.max(...services.map(s => s.id), 0) + 1;
+    services.push({ id: newId, name, price });
+    saveServices();
+    renderServices();
+}
+
+function addEmployee() {
+    const name = prompt('Имя сотрудника:');
+    if (!name) return;
+    const salary = parseFloat(prompt('Оклад за смену:'));
+    if (isNaN(salary)) return;
+    const newId = Math.max(...employees.map(e => e.id), 0) + 1;
+    employees.push({ id: newId, name, salary });
+    saveEmployees();
+    renderEmployees();
+}
+
+function editService(id) {
+    const service = services.find(s => s.id === id);
+    if (!service) return;
+    const name = prompt('Название:', service.name);
+    if (name) service.name = name;
+    const price = parseFloat(prompt('Цена:', service.price));
+    if (!isNaN(price)) service.price = price;
+    saveServices();
+    renderServices();
+}
+
+function editEmployee(id) {
+    const emp = employees.find(e => e.id === id);
+    if (!emp) return;
+    const name = prompt('Имя:', emp.name);
+    if (name) emp.name = name;
+    const salary = parseFloat(prompt('Оклад:', emp.salary));
+    if (!isNaN(salary)) emp.salary = salary;
+    saveEmployees();
+    renderEmployees();
+}
+
+function deleteService(id) {
+    if (confirm('Удалить услугу?')) {
+        services = services.filter(s => s.id !== id);
+        saveServices();
+        renderServices();
+    }
+}
+
+function deleteEmployee(id) {
+    if (confirm('Удалить сотрудника?')) {
+        employees = employees.filter(e => e.id !== id);
+        saveEmployees();
+        renderEmployees();
+    }
+}
+
+function saveAllDirectories() {
+    saveServices();
+    saveEmployees();
+    alert('✅ Все настройки сохранены!');
+}
+
+function resetToDefault() {
+    if (confirm('Сбросить все настройки?')) {
+        localStorage.removeItem('a4print_services');
+        localStorage.removeItem('a4print_employees');
+        loadServices();
+        loadEmployees();
+        renderServices();
+        renderEmployees();
+        alert('✅ Настройки сброшены!');
+    }
+}
+
+initDirectories();
