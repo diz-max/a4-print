@@ -1,286 +1,144 @@
 let repairs = [];
+let selectedRepairId = null;
 
 function initService() {
     loadRepairs();
-    renderRepairs();
+    renderRepairsList();
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
+
+function updateDateTime() {
+    const now = new Date();
+    const dt = document.getElementById('currentDateTime');
+    if (dt) dt.textContent = now.toLocaleString('ru-RU');
 }
 
 function loadRepairs() {
-    const saved = localStorage.getItem('service_repairs');
-    if (saved) {
-        repairs = JSON.parse(saved);
-    } else {
-        repairs = [];
-    }
+    const saved = localStorage.getItem('a4print_repairs');
+    repairs = saved ? JSON.parse(saved) : [];
 }
 
-function saveRepairs() {
-    localStorage.setItem('service_repairs', JSON.stringify(repairs));
-}
+function saveRepairs() { localStorage.setItem('a4print_repairs', JSON.stringify(repairs)); }
 
 function addRepair() {
-    document.getElementById('repairModal').style.display = 'flex';
-    document.getElementById('repairForm').reset();
-}
-
-function closeRepairModal() {
-    document.getElementById('repairModal').style.display = 'none';
-}
-
-document.getElementById('repairForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+    const client = document.getElementById('repairClient').value;
+    if (!client) { alert('❌ Введите клиента!'); return; }
     const repair = {
         id: Date.now(),
         date: new Date().toLocaleDateString('ru-RU'),
-        client: document.getElementById('repairClient').value,
+        client: client,
         phone: document.getElementById('repairPhone').value,
         equipment: document.getElementById('repairEquipment').value,
         model: document.getElementById('repairModel').value,
         serial: document.getElementById('repairSerial').value,
         issue: document.getElementById('repairIssue').value,
         accessories: document.getElementById('repairAccessories').value,
-        cost: parseFloat(document.getElementById('repairCost').value),
-        status: document.getElementById('repairStatus').value,
-        note: document.getElementById('repairNote').value
+        cost: parseFloat(document.getElementById('repairCost').value) || 0,
+        status: 'Принято'
     };
-    
     repairs.unshift(repair);
     saveRepairs();
-    renderRepairs();
-    closeRepairModal();
-});
+    renderRepairsList();
+    document.getElementById('repairForm')?.reset();
+    alert('✅ Ремонт добавлен!');
+}
 
-function renderRepairs() {
-    const tbody = document.getElementById('repairsBody');
-    if (!tbody) return;
-    
-    tbody.innerHTML = '';
-    repairs.forEach(repair => {
-        const row = tbody.insertRow();
-        row.insertCell(0).textContent = repair.id;
-        row.insertCell(1).textContent = repair.date;
-        row.insertCell(2).textContent = repair.client;
-        row.insertCell(3).textContent = repair.phone;
-        row.insertCell(4).textContent = repair.equipment;
-        row.insertCell(5).textContent = repair.model;
-        row.insertCell(6).textContent = repair.issue;
-        row.insertCell(7).textContent = repair.cost + ' ₽';
-        row.insertCell(8).textContent = repair.status;
-        
-        const actionCell = row.insertCell(9);
-        
-        const printAcceptBtn = document.createElement('button');
-        printAcceptBtn.textContent = '📄';
-        printAcceptBtn.className = 'print-btn';
-        printAcceptBtn.title = 'Печать бланка приёма';
-        printAcceptBtn.onclick = () => printAcceptanceBlankById(repair.id);
-        actionCell.appendChild(printAcceptBtn);
-        
-        const printIssueBtn = document.createElement('button');
-        printIssueBtn.textContent = '📋';
-        printIssueBtn.className = 'print-btn';
-        printIssueBtn.title = 'Печать бланка выдачи';
-        printIssueBtn.onclick = () => printIssueBlankById(repair.id);
-        actionCell.appendChild(printIssueBtn);
-        
-        const editBtn = document.createElement('button');
-        editBtn.textContent = '✏️';
-        editBtn.className = 'delete-btn';
-        editBtn.onclick = () => editRepair(repair.id);
-        actionCell.appendChild(editBtn);
-        
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = '🗑️';
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.style.marginLeft = '5px';
-        deleteBtn.onclick = () => deleteRepair(repair.id);
-        actionCell.appendChild(deleteBtn);
+function renderRepairsList() {
+    const container = document.getElementById('repairsList');
+    if (!container) return;
+    if (repairs.length === 0) { container.innerHTML = '<div style="text-align:center;padding:40px;">📭 Нет ремонтов</div>'; return; }
+    container.innerHTML = '';
+    repairs.forEach(r => {
+        const statusClass = { 'Принято':'status-accepted', 'В работе':'status-work', 'Готово':'status-ready', 'Выдано':'status-issued' }[r.status] || 'status-accepted';
+        const statusText = { 'Принято':'📥 ПРИНЯТО', 'В работе':'🔧 В РАБОТЕ', 'Готово':'✅ ГОТОВО', 'Выдано':'📦 ВЫДАНО' }[r.status] || r.status;
+        const card = document.createElement('div');
+        card.className = 'repair-card';
+        card.onclick = () => selectRepair(r.id);
+        card.innerHTML = `
+            <div class="repair-header"><span class="repair-id">№${r.id}</span><span class="repair-date">${r.date}</span></div>
+            <div class="repair-client">👤 ${r.client}</div>
+            <div class="repair-equipment">🖥️ ${r.equipment} ${r.model ? `(${r.model})` : ''}</div>
+            <div class="repair-status ${statusClass}">${statusText}</div>
+            <div class="repair-cost">💰 ${r.cost.toLocaleString()} ₽</div>
+        `;
+        container.appendChild(card);
     });
 }
 
-function editRepair(id) {
-    const repair = repairs.find(r => r.id === id);
-    if (!repair) return;
-    
-    document.getElementById('repairClient').value = repair.client;
-    document.getElementById('repairPhone').value = repair.phone;
-    document.getElementById('repairEquipment').value = repair.equipment;
-    document.getElementById('repairModel').value = repair.model;
-    document.getElementById('repairSerial').value = repair.serial;
-    document.getElementById('repairIssue').value = repair.issue;
-    document.getElementById('repairAccessories').value = repair.accessories;
-    document.getElementById('repairCost').value = repair.cost;
-    document.getElementById('repairStatus').value = repair.status;
-    document.getElementById('repairNote').value = repair.note;
-    
-    document.getElementById('repairModal').style.display = 'flex';
-    
-    const form = document.getElementById('repairForm');
-    const oldSubmit = form.onsubmit;
-    form.onsubmit = function(e) {
-        e.preventDefault();
-        repair.client = document.getElementById('repairClient').value;
-        repair.phone = document.getElementById('repairPhone').value;
-        repair.equipment = document.getElementById('repairEquipment').value;
-        repair.model = document.getElementById('repairModel').value;
-        repair.serial = document.getElementById('repairSerial').value;
-        repair.issue = document.getElementById('repairIssue').value;
-        repair.accessories = document.getElementById('repairAccessories').value;
-        repair.cost = parseFloat(document.getElementById('repairCost').value);
-        repair.status = document.getElementById('repairStatus').value;
-        repair.note = document.getElementById('repairNote').value;
-        saveRepairs();
-        renderRepairs();
-        closeRepairModal();
-        form.onsubmit = oldSubmit;
-    };
+function selectRepair(id) { selectedRepairId = id; document.getElementById('printModal').style.display = 'flex'; }
+function closePrintModal() { document.getElementById('printModal').style.display = 'none'; selectedRepairId = null; }
+
+function printAcceptance() {
+    if (!selectedRepairId) { alert('❌ Выберите ремонт!'); return; }
+    const r = repairs.find(r => r.id === selectedRepairId);
+    if (!r) return;
+    const html = `<div style="max-width:500px;margin:0 auto;font-family:monospace;">
+        <h2 style="text-align:center;">A4-PRINT</h2>
+        <h3 style="text-align:center;">БЛАНК ПРИЁМА №${r.id}</h3><hr>
+        <p><strong>Дата:</strong> ${r.date}</p>
+        <p><strong>Клиент:</strong> ${r.client}</p>
+        <p><strong>Телефон:</strong> ${r.phone || '_______________'}</p><hr>
+        <p><strong>Оборудование:</strong> ${r.equipment}</p>
+        <p><strong>Модель:</strong> ${r.model || '_______________'}</p>
+        <p><strong>SN:</strong> ${r.serial || '_______________'}</p>
+        <p><strong>Неисправность:</strong> ${r.issue || '_______________'}</p>
+        <p><strong>Комплектация:</strong> ${r.accessories || '_______________'}</p><hr>
+        <p><strong>Стоимость:</strong> ${r.cost} ₽</p><hr>
+        <p>_________________________  _________________________</p>
+        <p style="text-align:center;">Подпись клиента           Подпись мастера</p>
+    </div>`;
+    const w = window.open('', '_blank');
+    w.document.write('<html><head><title>Бланк приёма</title><style>body{font-family:monospace;padding:20px;}</style></head><body>' + html + '</body></html>');
+    w.document.close(); w.print();
+    closePrintModal();
 }
 
-function deleteRepair(id) {
-    if (confirm('Удалить ремонт?')) {
-        repairs = repairs.filter(r => r.id !== id);
-        saveRepairs();
-        renderRepairs();
-    }
-}
-
-function saveData() {
+function printIssue() {
+    if (!selectedRepairId) { alert('❌ Выберите ремонт!'); return; }
+    const r = repairs.find(r => r.id === selectedRepairId);
+    if (!r) return;
+    const html = `<div style="max-width:500px;margin:0 auto;font-family:monospace;">
+        <h2 style="text-align:center;">A4-PRINT</h2>
+        <h3 style="text-align:center;">АКТ ВЫДАЧИ №${r.id}</h3><hr>
+        <p><strong>Дата выдачи:</strong> ${new Date().toLocaleDateString('ru-RU')}</p>
+        <p><strong>Клиент:</strong> ${r.client}</p><hr>
+        <p><strong>Оборудование:</strong> ${r.equipment}</p>
+        <p><strong>Модель:</strong> ${r.model || '_______________'}</p>
+        <p><strong>SN:</strong> ${r.serial || '_______________'}</p><hr>
+        <p><strong>Работы:</strong> ${r.issue || '_______________'}</p>
+        <p><strong>Стоимость:</strong> ${r.cost} ₽</p>
+        <p><strong>Оплачено:</strong> ${r.cost} ₽</p><hr>
+        <p><strong>Комплектация получена:</strong> ${r.accessories || 'в полном объёме'}</p><hr>
+        <p>_________________________  _________________________</p>
+        <p style="text-align:center;">Подпись клиента           Подпись мастера</p>
+        <p style="text-align:center;font-size:12px;">ПРЕТЕНЗИЙ НЕТ. ОБОРУДОВАНИЕ ПОЛУЧИЛ.</p>
+    </div>`;
+    const w = window.open('', '_blank');
+    w.document.write('<html><head><title>Акт выдачи</title><style>body{font-family:monospace;padding:20px;}</style></head><body>' + html + '</body></html>');
+    w.document.close(); w.print();
+    r.status = 'Выдано';
     saveRepairs();
-    alert('✅ Данные сохранены!');
+    renderRepairsList();
+    closePrintModal();
 }
 
-// ПЕЧАТЬ БЛАНКА ПРИЁМА
-function printAcceptanceBlank() {
-    const selectedRow = document.querySelector('#repairsBody tr');
-    if (!selectedRow) {
-        alert('❌ Выберите ремонт для печати!');
-        return;
-    }
-    const id = parseInt(selectedRow.cells[0].textContent);
-    printAcceptanceBlankById(id);
-}
-
-function printAcceptanceBlankById(id) {
-    const repair = repairs.find(r => r.id === id);
-    if (!repair) return;
-    
-    const blankHtml = `
-        <div style="max-width: 600px; margin: 0 auto; font-family: Arial; padding: 20px;">
-            <h2 style="text-align: center; color: #0056B3;">СЕРВИСНЫЙ ЦЕНТР</h2>
-            <h3 style="text-align: center;">БЛАНК ПРИЁМА ОБОРУДОВАНИЯ</h3>
-            <hr>
-            <p><strong>№ заказа:</strong> ${repair.id}</p>
-            <p><strong>Дата приёма:</strong> ${repair.date}</p>
-            <p><strong>Клиент:</strong> ${repair.client}</p>
-            <p><strong>Телефон:</strong> ${repair.phone || '_______________'}</p>
-            <hr>
-            <p><strong>Оборудование:</strong> ${repair.equipment}</p>
-            <p><strong>Модель:</strong> ${repair.model || '_______________'}</p>
-            <p><strong>Серийный номер:</strong> ${repair.serial || '_______________'}</p>
-            <p><strong>Неисправность:</strong> ${repair.issue || '_______________'}</p>
-            <p><strong>Комплектация:</strong> ${repair.accessories || '_______________'}</p>
-            <hr>
-            <p><strong>Стоимость ремонта:</strong> ${repair.cost} ₽</p>
-            <p><strong>Статус:</strong> ${repair.status}</p>
-            <p><strong>Примечание:</strong> ${repair.note || '_______________'}</p>
-            <hr>
-            <p style="margin-top: 30px;">_________________________  _________________________</p>
-            <p style="text-align: center;">Подпись клиента           Подпись мастера</p>
-            <p style="text-align: center; font-size: 12px;">СПАСИБО ЗА ОБРАЩЕНИЕ!</p>
-        </div>
-    `;
-    
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>Бланк приёма</title>');
-    printWindow.document.write('<style>body{font-family:Arial;padding:20px;}</style>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(blankHtml);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-}
-
-// ПЕЧАТЬ БЛАНКА ВЫДАЧИ
-function printIssueBlank() {
-    const selectedRow = document.querySelector('#repairsBody tr');
-    if (!selectedRow) {
-        alert('❌ Выберите ремонт для печати!');
-        return;
-    }
-    const id = parseInt(selectedRow.cells[0].textContent);
-    printIssueBlankById(id);
-}
-
-function printIssueBlankById(id) {
-    const repair = repairs.find(r => r.id === id);
-    if (!repair) return;
-    
-    const issueDate = new Date().toLocaleDateString('ru-RU');
-    
-    const blankHtml = `
-        <div style="max-width: 600px; margin: 0 auto; font-family: Arial; padding: 20px;">
-            <h2 style="text-align: center; color: #28a745;">СЕРВИСНЫЙ ЦЕНТР</h2>
-            <h3 style="text-align: center;">АКТ ВЫДАЧИ ОБОРУДОВАНИЯ ИЗ РЕМОНТА</h3>
-            <hr>
-            <p><strong>№ заказа:</strong> ${repair.id}</p>
-            <p><strong>Дата приёма:</strong> ${repair.date}</p>
-            <p><strong>Дата выдачи:</strong> ${issueDate}</p>
-            <p><strong>Клиент:</strong> ${repair.client}</p>
-            <hr>
-            <p><strong>Оборудование:</strong> ${repair.equipment}</p>
-            <p><strong>Модель:</strong> ${repair.model || '_______________'}</p>
-            <p><strong>Серийный номер:</strong> ${repair.serial || '_______________'}</p>
-            <hr>
-            <p><strong>Выполненные работы:</strong> ${repair.issue || '_______________'}</p>
-            <p><strong>Стоимость ремонта:</strong> ${repair.cost} ₽</p>
-            <p><strong>Оплачено:</strong> ${repair.cost} ₽</p>
-            <hr>
-            <p><strong>Комплектация выдана:</strong> ${repair.accessories || 'в полном объёме'}</p>
-            <hr>
-            <p style="margin-top: 30px;">_________________________  _________________________</p>
-            <p style="text-align: center;">Подпись клиента           Подпись мастера</p>
-            <p style="text-align: center; font-size: 12px;">ПРЕТЕНЗИЙ НЕТ. ОБОРУДОВАНИЕ ПОЛУЧИЛ.</p>
-        </div>
-    `;
-    
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>Бланк выдачи</title>');
-    printWindow.document.write('<style>body{font-family:Arial;padding:20px;}</style>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(blankHtml);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-    
-    // Обновляем статус на "Выдано"
-    repair.status = 'Выдано';
-    saveRepairs();
-    renderRepairs();
-}
-
-function showRepairStats() {
-    const total = repairs.length;
-    const completed = repairs.filter(r => r.status === 'Выдано').length;
-    const income = repairs.filter(r => r.status === 'Выдано').reduce((sum, r) => sum + r.cost, 0);
-    
-    alert(`📊 СТАТИСТИКА СЕРВИСНОГО ЦЕНТРА\n\n` +
-          `Всего ремонтов: ${total}\n` +
-          `Выполнено: ${completed}\n` +
-          `В работе: ${total - completed}\n` +
-          `Доход: ${income.toLocaleString()} ₽`);
-}
-
-function exportRepairsToExcel() {
+function refreshRepairsList() { loadRepairs(); renderRepairsList(); }
+function exportRepairs() {
     let csv = "№,ДАТА,КЛИЕНТ,ТЕЛЕФОН,ОБОРУДОВАНИЕ,МОДЕЛЬ,НЕИСПРАВНОСТЬ,СТОИМОСТЬ,СТАТУС\n";
-    repairs.forEach(repair => {
-        csv += `${repair.id},${repair.date},${repair.client},${repair.phone},${repair.equipment},${repair.model},${repair.issue},${repair.cost},${repair.status}\n`;
-    });
+    repairs.forEach(r => { csv += `${r.id},${r.date},${r.client},${r.phone},${r.equipment},${r.model},${r.issue},${r.cost},${r.status}\n`; });
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "ремонты.csv";
+    link.download = "a4print_repairs.csv";
     link.click();
+}
+
+function showServiceStats() {
+    const total = repairs.length;
+    const completed = repairs.filter(r => r.status === 'Выдано').length;
+    const income = repairs.filter(r => r.status === 'Выдано').reduce((s, r) => s + r.cost, 0);
+    alert(`📊 СТАТИСТИКА\n\nВсего: ${total}\nВыполнено: ${completed}\nВ работе: ${total - completed}\nДоход: ${income.toLocaleString()} ₽`);
 }
 
 initService();
