@@ -10,92 +10,90 @@
 <body>
     <div class="app">
         <header class="header">
-            <div class="header-left">
-                <div class="logo">
-                    <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
-                    <span>A4-PRINT</span>
-                </div>
-                <div class="date-time" id="currentDateTime"></div>
+            <div class="logo">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                <span class="logo-text">A4-PRINT</span>
             </div>
-            <div class="header-right">
-                <button class="back-btn" onclick="window.location.href='index.html'">← НАЗАД</button>
+            <div class="header-info">
+                <div class="datetime" id="currentDateTime"></div>
+                <button class="back-btn" onclick="window.location.href='index.html'">Назад</button>
             </div>
         </header>
 
-        <div class="service-main">
-            <div class="service-left">
-                <div class="service-form-card">
-                    <h2>📝 НОВЫЙ РЕМОНТ</h2>
-                    <div class="service-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>👤 Клиент *</label>
-                                <input type="text" id="repairClient" placeholder="ФИО клиента">
-                            </div>
-                            <div class="form-group">
-                                <label>📞 Телефон</label>
-                                <input type="tel" id="repairPhone" placeholder="+7 XXX XXX-XX-XX">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>🖥️ Оборудование *</label>
-                                <input type="text" id="repairEquipment" placeholder="Ноутбук, телефон...">
-                            </div>
-                            <div class="form-group">
-                                <label>📱 Модель</label>
-                                <input type="text" id="repairModel" placeholder="Модель устройства">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>🔢 Серийный номер</label>
-                                <input type="text" id="repairSerial" placeholder="SN / IMEI">
-                            </div>
-                            <div class="form-group">
-                                <label>💰 Стоимость</label>
-                                <input type="number" id="repairCost" placeholder="0" value="0">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>⚠️ Неисправность</label>
-                            <textarea id="repairIssue" rows="2" placeholder="Опишите проблему..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>📦 Комплектация</label>
-                            <input type="text" id="repairAccessories" placeholder="Зарядное устройство, коробка...">
-                        </div>
-                        <button class="submit-btn" onclick="addRepair()">✅ ДОБАВИТЬ</button>
+        <main class="main-service">
+            <!-- Форма добавления -->
+            <div class="service-form">
+                <h2>Новый ремонт</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Клиент *</label>
+                        <input type="text" id="repairClient" placeholder="ФИО">
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" id="repairPhone" placeholder="+7 XXX XXX-XX-XX">
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Оборудование *</label>
+                        <input type="text" id="repairEquipment" placeholder="Ноутбук, телефон...">
+                    </div>
+                    <div class="form-group">
+                        <label>Модель</label>
+                        <input type="text" id="repairModel" placeholder="Модель">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Серийный номер</label>
+                        <input type="text" id="repairSerial" placeholder="SN / IMEI">
+                    </div>
+                    <div class="form-group">
+                        <label>Стоимость</label>
+                        <input type="number" id="repairCost" placeholder="0" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Неисправность</label>
+                    <textarea id="repairIssue" rows="2" placeholder="Описание проблемы"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Комплектация</label>
+                    <input type="text" id="repairAccessories" placeholder="Зарядное, коробка...">
+                </div>
+                <button class="btn-submit" onclick="addRepair()">Добавить ремонт</button>
             </div>
 
-            <div class="service-right">
-                <div class="service-list-card">
-                    <div class="list-header">
-                        <h2>📋 АКТИВНЫЕ РЕМОНТЫ</h2>
-                        <div class="list-actions">
-                            <button onclick="refreshRepairsList()">🔄 ОБНОВИТЬ</button>
-                            <button onclick="exportRepairs()">📎 ЭКСПОРТ</button>
-                        </div>
+            <!-- Список ремонтов -->
+            <div class="service-list">
+                <div class="service-list-header">
+                    <h2>Активные ремонты</h2>
+                    <div class="list-actions">
+                        <button class="btn-icon" onclick="refreshRepairsList()">Обновить</button>
+                        <button class="btn-icon" onclick="exportRepairs()">Экспорт</button>
                     </div>
-                    <div class="repairs-list" id="repairsList"></div>
                 </div>
+                <div class="repairs-list" id="repairsList"></div>
             </div>
-        </div>
+        </main>
 
         <footer class="footer">
-            <button class="footer-btn" onclick="window.location.href='index.html'">🏠 ГЛАВНАЯ</button>
-            <button class="footer-btn" onclick="showServiceStats()">📊 СТАТИСТИКА</button>
+            <button class="footer-btn" onclick="window.location.href='index.html'">Главная</button>
+            <button class="footer-btn" onclick="showServiceStats()">Статистика</button>
         </footer>
     </div>
 
+    <!-- Модальное окно печати -->
     <div id="printModal" class="modal">
-        <div class="modal-content modal-print">
-            <span class="close" onclick="closePrintModal()">&times;</span>
-            <div class="print-buttons">
-                <button class="print-btn-large" onclick="printAcceptance()">📄 ПРИЁМ</button>
-                <button class="print-btn-large success" onclick="printIssue()">📋 ВЫДАЧА</button>
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Печать документа</h2>
+                <button class="modal-close" onclick="closePrintModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <button class="btn-print-large" onclick="printAcceptance()">Бланк приёма</button>
+                <button class="btn-print-large success" onclick="printIssue()">Бланк выдачи</button>
             </div>
         </div>
     </div>
