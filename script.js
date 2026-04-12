@@ -1,15 +1,11 @@
-// Хранилище
 let cart = [];
 let services = [];
 let employees = [];
 let orders = [];
 let currentPayment = 'Наличные';
 let currentOperator = 'Павел';
-let lastOrder = null;
 
-// Инициализация
 function init() {
-    console.log('Инициализация...');
     loadServices();
     loadEmployees();
     loadOrders();
@@ -20,8 +16,8 @@ function init() {
 
 function updateDateTime() {
     const now = new Date();
-    const dtElement = document.getElementById('currentDateTime');
-    if (dtElement) dtElement.textContent = now.toLocaleString('ru-RU');
+    const el = document.getElementById('currentDateTime');
+    if (el) el.textContent = now.toLocaleString('ru-RU');
 }
 
 function loadServices() {
@@ -61,11 +57,7 @@ function loadEmployees() {
 
 function loadOrders() {
     const saved = localStorage.getItem('a4print_orders');
-    if (saved) {
-        orders = JSON.parse(saved);
-    } else {
-        orders = [];
-    }
+    orders = saved ? JSON.parse(saved) : [];
 }
 
 function saveServices() { localStorage.setItem('a4print_services', JSON.stringify(services)); }
@@ -74,10 +66,7 @@ function saveOrders() { localStorage.setItem('a4print_orders', JSON.stringify(or
 
 function renderServicesGrid() {
     const grid = document.getElementById('servicesGrid');
-    if (!grid) {
-        console.error('servicesGrid not found');
-        return;
-    }
+    if (!grid) return;
     grid.innerHTML = '';
     services.forEach(service => {
         const card = document.createElement('div');
@@ -86,7 +75,6 @@ function renderServicesGrid() {
         card.innerHTML = `<div class="service-name">${service.name}</div><div class="service-price">${service.price} ₽</div>`;
         grid.appendChild(card);
     });
-    console.log('Рендер услуг завершён, добавлено:', services.length);
 }
 
 function filterServices() {
@@ -102,7 +90,6 @@ function addToCart(service) {
     if (existing) existing.quantity++;
     else cart.push({ id: service.id, name: service.name, price: service.price, quantity: 1 });
     renderCart();
-    console.log('Добавлено в корзину:', service.name);
 }
 
 function renderCart() {
@@ -110,7 +97,7 @@ function renderCart() {
     const totalSpan = document.getElementById('cartTotal');
     if (!container) return;
     if (cart.length === 0) {
-        container.innerHTML = '<div class="empty-cart">➕ Нажмите на услугу для добавления</div>';
+        container.innerHTML = '<div class="cart-empty">Нажмите на услугу для добавления</div>';
         if (totalSpan) totalSpan.textContent = '0';
         return;
     }
@@ -126,8 +113,10 @@ function renderCart() {
                 <div class="cart-item-name">${item.name}</div>
                 <div class="cart-item-details">${item.price} ₽ × ${item.quantity}</div>
             </div>
-            <div class="cart-item-price"><div class="cart-item-amount">${sum} ₽</div></div>
-            <button class="cart-item-remove" onclick="removeFromCart(${index})">🗑️</button>
+            <div class="cart-item-price">
+                <div class="cart-item-amount">${sum} ₽</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})">✕</button>
         `;
         container.appendChild(cartItem);
     });
@@ -139,8 +128,8 @@ function clearCart() { if (confirm('Очистить корзину?')) { cart =
 
 function setPayment(payment) {
     currentPayment = payment;
-    const cashBtn = document.querySelector('.cash-btn');
-    const cardBtn = document.querySelector('.card-btn');
+    const cashBtn = document.querySelector('.btn-payment.cash');
+    const cardBtn = document.querySelector('.btn-payment.card');
     if (cashBtn && cardBtn) {
         cashBtn.style.opacity = payment === 'Наличные' ? '1' : '0.6';
         cardBtn.style.opacity = payment === 'Карта' ? '1' : '0.6';
@@ -157,13 +146,10 @@ function switchOperator() {
 }
 
 function checkout() {
-    if (cart.length === 0) { alert('❌ Корзина пуста!'); return; }
+    if (cart.length === 0) { alert('Корзина пуста'); return; }
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const client = document.getElementById('clientName').value;
-    if (!client) {
-        alert('❌ Введите ФИО клиента!');
-        return;
-    }
+    if (!client) { alert('Введите ФИО клиента'); return; }
     
     const order = {
         id: Date.now(),
@@ -179,7 +165,6 @@ function checkout() {
     
     orders.unshift(order);
     saveOrders();
-    lastOrder = order;
     showOrderForm(order);
     cart = [];
     renderCart();
@@ -187,83 +172,67 @@ function checkout() {
 }
 
 function showOrderForm(order) {
-    const formHtml = `
+    const html = `
         <div class="order-form-header">
             <h2>A4-PRINT</h2>
-            <h3>БЛАНК ЗАКАЗА №${order.number}</h3>
+            <h3>Бланк заказа №${order.number}</h3>
         </div>
-        <div class="order-form-body">
-            <div class="order-row">
-                <div class="order-field"><label>Дата заказа:</label><span>${order.date}</span></div>
-                <div class="order-field"><label>Время:</label><span>${order.time}</span></div>
-            </div>
-            <div class="order-row">
-                <div class="order-field"><label>Оператор:</label><span>${order.operator}</span></div>
-                <div class="order-field"><label>Клиент:</label><span>${order.client}</span></div>
-            </div>
-            <div class="order-table-container">
-                <table class="order-table">
-                    <thead><tr><th>№</th><th>Услуга</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead>
-                    <tbody>
-                        ${order.items.map((item, idx) => `<tr><td>${idx+1}</td><td>${item.name}</td><td>${item.quantity}</td><td>${item.price} ₽</td><td>${item.price * item.quantity} ₽</td></tr>`).join('')}
-                    </tbody>
-                    <tfoot>
-                        <tr class="total-row"><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong></td></tr>
-                        <tr><td colspan="4"><strong>Оплата:</strong></td><td><strong>${order.payment}</strong></td></tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div class="order-signatures">
-                <div class="signature"><div class="sign-line">_________________________</div><div class="sign-label">Подпись оператора</div></div>
-                <div class="signature"><div class="sign-line">_________________________</div><div class="sign-label">Подпись клиента</div></div>
-            </div>
-            <div class="order-footer"><p>СПАСИБО ЗА ЗАКАЗ!</p><p class="small">Оригинал бланка остаётся у клиента</p></div>
+        <div class="order-row">
+            <div class="order-field"><label>Дата:</label><span>${order.date}</span></div>
+            <div class="order-field"><label>Время:</label><span>${order.time}</span></div>
         </div>
+        <div class="order-row">
+            <div class="order-field"><label>Оператор:</label><span>${order.operator}</span></div>
+            <div class="order-field"><label>Клиент:</label><span>${order.client}</span></div>
+        </div>
+        <table class="order-table">
+            <thead><tr><th>№</th><th>Услуга</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead>
+            <tbody>${order.items.map((item, idx) => `<tr><td>${idx+1}</td><td>${item.name}</td><td>${item.quantity}</td><td>${item.price} ₽</td><td>${item.price * item.quantity} ₽</td></tr>`).join('')}</tbody>
+            <tfoot><tr class="total-row"><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong></td></tr>
+            <tr><td colspan="4"><strong>Оплата:</strong></td><td><strong>${order.payment}</strong></td></tr></tfoot>
+        </table>
+        <div class="order-signatures">
+            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись оператора</div></div>
+            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись клиента</div></div>
+        </div>
+        <div class="order-footer"><p>СПАСИБО ЗА ЗАКАЗ!</p></div>
     `;
-    const modalContent = document.getElementById('orderFormContent');
-    if (modalContent) modalContent.innerHTML = formHtml;
-    const modal = document.getElementById('orderFormModal');
-    if (modal) modal.style.display = 'flex';
+    document.getElementById('orderFormContent').innerHTML = html;
+    document.getElementById('orderFormModal').style.display = 'flex';
 }
 
 function closeOrderFormModal() { document.getElementById('orderFormModal').style.display = 'none'; }
 
 function printOrderForm() {
     const content = document.getElementById('orderFormContent').innerHTML;
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-        <html><head><title>Бланк заказа A4-Print</title>
+    const w = window.open('', '_blank');
+    w.document.write(`
+        <html><head><title>Бланк заказа</title>
         <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font-family: 'Segoe UI', Arial, sans-serif; padding: 30px; background: white; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 30px; }
             .order-form-header { text-align: center; margin-bottom: 25px; }
-            .order-form-header h2 { color: #e94560; font-size: 24px; margin-bottom: 5px; }
-            .order-form-header h3 { color: #2c3e50; font-size: 18px; }
-            .order-row { display: flex; gap: 30px; margin-bottom: 15px; flex-wrap: wrap; }
-            .order-field { flex: 1; }
-            .order-field label { font-weight: bold; color: #6c757d; margin-right: 10px; }
-            .order-table-container { margin: 20px 0; overflow-x: auto; }
-            .order-table { width: 100%; border-collapse: collapse; }
-            .order-table th, .order-table td { border: 1px solid #dee2e6; padding: 10px; text-align: left; }
-            .order-table th { background: #f8f9fa; }
+            .order-form-header h2 { color: #e94560; }
+            .order-row { display: flex; gap: 30px; margin-bottom: 15px; }
+            .order-field label { font-weight: 600; margin-right: 10px; }
+            .order-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .order-table th, .order-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            .order-table th { background: #f5f5f7; }
             .order-signatures { display: flex; gap: 50px; margin: 30px 0; justify-content: center; }
             .signature { text-align: center; flex: 1; }
-            .sign-line { border-bottom: 1px solid #2c3e50; width: 200px; margin: 0 auto 5px; padding-top: 20px; }
-            .sign-label { font-size: 12px; color: #6c757d; }
-            .order-footer { text-align: center; margin-top: 30px; }
-            .order-footer p { font-weight: bold; color: #e94560; }
+            .sign-line { border-bottom: 1px solid #000; width: 200px; margin: 0 auto 8px; padding-top: 20px; }
+            .order-footer { text-align: center; margin-top: 20px; }
             @media print { body { padding: 0; } }
         </style>
         </head><body>${content}</body></html>
     `);
-    printWindow.document.close();
-    printWindow.print();
+    w.document.close();
+    w.print();
 }
 
 function showOrdersHistory() {
     if (orders.length === 0) { alert('История пуста'); return; }
-    let history = '📜 ИСТОРИЯ ЗАКАЗОВ\n\n';
-    orders.slice(0, 20).forEach(o => { history += `№${o.number} | ${o.date} | ${o.client} | ${o.total} ₽ | ${o.payment}\n`; });
+    let history = 'ИСТОРИЯ ЗАКАЗОВ\n\n';
+    orders.slice(0, 20).forEach(o => { history += `№${o.number} | ${o.date} | ${o.client} | ${o.total} ₽\n`; });
     alert(history);
 }
 
@@ -280,12 +249,12 @@ function showStats() {
         if (!workedDays[key]) { workedDays[key] = true; if (opStats[o.operator]) opStats[o.operator].shifts++; }
         if (opStats[o.operator]) opStats[o.operator].revenue += o.total;
     });
-    let html = `<div style="padding:20px;"><h3>💰 ОБЩАЯ СТАТИСТИКА</h3>
+    let html = `<div><h3>Общая статистика</h3>
         <p><strong>Доход:</strong> ${totalIncome.toLocaleString()} ₽</p>
         <p><strong>Наличными:</strong> ${totalCash.toLocaleString()} ₽</p>
         <p><strong>Картой:</strong> ${totalCard.toLocaleString()} ₽</p>
         <p><strong>Заказов:</strong> ${orders.length}</p>
-        <hr><h3>👥 ПО СОТРУДНИКАМ</h3>`;
+        <hr><h3>По сотрудникам</h3>`;
     employees.forEach(e => {
         const s = opStats[e.name];
         html += `<p><strong>${e.name}</strong>: ${s?.shifts || 0} смен, выручка ${(s?.revenue || 0).toLocaleString()} ₽, зарплата ${((s?.shifts || 0) * e.salary).toLocaleString()} ₽</p>`;
@@ -310,5 +279,4 @@ function exportData() {
     link.click();
 }
 
-// Запуск после загрузки DOM
 document.addEventListener('DOMContentLoaded', init);
