@@ -12,9 +12,9 @@ body {
     min-height: 100vh;
 }
 
-/* ========== МОБИЛЬНАЯ ВЕРСИЯ ========== */
-.app-mobile {
-    max-width: 600px;
+/* ========== ОСНОВНОЙ КОНТЕЙНЕР ========== */
+.app {
+    max-width: 1400px;
     margin: 0 auto;
     background: white;
     min-height: 100vh;
@@ -23,10 +23,15 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
-/* ХЕДЕР */
-.header-mobile {
+/* ========== ХЕДЕР ========== */
+.header {
     background: white;
-    padding: 16px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
     border-bottom: 1px solid #e9e9ef;
     position: sticky;
     top: 0;
@@ -34,21 +39,19 @@ body {
     background: white;
 }
 
-.logo-mobile {
+.logo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
 }
 
-.logo-img-mobile {
-    height: 32px;
+.logo-img {
+    height: 36px;
     width: auto;
 }
 
-.logo-text-mobile {
-    font-size: 18px;
+.logo-text {
+    font-size: 20px;
     font-weight: 700;
     background: linear-gradient(135deg, #e94560, #c82333);
     -webkit-background-clip: text;
@@ -56,98 +59,114 @@ body {
     color: transparent;
 }
 
-.header-info-mobile {
+.header-info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 24px;
     flex-wrap: wrap;
-    gap: 10px;
 }
 
-.datetime-mobile {
-    font-size: 12px;
+.datetime {
+    font-size: 14px;
     color: #86868b;
 }
 
-.operator-mobile {
+.operator {
     display: flex;
     align-items: center;
     gap: 8px;
     background: #f5f5f7;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 8px 16px;
+    border-radius: 40px;
 }
 
-.operator-name-mobile {
+.operator-label {
+    font-size: 13px;
+    color: #86868b;
+}
+
+.operator-name {
     font-weight: 600;
     font-size: 14px;
 }
 
-.operator-switch-mobile {
+.operator-switch, .back-btn {
     background: none;
     border: none;
     color: #e94560;
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
-}
-
-/* ОСНОВНОЙ КОНТЕНТ - ВЕРТИКАЛЬНЫЙ */
-.main-mobile {
-    flex: 1;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* КОРЗИНА - ВВЕРХУ */
-.cart-mobile {
-    background: white;
+    padding: 6px 12px;
     border-radius: 20px;
-    border: 1px solid #e9e9ef;
+}
+
+.operator-switch:hover, .back-btn:hover {
+    background: #e9e9ef;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+.main {
+    flex: 1;
+    display: flex;
+    gap: 24px;
+    padding: 24px;
     overflow: hidden;
 }
 
-.cart-header-mobile {
-    padding: 16px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #e9e9ef;
+/* КОРЗИНА */
+.cart {
+    width: 380px;
+    background: white;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e9e9ef;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.cart-header-mobile h2 {
+.cart-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9e9ef;
+    background: #f8f9fa;
+}
+
+.cart-header h2 {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 12px;
 }
 
-.client-input-mobile {
+.client-input {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     border: 1px solid #e9e9ef;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 14px;
     background: white;
 }
 
-.client-input-mobile:focus {
+.client-input:focus {
     outline: none;
     border-color: #e94560;
 }
 
-.cart-items-mobile {
-    max-height: 250px;
+.cart-items {
+    flex: 1;
     overflow-y: auto;
-    padding: 0 12px;
+    padding: 0 16px;
+    min-height: 200px;
+    max-height: 400px;
 }
 
-.cart-empty-mobile {
+.cart-empty {
     text-align: center;
-    padding: 40px 20px;
+    padding: 48px 20px;
     color: #86868b;
     font-size: 14px;
 }
 
-.cart-item-mobile {
+.cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -155,48 +174,54 @@ body {
     border-bottom: 1px solid #f0f0f2;
 }
 
-.cart-item-info-mobile {
+.cart-item-info {
     flex: 1;
 }
 
-.cart-item-name-mobile {
+.cart-item-name {
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 4px;
 }
 
-.cart-item-details-mobile {
+.cart-item-details {
     font-size: 12px;
     color: #86868b;
 }
 
-.cart-item-price-mobile {
+.cart-item-price {
     text-align: right;
     margin-right: 12px;
 }
 
-.cart-item-amount-mobile {
+.cart-item-amount {
     font-weight: 700;
     font-size: 16px;
     color: #e94560;
 }
 
-.cart-item-remove-mobile {
+.cart-item-remove {
     background: none;
     border: none;
     font-size: 18px;
     cursor: pointer;
     color: #86868b;
-    padding: 8px;
+    padding: 6px;
+    border-radius: 8px;
 }
 
-.cart-footer-mobile {
-    padding: 16px;
+.cart-item-remove:hover {
+    background: #f5f5f7;
+    color: #e94560;
+}
+
+.cart-footer {
+    padding: 20px;
     border-top: 1px solid #e9e9ef;
     background: white;
 }
 
-.cart-total-mobile {
+.cart-total {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -205,252 +230,285 @@ body {
     font-weight: 600;
 }
 
-.cart-total-amount-mobile {
+.cart-total-amount {
     font-size: 24px;
     font-weight: 700;
     color: #e94560;
 }
 
-.cart-actions-mobile {
+.cart-actions {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
 }
 
-.btn-payment-mobile {
+.btn-payment {
     flex: 1;
-    padding: 14px;
+    padding: 12px;
     border: none;
     border-radius: 40px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.btn-payment-mobile.cash {
+.btn-payment.cash {
     background: #e94560;
     color: white;
 }
 
-.btn-payment-mobile.card {
+.btn-payment.card {
     background: #f5f5f7;
     color: #1d1d1f;
 }
 
-.cart-buttons-mobile {
+.btn-payment:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.98);
+}
+
+.cart-buttons {
     display: flex;
     gap: 12px;
 }
 
-.btn-clear-mobile, .btn-checkout-mobile {
+.btn-clear, .btn-checkout {
     flex: 1;
-    padding: 14px;
+    padding: 12px;
     border: none;
     border-radius: 40px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.btn-clear-mobile {
+.btn-clear {
     background: #f5f5f7;
     color: #86868b;
 }
 
-.btn-checkout-mobile {
+.btn-checkout {
     background: #e94560;
     color: white;
 }
 
-/* УСЛУГИ - СНИЗУ */
-.services-mobile {
-    background: white;
-    border-radius: 20px;
-    border: 1px solid #e9e9ef;
-    overflow: hidden;
+.btn-checkout:hover {
+    background: #c82333;
+}
+
+/* УСЛУГИ */
+.services {
     flex: 1;
+    background: white;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e9e9ef;
 }
 
-.services-header-mobile {
-    padding: 16px;
-    background: #f8f9fa;
+.services-header {
+    padding: 20px;
     border-bottom: 1px solid #e9e9ef;
+    background: #f8f9fa;
 }
 
-.services-header-mobile h2 {
+.services-header h2 {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 12px;
 }
 
-.search-input-mobile {
+.search-input {
     width: 100%;
     padding: 12px;
     border: 1px solid #e9e9ef;
     border-radius: 30px;
-    font-size: 15px;
+    font-size: 14px;
     background: white;
 }
 
-.services-grid-mobile {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
+.search-input:focus {
+    outline: none;
+    border-color: #e94560;
+}
+
+.services-grid {
+    flex: 1;
+    display: grid;
     gap: 12px;
-    max-height: 400px;
+    padding: 20px;
     overflow-y: auto;
 }
 
-.service-card-mobile {
+.service-card {
     background: #f8f9fa;
     border-radius: 16px;
     padding: 16px;
     cursor: pointer;
-    transition: 0.2s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    transition: all 0.2s;
+    text-align: center;
     border: 1px solid #e9e9ef;
 }
 
-.service-card-mobile:active {
-    background: #e9e9ef;
+.service-card:hover {
+    background: white;
+    transform: translateY(-2px);
+    border-color: #e94560;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.service-card:active {
     transform: scale(0.98);
 }
 
-.service-name-mobile {
-    font-size: 15px;
+.service-name {
+    font-size: 14px;
     font-weight: 500;
-    flex: 1;
+    margin-bottom: 8px;
+    word-break: break-word;
 }
 
-.service-price-mobile {
+.service-price {
     font-size: 18px;
     font-weight: 700;
     color: #e94560;
 }
 
-/* НИЖНЯЯ НАВИГАЦИЯ */
-.footer-mobile {
+/* НИЖНЯЯ ПАНЕЛЬ */
+.footer {
     background: white;
-    padding: 12px 16px;
+    padding: 12px 24px;
     display: flex;
-    justify-content: space-around;
+    gap: 12px;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
     border-top: 1px solid #e9e9ef;
     position: sticky;
     bottom: 0;
     background: white;
 }
 
-.footer-btn-mobile {
+.footer-btn {
     background: none;
     border: none;
-    padding: 8px 12px;
-    border-radius: 30px;
-    font-size: 12px;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 13px;
     font-weight: 500;
     color: #86868b;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.footer-btn-mobile:active {
+.footer-btn:hover {
     background: #f5f5f7;
     color: #e94560;
 }
 
-/* ========== СЕРВИСНЫЙ ЦЕНТР - МОБИЛЬНЫЙ ========== */
-.main-service-mobile {
-    padding: 16px;
+/* ========== СЕРВИСНЫЙ ЦЕНТР ========== */
+.main-service {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.service-form-mobile {
-    background: white;
-    border-radius: 20px;
-    border: 1px solid #e9e9ef;
-    padding: 16px;
-}
-
-.service-form-mobile h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-
-.service-list-mobile {
-    background: white;
-    border-radius: 20px;
-    border: 1px solid #e9e9ef;
+    gap: 24px;
+    padding: 24px;
     overflow: hidden;
 }
 
-.service-list-header-mobile {
-    padding: 16px;
-    background: #f8f9fa;
+.service-form, .service-list {
+    background: white;
+    border-radius: 24px;
+    border: 1px solid #e9e9ef;
+    overflow-y: auto;
+}
+
+.service-form {
+    width: 380px;
+    padding: 20px;
+}
+
+.service-form h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.service-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-list-header {
+    padding: 20px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
+    background: #f8f9fa;
 }
 
-.service-list-header-mobile h2 {
-    font-size: 16px;
+.service-list-header h2 {
+    font-size: 18px;
     font-weight: 600;
 }
 
-.list-actions-mobile {
+.list-actions {
     display: flex;
     gap: 8px;
 }
 
-.btn-icon-mobile {
+.btn-icon {
     background: none;
     border: none;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 13px;
     cursor: pointer;
+    color: #86868b;
 }
 
-.form-row-mobile {
+.btn-icon:hover {
+    background: #e9e9ef;
+    color: #e94560;
+}
+
+.form-row {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 16px;
 }
 
-.form-group-mobile {
+.form-group {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.form-group-mobile label {
+.form-group label {
     font-size: 13px;
     font-weight: 500;
     color: #86868b;
 }
 
-.form-group-mobile input, 
-.form-group-mobile textarea {
-    padding: 12px;
+.form-group input, .form-group textarea {
+    padding: 10px;
     border: 1px solid #e9e9ef;
     border-radius: 12px;
-    font-size: 15px;
+    font-size: 14px;
     font-family: inherit;
 }
 
-.btn-submit-mobile {
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #e94560;
+}
+
+.btn-submit {
     width: 100%;
     padding: 14px;
     background: #e94560;
@@ -458,60 +516,67 @@ body {
     border: none;
     border-radius: 40px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     margin-top: 8px;
 }
 
-.repairs-list-mobile {
-    padding: 12px;
-    max-height: 400px;
-    overflow-y: auto;
+.btn-submit:hover {
+    background: #c82333;
 }
 
-.repair-card-mobile {
+.repairs-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.repair-card {
     background: #f8f9fa;
     border-radius: 16px;
-    padding: 14px;
+    padding: 16px;
     margin-bottom: 12px;
     cursor: pointer;
+    transition: 0.2s;
     border: 1px solid #e9e9ef;
 }
 
-.repair-card-mobile:active {
-    background: #e9e9ef;
+.repair-card:hover {
+    background: white;
+    transform: translateX(4px);
+    border-color: #e94560;
 }
 
-.repair-header-mobile {
+.repair-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
 }
 
-.repair-id-mobile {
+.repair-id {
     font-weight: 700;
     color: #e94560;
     font-size: 13px;
 }
 
-.repair-date-mobile {
-    font-size: 11px;
+.repair-date {
+    font-size: 12px;
     color: #86868b;
 }
 
-.repair-client-mobile {
+.repair-client {
     font-weight: 600;
     font-size: 15px;
     margin-bottom: 4px;
 }
 
-.repair-equipment-mobile {
+.repair-equipment {
     font-size: 13px;
     color: #86868b;
     margin-bottom: 8px;
 }
 
-.repair-status-mobile {
+.repair-status {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 20px;
@@ -519,47 +584,53 @@ body {
     font-weight: 600;
 }
 
-.repair-cost-mobile {
+.status-accepted { background: #fef3c7; color: #d97706; }
+.status-work { background: #dbeafe; color: #2563eb; }
+.status-ready { background: #e9d5ff; color: #7c3aed; }
+.status-issued { background: #d1fae5; color: #059669; }
+
+.repair-cost {
     text-align: right;
     font-weight: 700;
     color: #e94560;
     margin-top: 8px;
-    font-size: 14px;
 }
 
-/* ========== НАСТРОЙКИ - МОБИЛЬНЫЕ ========== */
-.main-directories-mobile {
-    padding: 16px;
+/* ========== НАСТРОЙКИ ========== */
+.main-directories {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
 }
 
-.directories-grid-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.directories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
 }
 
-.directory-card-mobile {
+.directory-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     border: 1px solid #e9e9ef;
     overflow: hidden;
 }
 
-.directory-header-mobile {
-    padding: 16px;
-    background: #f8f9fa;
+.directory-header {
+    padding: 20px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #f8f9fa;
 }
 
-.directory-header-mobile h2 {
-    font-size: 16px;
+.directory-header h2 {
+    font-size: 18px;
     font-weight: 600;
 }
 
-.btn-add-mobile {
+.btn-add {
     background: #e94560;
     border: none;
     padding: 8px 16px;
@@ -569,13 +640,13 @@ body {
     cursor: pointer;
 }
 
-.directory-list-mobile {
-    padding: 12px;
-    max-height: 350px;
+.directory-list {
+    padding: 16px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
-.directory-item-mobile {
+.directory-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -585,27 +656,32 @@ body {
     margin-bottom: 8px;
 }
 
-.directory-item-info-mobile strong {
+.directory-item-info strong {
     display: block;
     font-size: 14px;
     margin-bottom: 4px;
 }
 
-.directory-item-info-mobile span {
+.directory-item-info span {
     font-size: 12px;
     color: #86868b;
 }
 
-.directory-item-actions-mobile button {
+.directory-item-actions button {
     background: none;
     border: none;
     font-size: 16px;
     cursor: pointer;
     padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.directory-item-actions button:hover {
+    background: #e9e9ef;
 }
 
 /* ========== МОДАЛЬНЫЕ ОКНА ========== */
-.modal-mobile {
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -613,39 +689,45 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
     padding: 16px;
 }
 
-.modal-content-mobile {
+.modal-content {
     background: white;
     border-radius: 24px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     max-height: 85vh;
     overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-.modal-order-mobile {
-    max-width: 550px;
+.modal-order {
+    max-width: 700px;
 }
 
-.modal-header-mobile {
-    padding: 16px 20px;
+.modal-small {
+    max-width: 400px;
+}
+
+.modal-header {
+    padding: 20px 24px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-header-mobile h2 {
+.modal-header h2 {
     font-size: 18px;
     font-weight: 600;
 }
 
-.modal-close-mobile {
+.modal-close {
     background: none;
     border: none;
     font-size: 24px;
@@ -654,22 +736,118 @@ body {
     padding: 0 8px;
 }
 
-.modal-body-mobile {
-    padding: 20px;
+.modal-close:hover {
+    color: #e94560;
+}
+
+.modal-body {
+    padding: 24px;
     overflow-y: auto;
     max-height: 60vh;
 }
 
-.modal-footer-mobile {
-    padding: 16px 20px;
+.modal-footer {
+    padding: 16px 24px;
     border-top: 1px solid #e9e9ef;
     display: flex;
     gap: 12px;
+    justify-content: flex-end;
 }
 
-.btn-print-mobile, .btn-secondary-mobile {
+/* Бланк заказа */
+.order-form-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.order-form-header h2 {
+    color: #e94560;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.order-form-header h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #86868b;
+}
+
+.order-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.order-field {
     flex: 1;
-    padding: 12px;
+}
+
+.order-field label {
+    font-weight: 600;
+    color: #86868b;
+    margin-right: 12px;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.order-table th, .order-table td {
+    border: 1px solid #e9e9ef;
+    padding: 10px;
+    text-align: left;
+}
+
+.order-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.order-signatures {
+    display: flex;
+    gap: 40px;
+    margin: 30px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.signature {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.sign-line {
+    border-bottom: 1px solid #1d1d1f;
+    width: 100%;
+    margin: 0 auto 8px;
+    padding-top: 20px;
+}
+
+.sign-label {
+    font-size: 12px;
+    color: #86868b;
+}
+
+.order-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e9e9ef;
+}
+
+.order-footer p {
+    font-weight: 600;
+    color: #e94560;
+    font-size: 14px;
+}
+
+.btn-print, .btn-secondary {
+    padding: 10px 20px;
     border: none;
     border-radius: 40px;
     font-weight: 600;
@@ -677,133 +855,300 @@ body {
     cursor: pointer;
 }
 
-.btn-print-mobile {
+.btn-print {
     background: #e94560;
     color: white;
 }
 
-.btn-secondary-mobile {
+.btn-secondary {
     background: #f5f5f7;
     color: #86868b;
 }
 
-/* Бланк заказа - мобильный */
-.order-form-header-mobile {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.order-form-header-mobile h2 {
-    color: #e94560;
-    font-size: 22px;
-}
-
-.order-form-header-mobile h3 {
-    font-size: 14px;
-    color: #86868b;
-}
-
-.order-row-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.order-field-mobile {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.order-field-mobile label {
-    font-weight: 600;
-    color: #86868b;
-}
-
-.order-table-mobile {
+.btn-print-large {
     width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 12px;
-}
-
-.order-table-mobile th, .order-table-mobile td {
-    border: 1px solid #e9e9ef;
-    padding: 8px;
-    text-align: left;
-}
-
-.order-table-mobile th {
-    background: #f8f9fa;
-}
-
-.order-signatures-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin: 20px 0;
-}
-
-.signature-mobile {
-    text-align: center;
-}
-
-.sign-line-mobile {
-    border-bottom: 1px solid #1d1d1f;
-    width: 100%;
-    margin: 0 auto 8px;
-    padding-top: 15px;
-}
-
-.sign-label-mobile {
-    font-size: 11px;
-    color: #86868b;
-}
-
-.order-footer-mobile {
-    text-align: center;
-    margin-top: 16px;
-    padding-top: 12px;
-    border-top: 1px solid #e9e9ef;
-}
-
-.order-footer-mobile p {
-    font-weight: 600;
-    color: #e94560;
-    font-size: 12px;
-}
-
-/* Кнопка "Назад" */
-.back-btn-mobile {
-    background: none;
+    padding: 16px;
+    margin-bottom: 12px;
     border: none;
-    color: #e94560;
-    font-size: 14px;
-    font-weight: 500;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
-    padding: 8px 16px;
+    background: #e94560;
+    color: white;
 }
 
-/* Анимации */
-.btn-payment-mobile:active,
-.btn-clear-mobile:active,
-.btn-checkout-mobile:active,
-.service-card-mobile:active,
-.repair-card-mobile:active,
-.footer-btn-mobile:active {
-    transform: scale(0.97);
-    transition: 0.05s;
+.btn-print-large.success {
+    background: #22c55e;
 }
 
-/* Скроллбар */
+/* ========== АДАПТИВНОСТЬ ========== */
+
+/* ПЛАНШЕТЫ (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .main {
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .cart {
+        width: 340px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
+    
+    .service-form {
+        width: 340px;
+    }
+}
+
+/* ТЕЛЕФОНЫ (до 768px) - ВЕРТИКАЛЬНАЯ КОМПОНОВКА */
+@media (max-width: 768px) {
+    .header {
+        padding: 12px 16px;
+    }
+    
+    .logo-text {
+        font-size: 18px;
+    }
+    
+    .logo-img {
+        height: 28px;
+    }
+    
+    .datetime {
+        font-size: 12px;
+    }
+    
+    .main {
+        flex-direction: column;
+        padding: 16px;
+        gap: 16px;
+        overflow: visible;
+    }
+    
+    .cart {
+        width: 100%;
+        max-height: 400px;
+    }
+    
+    .cart-items {
+        max-height: 200px;
+    }
+    
+    .services {
+        width: 100%;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-height: none;
+    }
+    
+    .service-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 14px;
+    }
+    
+    .service-name {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    
+    .service-price {
+        font-size: 16px;
+    }
+    
+    .footer {
+        padding: 10px 16px;
+        gap: 8px;
+    }
+    
+    .footer-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    /* Сервисный центр - мобильный */
+    .main-service {
+        flex-direction: column;
+        padding: 16px;
+        gap: 16px;
+        overflow: visible;
+    }
+    
+    .service-form {
+        width: 100%;
+        padding: 16px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .service-list {
+        width: 100%;
+    }
+    
+    .service-list-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .repair-card:hover {
+        transform: none;
+    }
+    
+    /* Настройки - мобильный */
+    .main-directories {
+        padding: 16px;
+    }
+    
+    .directories-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .directory-header {
+        padding: 16px;
+    }
+    
+    /* Модальные окна */
+    .modal-content {
+        max-width: calc(100% - 32px);
+    }
+    
+    .modal-header {
+        padding: 16px 20px;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    /* Бланк заказа - мобильный */
+    .order-form-header h2 {
+        font-size: 20px;
+    }
+    
+    .order-form-header h3 {
+        font-size: 14px;
+    }
+    
+    .order-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .order-field {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    .order-table {
+        font-size: 12px;
+    }
+    
+    .order-table th, .order-table td {
+        padding: 8px;
+    }
+    
+    .order-signatures {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .signature {
+        min-width: auto;
+    }
+    
+    .sign-line {
+        width: 80%;
+        margin: 0 auto 8px;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-print, .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 480px) */
+@media (max-width: 480px) {
+    .header-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .cart-total-amount {
+        font-size: 20px;
+    }
+    
+    .btn-payment, .btn-clear, .btn-checkout {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .cart-item-name {
+        font-size: 13px;
+    }
+    
+    .cart-item-amount {
+        font-size: 14px;
+    }
+    
+    .service-name {
+        font-size: 13px;
+    }
+    
+    .service-price {
+        font-size: 15px;
+    }
+    
+    .footer-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}
+
+/* СКРОЛЛБАР */
 ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
 }
+
 ::-webkit-scrollbar-track {
     background: #e9e9ef;
+    border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 2px;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e94560;
+}
+
+/* АНИМАЦИИ */
+.btn-payment, .btn-clear, .btn-checkout, .service-card, .repair-card, .footer-btn {
+    transition: all 0.2s ease;
+}
+
+.service-card:active, .repair-card:active {
+    transform: scale(0.98);
 }
