@@ -29,7 +29,7 @@
                 <div class="cart-header">
                     <h2>🛒 ТЕКУЩИЙ ЗАКАЗ</h2>
                     <div class="cart-client">
-                        <input type="text" id="clientName" placeholder="Клиент (опционально)" class="client-input">
+                        <input type="text" id="clientName" placeholder="Клиент (ФИО)" class="client-input">
                     </div>
                 </div>
                 <div class="cart-items" id="cartItems">
@@ -82,14 +82,14 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ЧЕКА -->
-    <div id="receiptModal" class="modal">
-        <div class="modal-content modal-receipt">
-            <span class="close" onclick="closeReceiptModal()">&times;</span>
-            <div class="receipt" id="receiptContent"></div>
-            <div class="receipt-actions">
-                <button class="print-receipt-btn" onclick="printReceipt()">🖨️ ПЕЧАТАТЬ</button>
-                <button class="close-receipt-btn" onclick="closeReceiptModal()">❌ ЗАКРЫТЬ</button>
+    <!-- МОДАЛЬНОЕ ОКНО БЛАНКА ЗАКАЗА -->
+    <div id="orderFormModal" class="modal">
+        <div class="modal-content modal-order-form">
+            <span class="close" onclick="closeOrderFormModal()">&times;</span>
+            <div class="order-form" id="orderFormContent"></div>
+            <div class="order-form-actions">
+                <button class="print-order-btn" onclick="printOrderForm()">🖨️ ПЕЧАТАТЬ БЛАНК</button>
+                <button class="close-order-btn" onclick="closeOrderFormModal()">❌ ЗАКРЫТЬ</button>
             </div>
         </div>
     </div>
