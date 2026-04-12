@@ -2,97 +2,98 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>A4-Print | Касса</title>
     <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-mobile">
+    <div class="app">
         <!-- Верхняя панель -->
-        <header class="header-mobile">
-            <div class="logo-mobile">
-                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img-mobile">
-                <span class="logo-text-mobile">A4-PRINT</span>
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                <span class="logo-text">A4-PRINT</span>
             </div>
-            <div class="header-info-mobile">
-                <div class="datetime-mobile" id="currentDateTime"></div>
-                <div class="operator-mobile">
-                    <span class="operator-name-mobile" id="currentOperator">Павел</span>
-                    <button class="operator-switch-mobile" onclick="switchOperator()">Сменить</button>
+            <div class="header-info">
+                <div class="datetime" id="currentDateTime"></div>
+                <div class="operator">
+                    <span class="operator-label">Оператор</span>
+                    <span class="operator-name" id="currentOperator">Павел</span>
+                    <button class="operator-switch" onclick="switchOperator()">Сменить</button>
                 </div>
             </div>
         </header>
 
-        <!-- Основной контент - вертикальный -->
-        <main class="main-mobile">
-            <!-- Корзина - сверху -->
-            <div class="cart-mobile">
-                <div class="cart-header-mobile">
+        <!-- Основной контент -->
+        <main class="main">
+            <!-- Корзина -->
+            <div class="cart">
+                <div class="cart-header">
                     <h2>🛒 Корзина</h2>
-                    <input type="text" id="clientName" placeholder="ФИО клиента" class="client-input-mobile">
+                    <input type="text" id="clientName" placeholder="ФИО клиента" class="client-input">
                 </div>
-                <div class="cart-items-mobile" id="cartItems">
-                    <div class="cart-empty-mobile">➕ Нажмите на услугу</div>
+                <div class="cart-items" id="cartItems">
+                    <div class="cart-empty">➕ Нажмите на услугу для добавления</div>
                 </div>
-                <div class="cart-footer-mobile">
-                    <div class="cart-total-mobile">
+                <div class="cart-footer">
+                    <div class="cart-total">
                         <span>ИТОГО</span>
-                        <span class="cart-total-amount-mobile" id="cartTotal">0</span>
+                        <span class="cart-total-amount" id="cartTotal">0</span>
                         <span>₽</span>
                     </div>
-                    <div class="cart-actions-mobile">
-                        <button class="btn-payment-mobile cash" onclick="setPayment('Наличные')">💵 Наличные</button>
-                        <button class="btn-payment-mobile card" onclick="setPayment('Карта')">💳 Карта</button>
+                    <div class="cart-actions">
+                        <button class="btn-payment cash" onclick="setPayment('Наличные')">💵 Наличные</button>
+                        <button class="btn-payment card" onclick="setPayment('Карта')">💳 Карта</button>
                     </div>
-                    <div class="cart-buttons-mobile">
-                        <button class="btn-clear-mobile" onclick="clearCart()">Очистить</button>
-                        <button class="btn-checkout-mobile" onclick="checkout()">Оформить</button>
+                    <div class="cart-buttons">
+                        <button class="btn-clear" onclick="clearCart()">Очистить</button>
+                        <button class="btn-checkout" onclick="checkout()">Оформить</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Услуги - снизу -->
-            <div class="services-mobile">
-                <div class="services-header-mobile">
+            <!-- Услуги -->
+            <div class="services">
+                <div class="services-header">
                     <h2>📋 Услуги</h2>
-                    <input type="text" id="serviceSearch" placeholder="🔍 Поиск" class="search-input-mobile" oninput="filterServices()">
+                    <input type="text" id="serviceSearch" placeholder="🔍 Поиск услуги" class="search-input" oninput="filterServices()">
                 </div>
-                <div class="services-grid-mobile" id="servicesGrid"></div>
+                <div class="services-grid" id="servicesGrid"></div>
             </div>
         </main>
 
-        <!-- Нижняя панель навигации -->
-        <footer class="footer-mobile">
-            <button class="footer-btn-mobile" onclick="showOrdersHistory()">📜 История</button>
-            <button class="footer-btn-mobile" onclick="window.location.href='service.html'">🔧 Сервис</button>
-            <button class="footer-btn-mobile" onclick="window.location.href='directories.html'">⚙️ Настройки</button>
-            <button class="footer-btn-mobile" onclick="showStats()">📊 Статистика</button>
-            <button class="footer-btn-mobile" onclick="exportData()">📎 Экспорт</button>
+        <!-- Нижняя панель -->
+        <footer class="footer">
+            <button class="footer-btn" onclick="showOrdersHistory()">📜 История</button>
+            <button class="footer-btn" onclick="window.location.href='service.html'">🔧 Сервис</button>
+            <button class="footer-btn" onclick="window.location.href='directories.html'">⚙️ Настройки</button>
+            <button class="footer-btn" onclick="showStats()">📊 Статистика</button>
+            <button class="footer-btn" onclick="exportData()">📎 Экспорт</button>
         </footer>
     </div>
 
     <!-- Модальные окна -->
-    <div id="statsModal" class="modal-mobile">
-        <div class="modal-content-mobile">
-            <div class="modal-header-mobile">
+    <div id="statsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h2>Статистика</h2>
-                <button class="modal-close-mobile" onclick="closeStatsModal()">×</button>
+                <button class="modal-close" onclick="closeStatsModal()">×</button>
             </div>
-            <div class="modal-body-mobile" id="statsContent"></div>
+            <div class="modal-body" id="statsContent"></div>
         </div>
     </div>
 
-    <div id="orderFormModal" class="modal-mobile">
-        <div class="modal-content-mobile modal-order-mobile">
-            <div class="modal-header-mobile">
+    <div id="orderFormModal" class="modal">
+        <div class="modal-content modal-order">
+            <div class="modal-header">
                 <h2>Бланк заказа</h2>
-                <button class="modal-close-mobile" onclick="closeOrderFormModal()">×</button>
+                <button class="modal-close" onclick="closeOrderFormModal()">×</button>
             </div>
-            <div class="modal-body-mobile" id="orderFormContent"></div>
-            <div class="modal-footer-mobile">
-                <button class="btn-print-mobile" onclick="printOrderForm()">🖨️ Печать</button>
-                <button class="btn-secondary-mobile" onclick="closeOrderFormModal()">Закрыть</button>
+            <div class="modal-body" id="orderFormContent"></div>
+            <div class="modal-footer">
+                <button class="btn-print" onclick="printOrderForm()">🖨️ Печать</button>
+                <button class="btn-secondary" onclick="closeOrderFormModal()">Закрыть</button>
             </div>
         </div>
     </div>
