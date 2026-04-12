@@ -2,127 +2,94 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>A4-Print | Касса</title>
+    <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📸 ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</h1>
-            <nav>
-                <button class="active" onclick="showPage('orders')">📝 ЗАКАЗЫ</button>
-                <button onclick="window.location.href='service.html'">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
-                <button onclick="window.location.href='directories.html'">📚 СПРАВОЧНИКИ</button>
-            </nav>
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                    <span>A4-PRINT</span>
+                </div>
+                <div class="date-time" id="currentDateTime"></div>
+            </div>
+            <div class="header-right">
+                <div class="operator">Оператор: <span id="currentOperator">Павел</span></div>
+                <button class="switch-operator" onclick="switchOperator()">🔄 Сменить</button>
+            </div>
         </header>
 
-        <!-- СТАТИСТИКА -->
-        <div class="stats-panel">
-            <div class="stats-section">
-                <h3>СТАТИСТИКА ПО СОТРУДНИКАМ</h3>
-                <table id="employeeStats">
-                    <thead>
-                        <tr><th>Сотрудник</th><th>Смен</th><th>Продажи</th><th>Выручка</th><th>Зарплата</th></tr>
-                    </thead>
-                    <tbody id="employeeStatsBody"></tbody>
-                </table>
-            </div>
-            <div class="stats-section">
-                <h3>ОБЩАЯ СТАТИСТИКА</h3>
-                <table id="generalStats">
-                    <tbody>
-                        <tr><td>Общий доход:</td><td id="totalIncome">0 ₽</td></tr>
-                        <tr><td>Наличными:</td><td id="totalCash">0 ₽</td></tr>
-                        <tr><td>Картой:</td><td id="totalCard">0 ₽</td></tr>
-                        <tr><td>Всего заказов:</td><td id="totalOrders">0</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ТАБЛИЦА ЗАКАЗОВ -->
-        <div class="orders-panel">
-            <div class="toolbar">
-                <button onclick="addOrder()">➕ ДОБАВИТЬ ЗАКАЗ</button>
-                <button onclick="saveData()">💾 СОХРАНИТЬ</button>
-                <button onclick="clearAllOrders()">🗑️ ОЧИСТИТЬ ВСЁ</button>
-                <button onclick="exportToExcel()">📎 ЭКСПОРТ В EXCEL</button>
-                <button onclick="refreshStats()">🔄 ОБНОВИТЬ</button>
-                <button onclick="printReceipt()">🖨️ ПЕЧАТЬ КВИТАНЦИИ</button>
-            </div>
-            
-            <table id="ordersTable">
-                <thead>
-                    <tr>
-                        <th>ДАТА</th><th>ДЕНЬ</th><th>ОПЕРАТОР</th><th>ВРЕМЯ</th><th>УСЛУГИ</th><th>КОЛ-ВО</th><th>СУММА</th><th>ОПЛАТА</th><th></th>
-                    </tr>
-                </thead>
-                <tbody id="ordersBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ЗАКАЗА С МУЛЬТИВЫБОРОМ -->
-    <div id="orderModal" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3>📝 НОВЫЙ ЗАКАЗ</h3>
-            <form id="orderForm">
-                <div class="form-row">
-                    <label>Дата: <input type="date" id="orderDate" required></label>
-                    <label>Оператор: 
-                        <select id="orderOperator" required></select>
-                    </label>
-                    <label>Время: <input type="time" id="orderTime" required></label>
-                </div>
-                
-                <div class="form-row">
-                    <label>Клиент: <input type="text" id="orderClient" placeholder="ФИО клиента (опционально)"></label>
-                    <label>Оплата: 
-                        <select id="orderPayment">
-                            <option value="Наличные">Наличные</option>
-                            <option value="Карта">Карта</option>
-                        </select>
-                    </label>
-                </div>
-                
-                <h4>📋 УСЛУГИ:</h4>
-                <div id="servicesList" class="services-list"></div>
-                
-                <div class="services-summary">
-                    <button type="button" onclick="addServiceRow()">➕ ДОБАВИТЬ УСЛУГУ</button>
-                    <div class="total-summary">
-                        <strong>ИТОГО: <span id="totalOrderSum">0</span> ₽</strong>
+        <div class="main-screen">
+            <!-- КОРЗИНА -->
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h2>🛒 ТЕКУЩИЙ ЗАКАЗ</h2>
+                    <div class="cart-client">
+                        <input type="text" id="clientName" placeholder="Клиент (опционально)" class="client-input">
                     </div>
                 </div>
-                
-                <div class="form-actions">
-                    <button type="submit">✅ ОФОРМИТЬ ЗАКАЗ</button>
-                    <button type="button" onclick="closeModal()">❌ ОТМЕНА</button>
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart">➕ Нажмите на услугу для добавления</div>
                 </div>
-            </form>
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>ИТОГО:</span>
+                        <span class="total-amount" id="cartTotal">0</span>
+                        <span>₽</span>
+                    </div>
+                    <div class="payment-row">
+                        <button class="payment-btn cash-btn" onclick="setPayment('Наличные')">💵 НАЛИЧНЫЕ</button>
+                        <button class="payment-btn card-btn" onclick="setPayment('Карта')">💳 КАРТА</button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn clear-btn" onclick="clearCart()">🗑️ ОЧИСТИТЬ</button>
+                        <button class="action-btn checkout-btn" onclick="checkout()">✅ ОФОРМИТЬ ЗАКАЗ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- УСЛУГИ -->
+            <div class="services-section">
+                <div class="services-header">
+                    <h2>📋 ВЫБЕРИТЕ УСЛУГУ</h2>
+                    <div class="search-box">
+                        <input type="text" id="serviceSearch" placeholder="🔍 Поиск услуги..." onkeyup="filterServices()">
+                    </div>
+                </div>
+                <div class="services-grid" id="servicesGrid"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <button class="footer-btn" onclick="showOrdersHistory()">📜 ИСТОРИЯ</button>
+            <button class="footer-btn" onclick="window.location.href='service.html'">🔧 СЕРВИС</button>
+            <button class="footer-btn" onclick="window.location.href='directories.html'">⚙️ НАСТРОЙКИ</button>
+            <button class="footer-btn" onclick="showStats()">📊 СТАТИСТИКА</button>
+            <button class="footer-btn" onclick="exportData()">📎 ЭКСПОРТ</button>
+        </footer>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО СТАТИСТИКИ -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content modal-stats">
+            <span class="close" onclick="closeStatsModal()">&times;</span>
+            <h2>📊 СТАТИСТИКА</h2>
+            <div id="statsContent"></div>
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПЕЧАТИ КВИТАНЦИИ -->
+    <!-- МОДАЛЬНОЕ ОКНО ЧЕКА -->
     <div id="receiptModal" class="modal">
         <div class="modal-content modal-receipt">
             <span class="close" onclick="closeReceiptModal()">&times;</span>
-            <div id="receiptContent">
-                <div class="receipt">
-                    <h2>ФОТО-КОПИРОВАЛЬНЫЙ ЦЕНТР</h2>
-                    <h3>КВИТАНЦИЯ ОБ ОПЛАТЕ</h3>
-                    <div id="receiptData"></div>
-                    <hr>
-                    <p>_________________________  _________________________</p>
-                    <p>Подпись оператора           Подпись клиента</p>
-                    <p style="font-size: 12px; text-align: center;">СПАСИБО ЗА ПОКУПКУ!</p>
-                </div>
-            </div>
+            <div class="receipt" id="receiptContent"></div>
             <div class="receipt-actions">
-                <button onclick="printReceiptNow()">🖨️ ПЕЧАТАТЬ</button>
-                <button onclick="closeReceiptModal()">❌ ЗАКРЫТЬ</button>
+                <button class="print-receipt-btn" onclick="printReceipt()">🖨️ ПЕЧАТАТЬ</button>
+                <button class="close-receipt-btn" onclick="closeReceiptModal()">❌ ЗАКРЫТЬ</button>
             </div>
         </div>
     </div>
