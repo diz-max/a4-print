@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
-    background: #1a1a2e;
-    color: #eee;
+    background: #f0f2f5;
+    color: #1a1a2e;
     height: 100vh;
     overflow: hidden;
 }
@@ -20,9 +20,9 @@ body {
     margin: 0 auto;
 }
 
-/* ========== ХЕДЕР С ЛОГОТИПОМ ========== */
+/* ========== ХЕДЕР ========== */
 .header {
-    background: linear-gradient(135deg, #16213e, #0f3460);
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
     padding: 15px 25px;
     display: flex;
     justify-content: space-between;
@@ -30,6 +30,7 @@ body {
     border-bottom: 3px solid #e94560;
     flex-wrap: wrap;
     gap: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .header-left {
@@ -45,6 +46,7 @@ body {
     gap: 10px;
     font-size: 24px;
     font-weight: bold;
+    color: #e94560;
 }
 
 .logo-img {
@@ -54,7 +56,7 @@ body {
 
 .date-time {
     font-size: 16px;
-    color: #ccc;
+    color: #6c757d;
 }
 
 .header-right {
@@ -65,6 +67,7 @@ body {
 
 .operator {
     font-size: 18px;
+    color: #2c3e50;
 }
 
 .switch-operator, .back-btn {
@@ -79,7 +82,7 @@ body {
 }
 
 .switch-operator:hover, .back-btn:hover {
-    background: #ff6b6b;
+    background: #c82333;
     transform: scale(1.02);
 }
 
@@ -95,16 +98,17 @@ body {
 /* КОРЗИНА */
 .cart-section {
     width: 40%;
-    background: #0f3460;
+    background: white;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
 }
 
 .cart-header {
-    background: #16213e;
+    background: #f8f9fa;
     padding: 15px 20px;
     border-bottom: 2px solid #e94560;
 }
@@ -112,16 +116,23 @@ body {
 .cart-header h2 {
     font-size: 20px;
     margin-bottom: 10px;
+    color: #2c3e50;
 }
 
 .client-input {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    border: none;
-    background: #1a1a2e;
-    color: white;
+    border: 1px solid #dee2e6;
+    background: white;
+    color: #2c3e50;
     font-size: 14px;
+}
+
+.client-input:focus {
+    outline: none;
+    border-color: #e94560;
+    box-shadow: 0 0 0 2px rgba(233,69,96,0.1);
 }
 
 .cart-items {
@@ -134,12 +145,12 @@ body {
 .empty-cart {
     text-align: center;
     padding: 40px;
-    color: #888;
+    color: #adb5bd;
     font-size: 18px;
 }
 
 .cart-item {
-    background: #1a1a2e;
+    background: #f8f9fa;
     border-radius: 12px;
     padding: 12px;
     margin-bottom: 10px;
@@ -147,10 +158,11 @@ body {
     justify-content: space-between;
     align-items: center;
     transition: 0.2s;
+    border: 1px solid #e9ecef;
 }
 
 .cart-item:hover {
-    background: #2a2a4e;
+    background: #e9ecef;
     transform: translateX(-5px);
 }
 
@@ -162,11 +174,12 @@ body {
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 5px;
+    color: #2c3e50;
 }
 
 .cart-item-details {
     font-size: 13px;
-    color: #aaa;
+    color: #6c757d;
 }
 
 .cart-item-price {
@@ -177,11 +190,11 @@ body {
 .cart-item-amount {
     font-size: 18px;
     font-weight: bold;
-    color: #4ade80;
+    color: #22c55e;
 }
 
 .cart-item-remove {
-    background: #e94560;
+    background: #ef4444;
     border: none;
     color: white;
     width: 32px;
@@ -189,10 +202,16 @@ body {
     border-radius: 8px;
     font-size: 18px;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.cart-item-remove:hover {
+    background: #dc2626;
+    transform: scale(1.05);
 }
 
 .cart-total {
-    background: #16213e;
+    background: #f8f9fa;
     padding: 20px;
     border-top: 2px solid #e94560;
 }
@@ -203,10 +222,11 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    color: #2c3e50;
 }
 
 .total-amount {
-    color: #4ade80;
+    color: #22c55e;
     font-size: 36px;
 }
 
@@ -227,9 +247,23 @@ body {
     transition: 0.2s;
 }
 
-.cash-btn { background: #22c55e; color: white; }
-.card-btn { background: #3b82f6; color: white; }
-.action-buttons { display: flex; gap: 15px; }
+.cash-btn {
+    background: #22c55e;
+    color: white;
+}
+.cash-btn:hover { background: #16a34a; transform: scale(1.02); }
+
+.card-btn {
+    background: #3b82f6;
+    color: white;
+}
+.card-btn:hover { background: #2563eb; transform: scale(1.02); }
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
 .action-btn {
     flex: 1;
     padding: 12px;
@@ -238,34 +272,58 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.2s;
 }
-.clear-btn { background: #ef4444; color: white; }
-.checkout-btn { background: #e94560; color: white; }
+
+.clear-btn {
+    background: #ef4444;
+    color: white;
+}
+.clear-btn:hover { background: #dc2626; }
+
+.checkout-btn {
+    background: #e94560;
+    color: white;
+}
+.checkout-btn:hover { background: #c82333; transform: scale(1.02); }
 
 /* УСЛУГИ */
 .services-section {
     flex: 1;
-    background: #0f3460;
+    background: white;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
 }
 
 .services-header {
-    background: #16213e;
+    background: #f8f9fa;
     padding: 15px 20px;
     border-bottom: 2px solid #e94560;
+}
+
+.services-header h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
 .search-box input {
     width: 100%;
     padding: 12px;
     border-radius: 25px;
-    border: none;
-    background: #1a1a2e;
-    color: white;
+    border: 1px solid #dee2e6;
+    background: white;
+    color: #2c3e50;
     font-size: 16px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #e94560;
+    box-shadow: 0 0 0 2px rgba(233,69,96,0.1);
 }
 
 .services-grid {
@@ -278,50 +336,53 @@ body {
 }
 
 .service-card {
-    background: #1a1a2e;
+    background: #f8f9fa;
     border-radius: 16px;
     padding: 15px;
     cursor: pointer;
     transition: all 0.2s;
-    border: 2px solid transparent;
+    border: 2px solid #e9ecef;
     text-align: center;
 }
 
 .service-card:hover {
-    background: #2a2a4e;
+    background: #e9ecef;
     transform: translateY(-3px);
     border-color: #e94560;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .service-name {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
+    color: #2c3e50;
 }
 
 .service-price {
     font-size: 20px;
     font-weight: bold;
-    color: #4ade80;
+    color: #22c55e;
 }
 
 /* НИЖНЯЯ ПАНЕЛЬ */
 .footer {
-    background: #16213e;
+    background: white;
     padding: 12px 20px;
     display: flex;
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    border-top: 1px solid #e94560;
+    border-top: 1px solid #e9ecef;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
 
 .footer-btn {
-    background: #0f3460;
+    background: #f8f9fa;
     border: 1px solid #e94560;
     padding: 10px 20px;
     border-radius: 25px;
-    color: white;
+    color: #e94560;
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
@@ -329,6 +390,7 @@ body {
 
 .footer-btn:hover {
     background: #e94560;
+    color: white;
     transform: translateY(-2px);
 }
 
@@ -342,25 +404,44 @@ body {
 }
 
 .service-left, .service-right {
-    background: #0f3460;
+    background: white;
     border-radius: 20px;
     overflow-y: auto;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
 }
 
 .service-left { width: 40%; }
 .service-right { flex: 1; }
 
-.service-form-card, .service-list-card { padding: 20px; height: 100%; display: flex; flex-direction: column; }
+.service-form-card, .service-list-card { 
+    padding: 20px; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.service-form-card h2, .list-header h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
 
 .service-form { display: flex; flex-direction: column; gap: 15px; }
 .form-row { display: flex; gap: 15px; }
 .form-group { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.form-group label { color: #6c757d; font-size: 14px; }
 .form-group input, .form-group textarea {
     padding: 10px;
     border-radius: 10px;
-    border: none;
-    background: #1a1a2e;
-    color: white;
+    border: 1px solid #dee2e6;
+    background: white;
+    color: #2c3e50;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #e94560;
+    box-shadow: 0 0 0 2px rgba(233,69,96,0.1);
 }
 
 .submit-btn {
@@ -372,7 +453,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: 0.2s;
 }
+.submit-btn:hover { background: #c82333; transform: scale(1.02); }
 
 .list-header {
     display: flex;
@@ -382,18 +465,33 @@ body {
     gap: 10px;
 }
 
+.list-actions button {
+    background: #e94560;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .repairs-list { flex: 1; overflow-y: auto; }
 .repair-card {
-    background: #1a1a2e;
+    background: #f8f9fa;
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 12px;
     cursor: pointer;
     border-left: 4px solid #e94560;
+    transition: 0.2s;
 }
+.repair-card:hover { background: #e9ecef; transform: translateX(5px); }
 
 .repair-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .repair-id { font-weight: bold; color: #e94560; }
+.repair-date { color: #6c757d; font-size: 12px; }
+.repair-client { font-weight: bold; margin-bottom: 5px; color: #2c3e50; }
+.repair-equipment { font-size: 13px; color: #6c757d; margin-bottom: 8px; }
 .repair-status {
     display: inline-block;
     padding: 4px 10px;
@@ -401,24 +499,28 @@ body {
     font-size: 11px;
     font-weight: bold;
 }
-.status-accepted { background: #f59e0b; }
-.status-work { background: #3b82f6; }
-.status-ready { background: #8b5cf6; }
-.status-issued { background: #22c55e; }
+.status-accepted { background: #fef3c7; color: #d97706; }
+.status-work { background: #dbeafe; color: #2563eb; }
+.status-ready { background: #e9d5ff; color: #7c3aed; }
+.status-issued { background: #d1fae5; color: #059669; }
+.repair-cost { text-align: right; font-weight: bold; color: #22c55e; margin-top: 8px; }
 
 /* ========== НАСТРОЙКИ ========== */
 .directories-container { flex: 1; padding: 20px; overflow-y: auto; }
 .directories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .directory-card {
-    background: #0f3460;
+    background: white;
     border-radius: 20px;
     padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
 }
 .directory-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
 }
+.directory-header h2 { color: #2c3e50; }
 .directory-header button {
     background: #e94560;
     border: none;
@@ -426,18 +528,22 @@ body {
     border-radius: 8px;
     color: white;
     cursor: pointer;
+    transition: 0.2s;
 }
+.directory-header button:hover { background: #c82333; }
 .directory-list { max-height: 400px; overflow-y: auto; }
 .directory-item {
-    background: #1a1a2e;
+    background: #f8f9fa;
     padding: 12px;
     margin-bottom: 8px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #e9ecef;
 }
-.directory-item-info { flex: 1; }
+.directory-item-info { flex: 1; color: #2c3e50; }
+.directory-item-info strong { color: #2c3e50; }
 .directory-item-actions button {
     background: #ef4444;
     border: none;
@@ -446,7 +552,9 @@ body {
     color: white;
     cursor: pointer;
     margin-left: 5px;
+    transition: 0.2s;
 }
+.directory-item-actions button:hover { background: #dc2626; }
 
 /* ========== МОДАЛЬНЫЕ ОКНА ========== */
 .modal {
@@ -456,20 +564,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.5);
     z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background: #0f3460;
+    background: white;
     border-radius: 20px;
     max-width: 500px;
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .close {
@@ -478,20 +587,46 @@ body {
     right: 20px;
     font-size: 28px;
     cursor: pointer;
-    color: #aaa;
+    color: #adb5bd;
+    transition: 0.2s;
+}
+.close:hover { color: #e94560; }
+
+.modal-content h2 {
+    padding: 20px 20px 0;
+    color: #e94560;
 }
 
 .receipt {
     padding: 20px;
     text-align: center;
     font-family: monospace;
+    color: #2c3e50;
 }
+
+.receipt h2 { color: #e94560; margin-bottom: 5px; }
+.receipt h3 { margin-bottom: 15px; border-bottom: 1px dashed #dee2e6; padding-bottom: 10px; }
+
+.receipt-details { text-align: left; margin: 15px 0; }
+.receipt-details p { margin: 5px 0; }
+
+.receipt-table {
+    width: 100%;
+    margin: 15px 0;
+    border-collapse: collapse;
+}
+.receipt-table th, .receipt-table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+.receipt hr { margin: 15px 0; border-color: #dee2e6; }
 
 .receipt-actions {
     display: flex;
     gap: 10px;
     padding: 15px;
-    border-top: 1px solid #333;
+    border-top: 1px solid #e9ecef;
 }
 
 .print-receipt-btn {
@@ -503,7 +638,9 @@ body {
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
 }
+.print-receipt-btn:hover { background: #16a34a; }
 
 .close-receipt-btn {
     background: #ef4444;
@@ -514,7 +651,9 @@ body {
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
 }
+.close-receipt-btn:hover { background: #dc2626; }
 
 .print-buttons {
     display: flex;
@@ -532,8 +671,9 @@ body {
     cursor: pointer;
     background: #e94560;
     color: white;
+    transition: 0.2s;
 }
-
+.print-btn-large:hover { transform: scale(1.02); opacity: 0.9; }
 .print-btn-large.success { background: #22c55e; }
 
 /* АДАПТИВНОСТЬ */
@@ -546,6 +686,8 @@ body {
     .form-row { flex-direction: column; }
 }
 
+/* СКРОЛЛБАР */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-track { background: #e9ecef; border-radius: 4px; }
 ::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #c82333; }
