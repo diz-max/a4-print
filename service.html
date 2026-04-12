@@ -2,98 +2,95 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>A4-Print | Сервис</title>
     <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app">
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
-                <span class="logo-text">A4-PRINT</span>
+    <div class="app-mobile">
+        <header class="header-mobile">
+            <div class="logo-mobile">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img-mobile">
+                <span class="logo-text-mobile">A4-PRINT</span>
             </div>
-            <div class="header-info">
-                <div class="datetime" id="currentDateTime"></div>
-                <button class="back-btn" onclick="window.location.href='index.html'">Назад</button>
+            <div class="header-info-mobile">
+                <div class="datetime-mobile" id="currentDateTime"></div>
+                <button class="back-btn-mobile" onclick="window.location.href='index.html'">← Назад</button>
             </div>
         </header>
 
-        <main class="main-service">
-            <!-- Форма добавления -->
-            <div class="service-form">
-                <h2>Новый ремонт</h2>
-                <div class="form-row">
-                    <div class="form-group">
+        <main class="main-service-mobile">
+            <div class="service-form-mobile">
+                <h2>📝 Новый ремонт</h2>
+                <div class="form-row-mobile">
+                    <div class="form-group-mobile">
                         <label>Клиент *</label>
                         <input type="text" id="repairClient" placeholder="ФИО">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-mobile">
                         <label>Телефон</label>
                         <input type="tel" id="repairPhone" placeholder="+7 XXX XXX-XX-XX">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="form-row-mobile">
+                    <div class="form-group-mobile">
                         <label>Оборудование *</label>
                         <input type="text" id="repairEquipment" placeholder="Ноутбук, телефон...">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-mobile">
                         <label>Модель</label>
                         <input type="text" id="repairModel" placeholder="Модель">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="form-row-mobile">
+                    <div class="form-group-mobile">
                         <label>Серийный номер</label>
                         <input type="text" id="repairSerial" placeholder="SN / IMEI">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-mobile">
                         <label>Стоимость</label>
                         <input type="number" id="repairCost" placeholder="0" value="0">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group-mobile">
                     <label>Неисправность</label>
                     <textarea id="repairIssue" rows="2" placeholder="Описание проблемы"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group-mobile">
                     <label>Комплектация</label>
                     <input type="text" id="repairAccessories" placeholder="Зарядное, коробка...">
                 </div>
-                <button class="btn-submit" onclick="addRepair()">Добавить ремонт</button>
+                <button class="btn-submit-mobile" onclick="addRepair()">✅ Добавить ремонт</button>
             </div>
 
-            <!-- Список ремонтов -->
-            <div class="service-list">
-                <div class="service-list-header">
-                    <h2>Активные ремонты</h2>
-                    <div class="list-actions">
-                        <button class="btn-icon" onclick="refreshRepairsList()">Обновить</button>
-                        <button class="btn-icon" onclick="exportRepairs()">Экспорт</button>
+            <div class="service-list-mobile">
+                <div class="service-list-header-mobile">
+                    <h2>📋 Активные ремонты</h2>
+                    <div class="list-actions-mobile">
+                        <button class="btn-icon-mobile" onclick="refreshRepairsList()">Обновить</button>
+                        <button class="btn-icon-mobile" onclick="exportRepairs()">Экспорт</button>
                     </div>
                 </div>
-                <div class="repairs-list" id="repairsList"></div>
+                <div class="repairs-list-mobile" id="repairsList"></div>
             </div>
         </main>
 
-        <footer class="footer">
-            <button class="footer-btn" onclick="window.location.href='index.html'">Главная</button>
-            <button class="footer-btn" onclick="showServiceStats()">Статистика</button>
+        <footer class="footer-mobile">
+            <button class="footer-btn-mobile" onclick="window.location.href='index.html'">🏠 Главная</button>
+            <button class="footer-btn-mobile" onclick="showServiceStats()">📊 Статистика</button>
         </footer>
     </div>
 
-    <!-- Модальное окно печати -->
-    <div id="printModal" class="modal">
-        <div class="modal-content modal-small">
-            <div class="modal-header">
+    <div id="printModal" class="modal-mobile">
+        <div class="modal-content-mobile">
+            <div class="modal-header-mobile">
                 <h2>Печать документа</h2>
-                <button class="modal-close" onclick="closePrintModal()">×</button>
+                <button class="modal-close-mobile" onclick="closePrintModal()">×</button>
             </div>
-            <div class="modal-body">
-                <button class="btn-print-large" onclick="printAcceptance()">Бланк приёма</button>
-                <button class="btn-print-large success" onclick="printIssue()">Бланк выдачи</button>
+            <div class="modal-body-mobile">
+                <button class="btn-print-large" onclick="printAcceptance()">📄 Бланк приёма</button>
+                <button class="btn-print-large success" onclick="printIssue()">📋 Бланк выдачи</button>
             </div>
         </div>
     </div>
