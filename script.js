@@ -5,6 +5,7 @@ let employees = [];
 let orders = [];
 let currentPayment = 'Наличные';
 let currentOperator = 'Павел';
+let lastOrder = null;
 
 // Инициализация
 function init() {
@@ -153,61 +154,164 @@ function checkout() {
     if (cart.length === 0) { alert('❌ Корзина пуста!'); return; }
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const client = document.getElementById('clientName').value;
+    if (!client) {
+        alert('❌ Введите ФИО клиента!');
+        return;
+    }
+    
     const order = {
         id: Date.now(),
+        number: Math.floor(Math.random() * 9000) + 1000,
         date: new Date().toLocaleDateString('ru-RU'),
         time: new Date().toLocaleTimeString('ru-RU'),
         operator: currentOperator,
-        client: client || '_______________',
+        client: client,
         items: [...cart],
         total: total,
         payment: currentPayment
     };
+    
     orders.unshift(order);
     saveOrders();
-    showReceipt(order);
+    lastOrder = order;
+    showOrderForm(order);
     cart = [];
     renderCart();
     document.getElementById('clientName').value = '';
 }
 
-function showReceipt(order) {
-    const receiptHtml = `
-        <div style="text-align:center;">
+function showOrderForm(order) {
+    const formHtml = `
+        <div class="order-form-header">
             <h2>A4-PRINT</h2>
-            <h3>ЧЕК №${order.id}</h3>
-            <hr>
-            <p>${order.date} ${order.time}</p>
-            <p>Оператор: ${order.operator}</p>
-            <p>Клиент: ${order.client}</p>
-            <hr>
-            <table style="width:100%; margin:10px 0; border-collapse:collapse;">
-                <thead><tr><th>Услуга</th><th>Кол-во</th><th>Сумма</th></tr></thead>
-                <tbody>${order.items.map(i => `<tr><td>${i.name}</td><td>${i.quantity}</td><td>${i.price * i.quantity} ₽</td></tr>`).join('')}</tbody>
-                <tfoot><tr><th colspan="2">ИТОГО:</th><th>${order.total} ₽</th></tr></tfoot>
-            </table>
-            <hr>
-            <p>Оплата: ${order.payment}</p>
-            <p style="font-size:12px; margin-top:20px;">СПАСИБО ЗА ПОКУПКУ!</p>
+            <h3>БЛАНК ЗАКАЗА №${order.number}</h3>
+        </div>
+        <div class="order-form-body">
+            <div class="order-row">
+                <div class="order-field">
+                    <label>Дата заказа:</label>
+                    <span>${order.date}</span>
+                </div>
+                <div class="order-field">
+                    <label>Время:</label>
+                    <span>${order.time}</span>
+                </div>
+            </div>
+            <div class="order-row">
+                <div class="order-field">
+                    <label>Оператор:</label>
+                    <span>${order.operator}</span>
+                </div>
+                <div class="order-field">
+                    <label>Клиент:</label>
+                    <span>${order.client}</span>
+                </div>
+            </div>
+            
+            <div class="order-table-container">
+                <table class="order-table">
+                    <thead>
+                        <tr><th>№</th><th>Услуга</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr>
+                    </thead>
+                    <tbody>
+                        ${order.items.map((item, idx) => `
+                            <tr>
+                                <td>${idx + 1}</td>
+                                <td>${item.name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.price} ₽</td>
+                                <td>${item.price * item.quantity} ₽</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="4"><strong>ИТОГО:</strong></td>
+                            <td><strong>${order.total} ₽</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><strong>Оплата:</strong></td>
+                            <td><strong>${order.payment}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div class="order-signatures">
+                <div class="signature">
+                    <div class="sign-line">_________________________</div>
+                    <div class="sign-label">Подпись оператора</div>
+                </div>
+                <div class="signature">
+                    <div class="sign-line">_________________________</div>
+                    <div class="sign-label">Подпись клиента</div>
+                </div>
+            </div>
+            
+            <div class="order-footer">
+                <p>СПАСИБО ЗА ЗАКАЗ!</p>
+                <p class="small">Оригинал бланка остаётся у клиента</p>
+            </div>
         </div>
     `;
-    document.getElementById('receiptContent').innerHTML = receiptHtml;
-    document.getElementById('receiptModal').style.display = 'flex';
+    
+    document.getElementById('orderFormContent').innerHTML = formHtml;
+    document.getElementById('orderFormModal').style.display = 'flex';
 }
 
-function closeReceiptModal() { document.getElementById('receiptModal').style.display = 'none'; }
-function printReceipt() {
-    const content = document.getElementById('receiptContent').innerHTML;
-    const w = window.open('', '_blank');
-    w.document.write('<html><head><title>Чек</title><style>body{font-family:monospace;padding:20px;}</style></head><body>' + content + '</body></html>');
-    w.document.close();
-    w.print();
+function closeOrderFormModal() {
+    document.getElementById('orderFormModal').style.display = 'none';
+}
+
+function printOrderForm() {
+    const content = document.getElementById('orderFormContent').innerHTML;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Бланк заказа A4-Print</title>
+            <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: 'Segoe UI', Arial, sans-serif; padding: 30px; background: white; }
+                .order-form-header { text-align: center; margin-bottom: 25px; }
+                .order-form-header h2 { color: #e94560; font-size: 24px; margin-bottom: 5px; }
+                .order-form-header h3 { color: #2c3e50; font-size: 18px; }
+                .order-row { display: flex; gap: 30px; margin-bottom: 15px; flex-wrap: wrap; }
+                .order-field { flex: 1; }
+                .order-field label { font-weight: bold; color: #6c757d; margin-right: 10px; }
+                .order-table-container { margin: 20px 0; overflow-x: auto; }
+                .order-table { width: 100%; border-collapse: collapse; }
+                .order-table th, .order-table td { border: 1px solid #dee2e6; padding: 10px; text-align: left; }
+                .order-table th { background: #f8f9fa; font-weight: bold; }
+                .total-row td { background: #f8f9fa; font-weight: bold; }
+                .order-signatures { display: flex; gap: 50px; margin: 30px 0; justify-content: center; }
+                .signature { text-align: center; flex: 1; }
+                .sign-line { border-bottom: 1px solid #2c3e50; width: 200px; margin: 0 auto 5px; padding-top: 20px; }
+                .sign-label { font-size: 12px; color: #6c757d; }
+                .order-footer { text-align: center; margin-top: 30px; }
+                .order-footer p { font-weight: bold; color: #e94560; }
+                .order-footer .small { font-size: 10px; color: #6c757d; margin-top: 5px; }
+                @media print {
+                    body { padding: 0; }
+                    .order-signatures { margin-top: 50px; }
+                }
+            </style>
+        </head>
+        <body>
+            ${content}
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
 }
 
 function showOrdersHistory() {
     if (orders.length === 0) { alert('История пуста'); return; }
-    let history = '📜 ПОСЛЕДНИЕ ЗАКАЗЫ\n\n';
-    orders.slice(0, 20).forEach(o => { history += `№${o.id} | ${o.date} | ${o.operator} | ${o.total} ₽ | ${o.payment}\n`; });
+    let history = '📜 ИСТОРИЯ ЗАКАЗОВ\n\n';
+    orders.slice(0, 20).forEach(o => {
+        history += `№${o.number} | ${o.date} | ${o.client} | ${o.total} ₽ | ${o.payment}\n`;
+    });
     alert(history);
 }
 
@@ -224,7 +328,14 @@ function showStats() {
         if (!workedDays[key]) { workedDays[key] = true; if (opStats[o.operator]) opStats[o.operator].shifts++; }
         if (opStats[o.operator]) opStats[o.operator].revenue += o.total;
     });
-    let html = `<div style="padding:20px;"><h3>💰 ОБЩАЯ</h3><p>Доход: ${totalIncome.toLocaleString()} ₽</p><p>Наличными: ${totalCash.toLocaleString()} ₽</p><p>Картой: ${totalCard.toLocaleString()} ₽</p><p>Заказов: ${orders.length}</p><hr><h3>👥 ПО СОТРУДНИКАМ</h3>`;
+    let html = `<div style="padding:20px;"><h3>💰 ОБЩАЯ СТАТИСТИКА</h3>
+        <p><strong>Доход:</strong> ${totalIncome.toLocaleString()} ₽</p>
+        <p><strong>Наличными:</strong> ${totalCash.toLocaleString()} ₽</p>
+        <p><strong>Картой:</strong> ${totalCard.toLocaleString()} ₽</p>
+        <p><strong>Заказов:</strong> ${orders.length}</p>
+        <p><strong>Средний чек:</strong> ${orders.length ? (totalIncome / orders.length).toLocaleString() : 0} ₽</p>
+        <hr>
+        <h3>👥 ПО СОТРУДНИКАМ</h3>`;
     employees.forEach(e => {
         const s = opStats[e.name];
         html += `<p><strong>${e.name}</strong>: ${s?.shifts || 0} смен, выручка ${(s?.revenue || 0).toLocaleString()} ₽, зарплата ${((s?.shifts || 0) * e.salary).toLocaleString()} ₽</p>`;
@@ -235,11 +346,12 @@ function showStats() {
 }
 
 function closeStatsModal() { document.getElementById('statsModal').style.display = 'none'; }
+
 function exportData() {
-    let csv = "ДАТА,ВРЕМЯ,ОПЕРАТОР,КЛИЕНТ,УСЛУГИ,СУММА,ОПЛАТА\n";
+    let csv = "№,ДАТА,ВРЕМЯ,ОПЕРАТОР,КЛИЕНТ,УСЛУГИ,СУММА,ОПЛАТА\n";
     orders.forEach(o => {
         const servicesText = o.items.map(i => `${i.name} x${i.quantity}`).join(', ');
-        csv += `${o.date},${o.time},${o.operator},${o.client},"${servicesText}",${o.total},${o.payment}\n`;
+        csv += `${o.number},${o.date},${o.time},${o.operator},${o.client},"${servicesText}",${o.total},${o.payment}\n`;
     });
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
