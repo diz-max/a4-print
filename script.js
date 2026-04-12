@@ -149,7 +149,6 @@ function checkout() {
     if (cart.length === 0) { alert('Корзина пуста'); return; }
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const client = document.getElementById('clientName').value;
-    if (!client) { alert('Введите ФИО клиента'); return; }
     
     const order = {
         id: Date.now(),
@@ -157,7 +156,7 @@ function checkout() {
         date: new Date().toLocaleDateString('ru-RU'),
         time: new Date().toLocaleTimeString('ru-RU'),
         operator: currentOperator,
-        client: client,
+        client: client || '_______________',
         items: [...cart],
         total: total,
         payment: currentPayment
@@ -188,14 +187,14 @@ function showOrderForm(order) {
         <table class="order-table">
             <thead><tr><th>№</th><th>Услуга</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead>
             <tbody>${order.items.map((item, idx) => `<tr><td>${idx+1}</td><td>${item.name}</td><td>${item.quantity}</td><td>${item.price} ₽</td><td>${item.price * item.quantity} ₽</td></tr>`).join('')}</tbody>
-            <tfoot><tr class="total-row"><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong></td></tr>
-            <tr><td colspan="4"><strong>Оплата:</strong></td><td><strong>${order.payment}</strong></td></tr></tfoot>
-        </table>
+            <tfoot><tr class="total-row"><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong><\/td><\/tr>
+            <tr><td colspan="4"><strong>Оплата:</strong><\/td><td><strong>${order.payment}</strong><\/td><\/tr><\/tfoot>
+        <\/table>
         <div class="order-signatures">
-            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись оператора</div></div>
-            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись клиента</div></div>
-        </div>
-        <div class="order-footer"><p>СПАСИБО ЗА ЗАКАЗ!</p></div>
+            <div class="signature"><div class="sign-line"><\/div><div class="sign-label">Подпись оператора<\/div><\/div>
+            <div class="signature"><div class="sign-line"><\/div><div class="sign-label">Подпись клиента<\/div><\/div>
+        <\/div>
+        <div class="order-footer"><p>СПАСИБО ЗА ЗАКАЗ!<\/p><\/div>
     `;
     document.getElementById('orderFormContent').innerHTML = html;
     document.getElementById('orderFormModal').style.display = 'flex';
@@ -209,17 +208,17 @@ function printOrderForm() {
     w.document.write(`
         <html><head><title>Бланк заказа</title>
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 30px; background: white; }
-            .order-form-header { text-align: center; margin-bottom: 25px; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background: white; }
+            .order-form-header { text-align: center; margin-bottom: 20px; }
             .order-form-header h2 { color: #e94560; }
-            .order-row { display: flex; gap: 30px; margin-bottom: 15px; flex-wrap: wrap; }
+            .order-row { display: flex; gap: 20px; margin-bottom: 15px; flex-wrap: wrap; }
             .order-field label { font-weight: 600; margin-right: 10px; }
-            .order-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-            .order-table th, .order-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+            .order-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+            .order-table th, .order-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
             .order-table th { background: #f5f5f7; }
-            .order-signatures { display: flex; gap: 50px; margin: 40px 0; justify-content: center; flex-wrap: wrap; }
-            .signature { text-align: center; flex: 1; min-width: 200px; }
-            .sign-line { border-bottom: 1px solid #000; width: 100%; margin: 0 auto 10px; padding-top: 25px; }
+            .order-signatures { display: flex; gap: 30px; margin: 30px 0; justify-content: center; flex-wrap: wrap; }
+            .signature { text-align: center; flex: 1; min-width: 150px; }
+            .sign-line { border-bottom: 1px solid #000; width: 100%; margin: 0 auto 8px; padding-top: 20px; }
             .order-footer { text-align: center; margin-top: 20px; }
             @media print { body { padding: 0; } }
             @media (max-width: 600px) { .order-row { flex-direction: column; gap: 10px; } .order-signatures { flex-direction: column; gap: 20px; } }
