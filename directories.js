@@ -38,13 +38,13 @@ function renderServices() {
     container.innerHTML = '';
     services.forEach(s => {
         const div = document.createElement('div');
-        div.className = 'directory-item-mobile';
+        div.className = 'directory-item';
         div.innerHTML = `
-            <div class="directory-item-info-mobile">
+            <div class="directory-item-info">
                 <strong>${s.name}</strong>
                 <span>${s.price} ₽</span>
             </div>
-            <div class="directory-item-actions-mobile">
+            <div class="directory-item-actions">
                 <button onclick="editService(${s.id})">✏️</button>
                 <button onclick="deleteService(${s.id})">🗑️</button>
             </div>
@@ -59,13 +59,13 @@ function renderEmployees() {
     container.innerHTML = '';
     employees.forEach(e => {
         const div = document.createElement('div');
-        div.className = 'directory-item-mobile';
+        div.className = 'directory-item';
         div.innerHTML = `
-            <div class="directory-item-info-mobile">
+            <div class="directory-item-info">
                 <strong>${e.name}</strong>
                 <span>${e.salary} ₽/смена</span>
             </div>
-            <div class="directory-item-actions-mobile">
+            <div class="directory-item-actions">
                 <button onclick="editEmployee(${e.id})">✏️</button>
                 <button onclick="deleteEmployee(${e.id})">🗑️</button>
             </div>
