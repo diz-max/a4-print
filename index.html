@@ -20,56 +20,56 @@
                 <div class="operator">
                     <span class="operator-label">Оператор</span>
                     <span class="operator-name" id="currentOperator">Павел</span>
-                    <button class="operator-switch" onclick="switchOperator()">сменить</button>
+                    <button class="operator-switch" onclick="switchOperator()">Сменить</button>
                 </div>
             </div>
         </header>
 
-        <!-- Основной контент -->
-        <main class="main">
-            <!-- Корзина -->
-            <div class="cart">
+        <!-- Основной контент - на весь экран -->
+        <main class="main-full">
+            <!-- Корзина - левая часть -->
+            <div class="cart-full">
                 <div class="cart-header">
-                    <h2>Корзина</h2>
+                    <h2>🛒 Корзина</h2>
                     <input type="text" id="clientName" placeholder="ФИО клиента" class="client-input">
                 </div>
-                <div class="cart-items" id="cartItems">
-                    <div class="cart-empty">Нажмите на услугу для добавления</div>
+                <div class="cart-items-full" id="cartItems">
+                    <div class="cart-empty">➕ Нажмите на услугу для добавления</div>
                 </div>
-                <div class="cart-footer">
+                <div class="cart-footer-full">
                     <div class="cart-total">
-                        <span>Итого</span>
+                        <span>ИТОГО</span>
                         <span class="cart-total-amount" id="cartTotal">0</span>
                         <span>₽</span>
                     </div>
                     <div class="cart-actions">
-                        <button class="btn-payment cash" onclick="setPayment('Наличные')">Наличные</button>
-                        <button class="btn-payment card" onclick="setPayment('Карта')">Карта</button>
+                        <button class="btn-payment cash" onclick="setPayment('Наличные')">💵 НАЛИЧНЫЕ</button>
+                        <button class="btn-payment card" onclick="setPayment('Карта')">💳 КАРТА</button>
                     </div>
                     <div class="cart-buttons">
-                        <button class="btn-clear" onclick="clearCart()">Очистить</button>
-                        <button class="btn-checkout" onclick="checkout()">Оформить</button>
+                        <button class="btn-clear" onclick="clearCart()">ОЧИСТИТЬ</button>
+                        <button class="btn-checkout" onclick="checkout()">ОФОРМИТЬ</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Услуги -->
-            <div class="services">
+            <!-- Услуги - правая часть -->
+            <div class="services-full">
                 <div class="services-header">
-                    <h2>Услуги</h2>
-                    <input type="text" id="serviceSearch" placeholder="Поиск" class="search-input" oninput="filterServices()">
+                    <h2>📋 Услуги</h2>
+                    <input type="text" id="serviceSearch" placeholder="🔍 Поиск услуги" class="search-input" oninput="filterServices()">
                 </div>
-                <div class="services-grid" id="servicesGrid"></div>
+                <div class="services-grid-full" id="servicesGrid"></div>
             </div>
         </main>
 
-        <!-- Нижняя панель -->
-        <footer class="footer">
-            <button class="footer-btn" onclick="showOrdersHistory()">История</button>
-            <button class="footer-btn" onclick="window.location.href='service.html'">Сервис</button>
-            <button class="footer-btn" onclick="window.location.href='directories.html'">Настройки</button>
-            <button class="footer-btn" onclick="showStats()">Статистика</button>
-            <button class="footer-btn" onclick="exportData()">Экспорт</button>
+        <!-- Нижняя панель с крупными кнопками -->
+        <footer class="footer-full">
+            <button class="footer-btn-full" onclick="showOrdersHistory()">📜 ИСТОРИЯ</button>
+            <button class="footer-btn-full" onclick="window.location.href='service.html'">🔧 СЕРВИС</button>
+            <button class="footer-btn-full" onclick="window.location.href='directories.html'">⚙️ НАСТРОЙКИ</button>
+            <button class="footer-btn-full" onclick="showStats()">📊 СТАТИСТИКА</button>
+            <button class="footer-btn-full" onclick="exportData()">📎 ЭКСПОРТ</button>
         </footer>
     </div>
 
@@ -93,8 +93,8 @@
             </div>
             <div class="modal-body" id="orderFormContent"></div>
             <div class="modal-footer">
-                <button class="btn-print" onclick="printOrderForm()">Печать</button>
-                <button class="btn-secondary" onclick="closeOrderFormModal()">Закрыть</button>
+                <button class="btn-print" onclick="printOrderForm()">🖨️ ПЕЧАТЬ</button>
+                <button class="btn-secondary" onclick="closeOrderFormModal()">ЗАКРЫТЬ</button>
             </div>
         </div>
     </div>
