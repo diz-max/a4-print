@@ -40,7 +40,7 @@ function renderServices() {
         const div = document.createElement('div');
         div.className = 'directory-item';
         div.innerHTML = `
-            <div class="directory-item-info"><strong>${s.name}</strong><br>${s.price} ₽</div>
+            <div class="directory-item-info"><strong>${s.name}</strong><span>${s.price} ₽</span></div>
             <div class="directory-item-actions"><button onclick="editService(${s.id})">✏️</button><button onclick="deleteService(${s.id})">🗑️</button></div>
         `;
         container.appendChild(div);
@@ -55,7 +55,7 @@ function renderEmployees() {
         const div = document.createElement('div');
         div.className = 'directory-item';
         div.innerHTML = `
-            <div class="directory-item-info"><strong>${e.name}</strong><br>${e.salary} ₽/смена</div>
+            <div class="directory-item-info"><strong>${e.name}</strong><span>${e.salary} ₽/смена</span></div>
             <div class="directory-item-actions"><button onclick="editEmployee(${e.id})">✏️</button><button onclick="deleteEmployee(${e.id})">🗑️</button></div>
         `;
         container.appendChild(div);
@@ -85,23 +85,23 @@ function addEmployee() {
 }
 
 function editService(id) {
-    const service = services.find(s => s.id === id);
-    if (!service) return;
-    const name = prompt('Название:', service.name);
-    if (name) service.name = name;
-    const price = parseFloat(prompt('Цена:', service.price));
-    if (!isNaN(price)) service.price = price;
+    const s = services.find(s => s.id === id);
+    if (!s) return;
+    const name = prompt('Название:', s.name);
+    if (name) s.name = name;
+    const price = parseFloat(prompt('Цена:', s.price));
+    if (!isNaN(price)) s.price = price;
     saveServices();
     renderServices();
 }
 
 function editEmployee(id) {
-    const emp = employees.find(e => e.id === id);
-    if (!emp) return;
-    const name = prompt('Имя:', emp.name);
-    if (name) emp.name = name;
-    const salary = parseFloat(prompt('Оклад:', emp.salary));
-    if (!isNaN(salary)) emp.salary = salary;
+    const e = employees.find(e => e.id === id);
+    if (!e) return;
+    const name = prompt('Имя:', e.name);
+    if (name) e.name = name;
+    const salary = parseFloat(prompt('Оклад:', e.salary));
+    if (!isNaN(salary)) e.salary = salary;
     saveEmployees();
     renderEmployees();
 }
@@ -122,22 +122,17 @@ function deleteEmployee(id) {
     }
 }
 
-function saveAllDirectories() {
-    saveServices();
-    saveEmployees();
-    alert('✅ Все настройки сохранены!');
-}
-
+function saveAllDirectories() { saveServices(); saveEmployees(); alert('Сохранено!'); }
 function resetToDefault() {
-    if (confirm('Сбросить все настройки?')) {
+    if (confirm('Сбросить настройки?')) {
         localStorage.removeItem('a4print_services');
         localStorage.removeItem('a4print_employees');
         loadServices();
         loadEmployees();
         renderServices();
         renderEmployees();
-        alert('✅ Настройки сброшены!');
+        alert('Сброшено!');
     }
 }
 
-initDirectories();
+document.addEventListener('DOMContentLoaded', initDirectories);
