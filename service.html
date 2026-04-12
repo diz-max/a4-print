@@ -2,65 +2,101 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>СЕРВИСНЫЙ ЦЕНТР</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>A4-Print | Сервис</title>
+    <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔧 СЕРВИСНЫЙ ЦЕНТР</h1>
-            <nav>
-                <button onclick="window.location.href='index.html'">📝 ЗАКАЗЫ</button>
-                <button class="active">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
-                <button onclick="window.location.href='directories.html'">📚 СПРАВОЧНИКИ</button>
-            </nav>
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                    <span>A4-PRINT</span>
+                </div>
+                <div class="date-time" id="currentDateTime"></div>
+            </div>
+            <div class="header-right">
+                <button class="back-btn" onclick="window.location.href='index.html'">← НАЗАД</button>
+            </div>
         </header>
 
-        <div class="toolbar">
-            <button onclick="addRepair()">➕ НОВЫЙ РЕМОНТ</button>
-            <button onclick="saveData()">💾 СОХРАНИТЬ</button>
-            <button onclick="printAcceptanceBlank()">📄 ПЕЧАТЬ БЛАНКА ПРИЁМА</button>
-            <button onclick="printIssueBlank()">📋 ПЕЧАТЬ БЛАНКА ВЫДАЧИ</button>
-            <button onclick="showRepairStats()">📊 СТАТИСТИКА</button>
-            <button onclick="exportRepairsToExcel()">📎 ЭКСПОРТ В EXCEL</button>
+        <div class="service-main">
+            <div class="service-left">
+                <div class="service-form-card">
+                    <h2>📝 НОВЫЙ РЕМОНТ</h2>
+                    <div class="service-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>👤 Клиент *</label>
+                                <input type="text" id="repairClient" placeholder="ФИО клиента">
+                            </div>
+                            <div class="form-group">
+                                <label>📞 Телефон</label>
+                                <input type="tel" id="repairPhone" placeholder="+7 XXX XXX-XX-XX">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>🖥️ Оборудование *</label>
+                                <input type="text" id="repairEquipment" placeholder="Ноутбук, телефон...">
+                            </div>
+                            <div class="form-group">
+                                <label>📱 Модель</label>
+                                <input type="text" id="repairModel" placeholder="Модель устройства">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>🔢 Серийный номер</label>
+                                <input type="text" id="repairSerial" placeholder="SN / IMEI">
+                            </div>
+                            <div class="form-group">
+                                <label>💰 Стоимость</label>
+                                <input type="number" id="repairCost" placeholder="0" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>⚠️ Неисправность</label>
+                            <textarea id="repairIssue" rows="2" placeholder="Опишите проблему..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>📦 Комплектация</label>
+                            <input type="text" id="repairAccessories" placeholder="Зарядное устройство, коробка...">
+                        </div>
+                        <button class="submit-btn" onclick="addRepair()">✅ ДОБАВИТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-right">
+                <div class="service-list-card">
+                    <div class="list-header">
+                        <h2>📋 АКТИВНЫЕ РЕМОНТЫ</h2>
+                        <div class="list-actions">
+                            <button onclick="refreshRepairsList()">🔄 ОБНОВИТЬ</button>
+                            <button onclick="exportRepairs()">📎 ЭКСПОРТ</button>
+                        </div>
+                    </div>
+                    <div class="repairs-list" id="repairsList"></div>
+                </div>
+            </div>
         </div>
 
-        <table id="repairsTable">
-            <thead>
-                <tr>
-                    <th>№</th><th>ДАТА</th><th>КЛИЕНТ</th><th>ТЕЛЕФОН</th><th>ОБОРУДОВАНИЕ</th><th>МОДЕЛЬ</th><th>НЕИСПРАВНОСТЬ</th><th>СТОИМОСТЬ</th><th>СТАТУС</th><th></th>
-                </tr>
-            </thead>
-            <tbody id="repairsBody"></tbody>
-        </table>
+        <footer class="footer">
+            <button class="footer-btn" onclick="window.location.href='index.html'">🏠 ГЛАВНАЯ</button>
+            <button class="footer-btn" onclick="showServiceStats()">📊 СТАТИСТИКА</button>
+        </footer>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ РЕМОНТА -->
-    <div id="repairModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeRepairModal()">&times;</span>
-            <h3>🔧 НОВЫЙ РЕМОНТ</h3>
-            <form id="repairForm">
-                <label>Клиент: <input type="text" id="repairClient" required></label>
-                <label>Телефон: <input type="tel" id="repairPhone"></label>
-                <label>Оборудование: <input type="text" id="repairEquipment" required></label>
-                <label>Модель: <input type="text" id="repairModel"></label>
-                <label>Серийный номер: <input type="text" id="repairSerial"></label>
-                <label>Неисправность: <textarea id="repairIssue" rows="2"></textarea></label>
-                <label>Комплектация: <input type="text" id="repairAccessories" placeholder="Зарядное, коробка и т.д."></label>
-                <label>Стоимость: <input type="number" id="repairCost" value="0"></label>
-                <label>Статус: 
-                    <select id="repairStatus">
-                        <option value="Принято">Принято</option>
-                        <option value="В работе">В работе</option>
-                        <option value="Готово">Готово</option>
-                        <option value="Выдано">Выдано</option>
-                    </select>
-                </label>
-                <label>Примечание: <input type="text" id="repairNote"></label>
-                <button type="submit">✅ ДОБАВИТЬ</button>
-            </form>
+    <div id="printModal" class="modal">
+        <div class="modal-content modal-print">
+            <span class="close" onclick="closePrintModal()">&times;</span>
+            <div class="print-buttons">
+                <button class="print-btn-large" onclick="printAcceptance()">📄 ПРИЁМ</button>
+                <button class="print-btn-large success" onclick="printIssue()">📋 ВЫДАЧА</button>
+            </div>
         </div>
     </div>
 
