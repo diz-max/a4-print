@@ -2,688 +2,610 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: white;
+    background: #f5f5f7;
     color: #1d1d1f;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
 }
 
-.app {
+/* ========== МОБИЛЬНАЯ ВЕРСИЯ ========== */
+.app-mobile {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
-/* ========== ХЕДЕР ========== */
-.header {
+/* ХЕДЕР */
+.header-mobile {
     background: white;
-    padding: 20px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 16px;
     border-bottom: 1px solid #e9e9ef;
-    flex-wrap: wrap;
-    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
 }
 
-.logo {
+.logo-mobile {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
-.logo-img {
-    height: 44px;
+.logo-img-mobile {
+    height: 32px;
     width: auto;
 }
 
-.logo-text {
-    font-size: 24px;
+.logo-text-mobile {
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: -0.5px;
     background: linear-gradient(135deg, #e94560, #c82333);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.header-info {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-.datetime {
-    font-size: 16px;
-    color: #86868b;
-}
-
-.operator {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #f5f5f7;
-    padding: 10px 20px;
-    border-radius: 40px;
-}
-
-.operator-label {
-    font-size: 14px;
-    color: #86868b;
-}
-
-.operator-name {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.operator-switch {
-    background: none;
-    border: none;
-    color: #e94560;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 6px 12px;
-    border-radius: 20px;
-    transition: 0.2s;
-}
-
-.operator-switch:hover {
-    background: #e9e9ef;
-}
-
-/* ========== ОСНОВНОЙ КОНТЕНТ - ВЕСЬ ЭКРАН ========== */
-.main-full {
-    flex: 1;
-    display: flex;
-    gap: 32px;
-    padding: 32px;
-    overflow: hidden;
-    background: white;
-}
-
-/* КОРЗИНА - ЛЕВАЯ ЧАСТЬ */
-.cart-full {
-    width: 420px;
-    background: white;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border: 1px solid #e9e9ef;
-}
-
-.cart-header {
-    padding: 24px;
-    border-bottom: 1px solid #e9e9ef;
-}
-
-.cart-header h2 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-
-.client-input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #e9e9ef;
-    border-radius: 14px;
-    font-size: 15px;
-    transition: 0.2s;
-}
-
-.client-input:focus {
-    outline: none;
-    border-color: #e94560;
-    box-shadow: 0 0 0 3px rgba(233,69,96,0.1);
-}
-
-.cart-items-full {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 24px;
-}
-
-.cart-empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: #86868b;
-    font-size: 16px;
-}
-
-.cart-item {
+.header-info-mobile {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.datetime-mobile {
+    font-size: 12px;
+    color: #86868b;
+}
+
+.operator-mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f5f7;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.operator-name-mobile {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.operator-switch-mobile {
+    background: none;
+    border: none;
+    color: #e94560;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* ОСНОВНОЙ КОНТЕНТ - ВЕРТИКАЛЬНЫЙ */
+.main-mobile {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* КОРЗИНА - ВВЕРХУ */
+.cart-mobile {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9e9ef;
+    overflow: hidden;
+}
+
+.cart-header-mobile {
+    padding: 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9e9ef;
+}
+
+.cart-header-mobile h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.client-input-mobile {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e9e9ef;
+    border-radius: 12px;
+    font-size: 16px;
+    background: white;
+}
+
+.client-input-mobile:focus {
+    outline: none;
+    border-color: #e94560;
+}
+
+.cart-items-mobile {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0 12px;
+}
+
+.cart-empty-mobile {
+    text-align: center;
+    padding: 40px 20px;
+    color: #86868b;
+    font-size: 14px;
+}
+
+.cart-item-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
     border-bottom: 1px solid #f0f0f2;
 }
 
-.cart-item-info {
+.cart-item-info-mobile {
     flex: 1;
 }
 
-.cart-item-name {
+.cart-item-name-mobile {
     font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 14px;
+    margin-bottom: 4px;
 }
 
-.cart-item-details {
-    font-size: 13px;
+.cart-item-details-mobile {
+    font-size: 12px;
     color: #86868b;
 }
 
-.cart-item-price {
+.cart-item-price-mobile {
     text-align: right;
-    margin-right: 16px;
+    margin-right: 12px;
 }
 
-.cart-item-amount {
+.cart-item-amount-mobile {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     color: #e94560;
 }
 
-.cart-item-remove {
+.cart-item-remove-mobile {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     color: #86868b;
     padding: 8px;
-    border-radius: 10px;
-    transition: 0.2s;
 }
 
-.cart-item-remove:hover {
-    background: #f5f5f7;
-    color: #e94560;
-}
-
-.cart-footer-full {
-    padding: 24px;
+.cart-footer-mobile {
+    padding: 16px;
     border-top: 1px solid #e9e9ef;
     background: white;
 }
 
-.cart-total {
+.cart-total-mobile {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.cart-total-amount {
-    font-size: 32px;
-    font-weight: 700;
-    color: #e94560;
-}
-
-.cart-actions {
-    display: flex;
-    gap: 16px;
     margin-bottom: 16px;
-}
-
-.btn-payment {
-    flex: 1;
-    padding: 16px;
-    border: none;
-    border-radius: 14px;
-    font-weight: 600;
     font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-payment.cash {
-    background: #e94560;
-    color: white;
-}
-
-.btn-payment.card {
-    background: #f5f5f7;
-    color: #1d1d1f;
-}
-
-.btn-payment:hover {
-    transform: translateY(-2px);
-    filter: brightness(0.98);
-}
-
-.cart-buttons {
-    display: flex;
-    gap: 16px;
-}
-
-.btn-clear, .btn-checkout {
-    flex: 1;
-    padding: 16px;
-    border: none;
-    border-radius: 14px;
     font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
 }
 
-.btn-clear {
-    background: #f5f5f7;
-    color: #86868b;
-}
-
-.btn-checkout {
-    background: #e94560;
-    color: white;
-}
-
-.btn-checkout:hover {
-    background: #c82333;
-    transform: translateY(-2px);
-}
-
-/* УСЛУГИ - ПРАВАЯ ЧАСТЬ (ВЕСЬ ОСТАЛЬНОЙ ЭКРАН) */
-.services-full {
-    flex: 1;
-    background: white;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border: 1px solid #e9e9ef;
-}
-
-.services-header {
-    padding: 24px;
-    border-bottom: 1px solid #e9e9ef;
-}
-
-.services-header h2 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #e9e9ef;
-    border-radius: 14px;
-    font-size: 15px;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #e94560;
-}
-
-.services-grid-full {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-    padding: 24px;
-    overflow-y: auto;
-}
-
-.service-card {
-    background: #f8f9fa;
-    border-radius: 20px;
-    padding: 24px 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-    border: 1px solid #e9e9ef;
-}
-
-.service-card:hover {
-    background: white;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    border-color: #e94560;
-}
-
-.service-name {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 12px;
-    line-height: 1.3;
-}
-
-.service-price {
+.cart-total-amount-mobile {
     font-size: 24px;
     font-weight: 700;
     color: #e94560;
 }
 
-/* НИЖНЯЯ ПАНЕЛЬ - КРУПНЫЕ КНОПКИ */
-.footer-full {
-    background: white;
-    padding: 16px 32px;
+.cart-actions-mobile {
     display: flex;
-    gap: 16px;
-    justify-content: center;
-    border-top: 1px solid #e9e9ef;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-.footer-btn-full {
-    background: #f8f9fa;
-    border: 1px solid #e9e9ef;
-    padding: 14px 28px;
+.btn-payment-mobile {
+    flex: 1;
+    padding: 14px;
+    border: none;
     border-radius: 40px;
-    font-size: 15px;
     font-weight: 600;
-    color: #1d1d1f;
+    font-size: 15px;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.footer-btn-full:hover {
+.btn-payment-mobile.cash {
     background: #e94560;
-    border-color: #e94560;
     color: white;
-    transform: translateY(-2px);
 }
 
-/* ========== СЕРВИСНЫЙ ЦЕНТР (аналогично увеличенные кнопки) ========== */
-.main-service {
-    flex: 1;
-    display: flex;
-    gap: 32px;
-    padding: 32px;
-    overflow: hidden;
-    background: white;
+.btn-payment-mobile.card {
+    background: #f5f5f7;
+    color: #1d1d1f;
 }
 
-.service-form, .service-list {
-    background: white;
-    border-radius: 24px;
-    overflow-y: auto;
-    border: 1px solid #e9e9ef;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.service-form {
-    width: 420px;
-    padding: 28px;
-}
-
-.service-form h2 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 24px;
-}
-
-.service-list {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.service-list-header {
-    padding: 24px;
-    border-bottom: 1px solid #e9e9ef;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.service-list-header h2 {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.list-actions {
+.cart-buttons-mobile {
     display: flex;
     gap: 12px;
 }
 
-.btn-icon {
-    background: none;
+.btn-clear-mobile, .btn-checkout-mobile {
+    flex: 1;
+    padding: 14px;
     border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 500;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
+}
+
+.btn-clear-mobile {
+    background: #f5f5f7;
     color: #86868b;
 }
 
-.btn-icon:hover {
+.btn-checkout-mobile {
+    background: #e94560;
+    color: white;
+}
+
+/* УСЛУГИ - СНИЗУ */
+.services-mobile {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9e9ef;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.services-header-mobile {
+    padding: 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9e9ef;
+}
+
+.services-header-mobile h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.search-input-mobile {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e9e9ef;
+    border-radius: 30px;
+    font-size: 15px;
+    background: white;
+}
+
+.services-grid-mobile {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.service-card-mobile {
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e9e9ef;
+}
+
+.service-card-mobile:active {
+    background: #e9e9ef;
+    transform: scale(0.98);
+}
+
+.service-name-mobile {
+    font-size: 15px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.service-price-mobile {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e94560;
+}
+
+/* НИЖНЯЯ НАВИГАЦИЯ */
+.footer-mobile {
+    background: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid #e9e9ef;
+    position: sticky;
+    bottom: 0;
+    background: white;
+}
+
+.footer-btn-mobile {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #86868b;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.footer-btn-mobile:active {
     background: #f5f5f7;
     color: #e94560;
 }
 
-.form-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    flex: 1;
+/* ========== СЕРВИСНЫЙ ЦЕНТР - МОБИЛЬНЫЙ ========== */
+.main-service-mobile {
+    padding: 16px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.service-form-mobile {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9e9ef;
+    padding: 16px;
+}
+
+.service-form-mobile h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.service-list-mobile {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9e9ef;
+    overflow: hidden;
+}
+
+.service-list-header-mobile {
+    padding: 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9e9ef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.service-list-header-mobile h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.list-actions-mobile {
+    display: flex;
     gap: 8px;
 }
 
-.form-group label {
-    font-size: 14px;
+.btn-icon-mobile {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.form-row-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.form-group-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group-mobile label {
+    font-size: 13px;
     font-weight: 500;
     color: #86868b;
 }
 
-.form-group input, .form-group textarea {
-    padding: 14px;
+.form-group-mobile input, 
+.form-group-mobile textarea {
+    padding: 12px;
     border: 1px solid #e9e9ef;
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 15px;
     font-family: inherit;
 }
 
-.form-group input:focus, .form-group textarea:focus {
-    outline: none;
-    border-color: #e94560;
-}
-
-.btn-submit {
+.btn-submit-mobile {
     width: 100%;
-    padding: 16px;
+    padding: 14px;
     background: #e94560;
     color: white;
     border: none;
-    border-radius: 14px;
+    border-radius: 40px;
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 12px;
-    transition: 0.2s;
+    margin-top: 8px;
 }
 
-.btn-submit:hover {
-    background: #c82333;
-    transform: translateY(-2px);
-}
-
-.repairs-list {
-    flex: 1;
+.repairs-list-mobile {
+    padding: 12px;
+    max-height: 400px;
     overflow-y: auto;
-    padding: 24px;
 }
 
-.repair-card {
+.repair-card-mobile {
     background: #f8f9fa;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 16px;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
     cursor: pointer;
-    transition: 0.2s;
     border: 1px solid #e9e9ef;
 }
 
-.repair-card:hover {
-    background: white;
-    transform: translateX(6px);
-    border-color: #e94560;
+.repair-card-mobile:active {
+    background: #e9e9ef;
 }
 
-.repair-header {
+.repair-header-mobile {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
-.repair-id {
+.repair-id-mobile {
     font-weight: 700;
     color: #e94560;
-    font-size: 14px;
+    font-size: 13px;
 }
 
-.repair-date {
+.repair-date-mobile {
+    font-size: 11px;
+    color: #86868b;
+}
+
+.repair-client-mobile {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.repair-equipment-mobile {
     font-size: 13px;
     color: #86868b;
+    margin-bottom: 8px;
 }
 
-.repair-client {
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 6px;
-}
-
-.repair-equipment {
-    font-size: 14px;
-    color: #86868b;
-    margin-bottom: 10px;
-}
-
-.repair-status {
+.repair-status-mobile {
     display: inline-block;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
     font-weight: 600;
 }
 
-.status-accepted { background: #fef3c7; color: #d97706; }
-.status-work { background: #dbeafe; color: #2563eb; }
-.status-ready { background: #e9d5ff; color: #7c3aed; }
-.status-issued { background: #d1fae5; color: #059669; }
-
-.repair-cost {
+.repair-cost-mobile {
     text-align: right;
     font-weight: 700;
     color: #e94560;
-    margin-top: 12px;
-    font-size: 16px;
+    margin-top: 8px;
+    font-size: 14px;
 }
 
-/* ========== НАСТРОЙКИ ========== */
-.main-directories {
-    flex: 1;
-    padding: 32px;
-    overflow-y: auto;
+/* ========== НАСТРОЙКИ - МОБИЛЬНЫЕ ========== */
+.main-directories-mobile {
+    padding: 16px;
+}
+
+.directories-grid-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.directory-card-mobile {
     background: white;
-}
-
-.directories-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-}
-
-.directory-card {
-    background: white;
-    border-radius: 24px;
+    border-radius: 20px;
     border: 1px solid #e9e9ef;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.directory-header {
-    padding: 24px;
+.directory-header-mobile {
+    padding: 16px;
+    background: #f8f9fa;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.directory-header h2 {
-    font-size: 20px;
+.directory-header-mobile h2 {
+    font-size: 16px;
     font-weight: 600;
 }
 
-.btn-add {
+.btn-add-mobile {
     background: #e94560;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 30px;
     color: white;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
     cursor: pointer;
 }
 
-.directory-list {
-    padding: 24px;
-    max-height: 500px;
+.directory-list-mobile {
+    padding: 12px;
+    max-height: 350px;
     overflow-y: auto;
 }
 
-.directory-item {
+.directory-item-mobile {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
+    padding: 12px;
     background: #f8f9fa;
-    border-radius: 16px;
-    margin-bottom: 12px;
+    border-radius: 14px;
+    margin-bottom: 8px;
 }
 
-.directory-item-info {
-    flex: 1;
-}
-
-.directory-item-info strong {
+.directory-item-info-mobile strong {
     display: block;
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 14px;
+    margin-bottom: 4px;
 }
 
-.directory-item-info span {
-    font-size: 14px;
+.directory-item-info-mobile span {
+    font-size: 12px;
     color: #86868b;
 }
 
-.directory-item-actions button {
+.directory-item-actions-mobile button {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 10px;
-    color: #86868b;
-}
-
-.directory-item-actions button:hover {
-    background: #e9e9ef;
-    color: #e94560;
+    padding: 6px 10px;
 }
 
 /* ========== МОДАЛЬНЫЕ ОКНА ========== */
-.modal {
+.modal-mobile {
     display: none;
     position: fixed;
     top: 0;
@@ -691,249 +613,197 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
+    padding: 16px;
 }
 
-.modal-content {
+.modal-content-mobile {
     background: white;
-    border-radius: 28px;
-    width: 90%;
-    max-width: 700px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 500px;
     max-height: 85vh;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-.modal-order {
-    max-width: 750px;
+.modal-order-mobile {
+    max-width: 550px;
 }
 
-.modal-header {
-    padding: 24px 28px;
+.modal-header-mobile {
+    padding: 16px 20px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-header h2 {
-    font-size: 22px;
+.modal-header-mobile h2 {
+    font-size: 18px;
     font-weight: 600;
 }
 
-.modal-close {
+.modal-close-mobile {
     background: none;
     border: none;
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
     color: #86868b;
-    padding: 0 12px;
+    padding: 0 8px;
 }
 
-.modal-close:hover {
-    color: #e94560;
-}
-
-.modal-body {
-    padding: 28px;
+.modal-body-mobile {
+    padding: 20px;
     overflow-y: auto;
     max-height: 60vh;
 }
 
-.modal-footer {
-    padding: 20px 28px;
+.modal-footer-mobile {
+    padding: 16px 20px;
     border-top: 1px solid #e9e9ef;
     display: flex;
-    gap: 16px;
-    justify-content: flex-end;
+    gap: 12px;
 }
 
-/* Бланк заказа */
-.order-form-header {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.order-form-header h2 {
-    color: #e94560;
-    font-size: 26px;
-    margin-bottom: 6px;
-}
-
-.order-form-header h3 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #86868b;
-}
-
-.order-row {
-    display: flex;
-    gap: 32px;
-    margin-bottom: 20px;
-}
-
-.order-field {
+.btn-print-mobile, .btn-secondary-mobile {
     flex: 1;
-}
-
-.order-field label {
-    font-weight: 600;
-    color: #86868b;
-    margin-right: 12px;
-}
-
-.order-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 24px 0;
-}
-
-.order-table th, .order-table td {
-    border: 1px solid #e9e9ef;
     padding: 12px;
-    text-align: left;
-    font-size: 14px;
-}
-
-.order-table th {
-    background: #f8f9fa;
-    font-weight: 600;
-}
-
-.order-signatures {
-    display: flex;
-    gap: 60px;
-    margin: 40px 0;
-    justify-content: center;
-}
-
-.signature {
-    text-align: center;
-    flex: 1;
-}
-
-.sign-line {
-    border-bottom: 1px solid #1d1d1f;
-    width: 220px;
-    margin: 0 auto 10px;
-    padding-top: 25px;
-}
-
-.sign-label {
-    font-size: 12px;
-    color: #86868b;
-}
-
-.order-footer {
-    text-align: center;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #e9e9ef;
-}
-
-.order-footer p {
-    font-weight: 600;
-    color: #e94560;
-    font-size: 14px;
-}
-
-.btn-print, .btn-secondary {
-    padding: 14px 28px;
     border: none;
     border-radius: 40px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.btn-print {
+.btn-print-mobile {
     background: #e94560;
     color: white;
 }
 
-.btn-secondary {
+.btn-secondary-mobile {
     background: #f5f5f7;
     color: #86868b;
 }
 
-.btn-print-large {
-    width: 100%;
-    padding: 18px;
+/* Бланк заказа - мобильный */
+.order-form-header-mobile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-form-header-mobile h2 {
+    color: #e94560;
+    font-size: 22px;
+}
+
+.order-form-header-mobile h3 {
+    font-size: 14px;
+    color: #86868b;
+}
+
+.order-row-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 16px;
+}
+
+.order-field-mobile {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.order-field-mobile label {
+    font-weight: 600;
+    color: #86868b;
+}
+
+.order-table-mobile {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+}
+
+.order-table-mobile th, .order-table-mobile td {
+    border: 1px solid #e9e9ef;
+    padding: 8px;
+    text-align: left;
+}
+
+.order-table-mobile th {
+    background: #f8f9fa;
+}
+
+.order-signatures-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.signature-mobile {
+    text-align: center;
+}
+
+.sign-line-mobile {
+    border-bottom: 1px solid #1d1d1f;
+    width: 100%;
+    margin: 0 auto 8px;
+    padding-top: 15px;
+}
+
+.sign-label-mobile {
+    font-size: 11px;
+    color: #86868b;
+}
+
+.order-footer-mobile {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e9e9ef;
+}
+
+.order-footer-mobile p {
+    font-weight: 600;
+    color: #e94560;
+    font-size: 12px;
+}
+
+/* Кнопка "Назад" */
+.back-btn-mobile {
+    background: none;
     border: none;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 18px;
+    color: #e94560;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    background: #e94560;
-    color: white;
+    padding: 8px 16px;
 }
 
-.btn-print-large.success {
-    background: #22c55e;
-}
-
-/* Адаптивность */
-@media (max-width: 1000px) {
-    .main-full, .main-service {
-        flex-direction: column;
-    }
-    .cart-full, .service-form {
-        width: 100%;
-    }
-    .directories-grid {
-        grid-template-columns: 1fr;
-    }
-    .order-row {
-        flex-direction: column;
-        gap: 16px;
-    }
-    .order-signatures {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-    .footer-full {
-        flex-wrap: wrap;
-    }
-    .footer-btn-full {
-        padding: 12px 20px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 700px) {
-    .services-grid-full {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-        padding: 16px;
-    }
-    .service-card {
-        padding: 16px 12px;
-    }
-    .service-price {
-        font-size: 20px;
-    }
-    .cart-total-amount {
-        font-size: 26px;
-    }
+/* Анимации */
+.btn-payment-mobile:active,
+.btn-clear-mobile:active,
+.btn-checkout-mobile:active,
+.service-card-mobile:active,
+.repair-card-mobile:active,
+.footer-btn-mobile:active {
+    transform: scale(0.97);
+    transition: 0.05s;
 }
 
 /* Скроллбар */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 ::-webkit-scrollbar-track {
     background: #e9e9ef;
-    border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #e94560;
+    border-radius: 2px;
 }
