@@ -2,52 +2,49 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>СПРАВОЧНИКИ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>A4-Print | Настройки</title>
+    <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📚 СПРАВОЧНИКИ</h1>
-            <nav>
-                <button onclick="window.location.href='index.html'">📝 ЗАКАЗЫ</button>
-                <button onclick="window.location.href='service.html'">🔧 СЕРВИСНЫЙ ЦЕНТР</button>
-                <button class="active">📚 СПРАВОЧНИКИ</button>
-            </nav>
+    <div class="app">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                <span class="logo-text">A4-PRINT</span>
+            </div>
+            <div class="header-info">
+                <button class="back-btn" onclick="window.location.href='index.html'">Назад</button>
+            </div>
         </header>
 
-        <div class="directories">
-            <!-- УСЛУГИ -->
-            <div class="directory-section">
-                <h2>УСЛУГИ И ЦЕНЫ</h2>
-                <div class="toolbar">
-                    <button onclick="addService()">➕ ДОБАВИТЬ УСЛУГУ</button>
-                    <button onclick="saveServices()">💾 СОХРАНИТЬ</button>
+        <main class="main-directories">
+            <div class="directories-grid">
+                <!-- Услуги -->
+                <div class="directory-card">
+                    <div class="directory-header">
+                        <h2>Услуги и цены</h2>
+                        <button class="btn-add" onclick="addService()">Добавить</button>
+                    </div>
+                    <div class="directory-list" id="servicesList"></div>
                 </div>
-                <table id="servicesTable">
-                    <thead>
-                        <tr><th>Код</th><th>Услуга</th><th>Цена</th><th></th></tr>
-                    </thead>
-                    <tbody id="servicesBody"></tbody>
-                </table>
-            </div>
 
-            <!-- СОТРУДНИКИ -->
-            <div class="directory-section">
-                <h2>СОТРУДНИКИ</h2>
-                <div class="toolbar">
-                    <button onclick="addEmployee()">➕ ДОБАВИТЬ СОТРУДНИКА</button>
-                    <button onclick="saveEmployees()">💾 СОХРАНИТЬ</button>
+                <!-- Сотрудники -->
+                <div class="directory-card">
+                    <div class="directory-header">
+                        <h2>Сотрудники</h2>
+                        <button class="btn-add" onclick="addEmployee()">Добавить</button>
+                    </div>
+                    <div class="directory-list" id="employeesList"></div>
                 </div>
-                <table id="employeesTable">
-                    <thead>
-                        <tr><th>Сотрудник</th><th>Оклад</th><th></th></tr>
-                    </thead>
-                    <tbody id="employeesBody"></tbody>
-                </table>
             </div>
-        </div>
+        </main>
+
+        <footer class="footer">
+            <button class="footer-btn" onclick="saveAllDirectories()">Сохранить</button>
+            <button class="footer-btn" onclick="resetToDefault()">Сбросить</button>
+        </footer>
     </div>
 
     <script src="directories.js"></script>
