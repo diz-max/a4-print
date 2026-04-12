@@ -70,20 +70,17 @@ function renderServicesGrid() {
     grid.innerHTML = '';
     services.forEach(service => {
         const card = document.createElement('div');
-        card.className = 'service-card-mobile';
+        card.className = 'service-card';
         card.onclick = () => addToCart(service);
-        card.innerHTML = `
-            <div class="service-name-mobile">${service.name}</div>
-            <div class="service-price-mobile">${service.price} ₽</div>
-        `;
+        card.innerHTML = `<div class="service-name">${service.name}</div><div class="service-price">${service.price} ₽</div>`;
         grid.appendChild(card);
     });
 }
 
 function filterServices() {
     const search = document.getElementById('serviceSearch').value.toLowerCase();
-    document.querySelectorAll('.service-card-mobile').forEach(card => {
-        const name = card.querySelector('.service-name-mobile').textContent.toLowerCase();
+    document.querySelectorAll('.service-card').forEach(card => {
+        const name = card.querySelector('.service-name').textContent.toLowerCase();
         card.style.display = name.includes(search) ? 'flex' : 'none';
     });
 }
@@ -100,7 +97,7 @@ function renderCart() {
     const totalSpan = document.getElementById('cartTotal');
     if (!container) return;
     if (cart.length === 0) {
-        container.innerHTML = '<div class="cart-empty-mobile">➕ Нажмите на услугу</div>';
+        container.innerHTML = '<div class="cart-empty">➕ Нажмите на услугу для добавления</div>';
         if (totalSpan) totalSpan.textContent = '0';
         return;
     }
@@ -110,16 +107,16 @@ function renderCart() {
         const sum = item.price * item.quantity;
         total += sum;
         const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item-mobile';
+        cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-            <div class="cart-item-info-mobile">
-                <div class="cart-item-name-mobile">${item.name}</div>
-                <div class="cart-item-details-mobile">${item.price} ₽ × ${item.quantity}</div>
+            <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-details">${item.price} ₽ × ${item.quantity}</div>
             </div>
-            <div class="cart-item-price-mobile">
-                <div class="cart-item-amount-mobile">${sum} ₽</div>
+            <div class="cart-item-price">
+                <div class="cart-item-amount">${sum} ₽</div>
             </div>
-            <button class="cart-item-remove-mobile" onclick="removeFromCart(${index})">✕</button>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})">✕</button>
         `;
         container.appendChild(cartItem);
     });
@@ -131,8 +128,8 @@ function clearCart() { if (confirm('Очистить корзину?')) { cart =
 
 function setPayment(payment) {
     currentPayment = payment;
-    const cashBtn = document.querySelector('.btn-payment-mobile.cash');
-    const cardBtn = document.querySelector('.btn-payment-mobile.card');
+    const cashBtn = document.querySelector('.btn-payment.cash');
+    const cardBtn = document.querySelector('.btn-payment.card');
     if (cashBtn && cardBtn) {
         cashBtn.style.opacity = payment === 'Наличные' ? '1' : '0.6';
         cardBtn.style.opacity = payment === 'Карта' ? '1' : '0.6';
@@ -176,29 +173,29 @@ function checkout() {
 
 function showOrderForm(order) {
     const html = `
-        <div class="order-form-header-mobile">
+        <div class="order-form-header">
             <h2>A4-PRINT</h2>
             <h3>Бланк заказа №${order.number}</h3>
         </div>
-        <div class="order-row-mobile">
-            <div class="order-field-mobile"><label>Дата:</label><span>${order.date}</span></div>
-            <div class="order-field-mobile"><label>Время:</label><span>${order.time}</span></div>
+        <div class="order-row">
+            <div class="order-field"><label>Дата:</label><span>${order.date}</span></div>
+            <div class="order-field"><label>Время:</label><span>${order.time}</span></div>
         </div>
-        <div class="order-row-mobile">
-            <div class="order-field-mobile"><label>Оператор:</label><span>${order.operator}</span></div>
-            <div class="order-field-mobile"><label>Клиент:</label><span>${order.client}</span></div>
+        <div class="order-row">
+            <div class="order-field"><label>Оператор:</label><span>${order.operator}</span></div>
+            <div class="order-field"><label>Клиент:</label><span>${order.client}</span></div>
         </div>
-        <table class="order-table-mobile">
+        <table class="order-table">
             <thead><tr><th>№</th><th>Услуга</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead>
             <tbody>${order.items.map((item, idx) => `<tr><td>${idx+1}</td><td>${item.name}</td><td>${item.quantity}</td><td>${item.price} ₽</td><td>${item.price * item.quantity} ₽</td></tr>`).join('')}</tbody>
-            <tfoot><tr><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong></td></tr>
+            <tfoot><tr class="total-row"><td colspan="4"><strong>ИТОГО:</strong></td><td><strong>${order.total} ₽</strong></td></tr>
             <tr><td colspan="4"><strong>Оплата:</strong></td><td><strong>${order.payment}</strong></td></tr></tfoot>
         </table>
-        <div class="order-signatures-mobile">
-            <div class="signature-mobile"><div class="sign-line-mobile"></div><div class="sign-label-mobile">Подпись оператора</div></div>
-            <div class="signature-mobile"><div class="sign-line-mobile"></div><div class="sign-label-mobile">Подпись клиента</div></div>
+        <div class="order-signatures">
+            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись оператора</div></div>
+            <div class="signature"><div class="sign-line"></div><div class="sign-label">Подпись клиента</div></div>
         </div>
-        <div class="order-footer-mobile"><p>СПАСИБО ЗА ЗАКАЗ!</p></div>
+        <div class="order-footer"><p>СПАСИБО ЗА ЗАКАЗ!</p></div>
     `;
     document.getElementById('orderFormContent').innerHTML = html;
     document.getElementById('orderFormModal').style.display = 'flex';
@@ -212,20 +209,20 @@ function printOrderForm() {
     w.document.write(`
         <html><head><title>Бланк заказа</title>
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background: white; }
-            .order-form-header-mobile { text-align: center; margin-bottom: 20px; }
-            .order-form-header-mobile h2 { color: #e94560; }
-            .order-row-mobile { display: flex; gap: 20px; margin-bottom: 15px; flex-wrap: wrap; }
-            .order-field-mobile { flex: 1; }
-            .order-field-mobile label { font-weight: 600; margin-right: 10px; }
-            .order-table-mobile { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            .order-table-mobile th, .order-table-mobile td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            .order-table-mobile th { background: #f5f5f7; }
-            .order-signatures-mobile { display: flex; gap: 30px; margin: 30px 0; justify-content: center; flex-wrap: wrap; }
-            .signature-mobile { text-align: center; flex: 1; min-width: 150px; }
-            .sign-line-mobile { border-bottom: 1px solid #000; width: 100%; margin: 0 auto 8px; padding-top: 20px; }
-            .order-footer-mobile { text-align: center; margin-top: 20px; }
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 30px; background: white; }
+            .order-form-header { text-align: center; margin-bottom: 25px; }
+            .order-form-header h2 { color: #e94560; }
+            .order-row { display: flex; gap: 30px; margin-bottom: 15px; flex-wrap: wrap; }
+            .order-field label { font-weight: 600; margin-right: 10px; }
+            .order-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .order-table th, .order-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+            .order-table th { background: #f5f5f7; }
+            .order-signatures { display: flex; gap: 50px; margin: 40px 0; justify-content: center; flex-wrap: wrap; }
+            .signature { text-align: center; flex: 1; min-width: 200px; }
+            .sign-line { border-bottom: 1px solid #000; width: 100%; margin: 0 auto 10px; padding-top: 25px; }
+            .order-footer { text-align: center; margin-top: 20px; }
             @media print { body { padding: 0; } }
+            @media (max-width: 600px) { .order-row { flex-direction: column; gap: 10px; } .order-signatures { flex-direction: column; gap: 20px; } }
         </style>
         </head><body>${content}</body></html>
     `);
