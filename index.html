@@ -9,87 +9,92 @@
 </head>
 <body>
     <div class="app">
+        <!-- Верхняя панель -->
         <header class="header">
-            <div class="header-left">
-                <div class="logo">
-                    <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
-                    <span>A4-PRINT</span>
-                </div>
-                <div class="date-time" id="currentDateTime"></div>
+            <div class="logo">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                <span class="logo-text">A4-PRINT</span>
             </div>
-            <div class="header-right">
-                <div class="operator">Оператор: <span id="currentOperator">Павел</span></div>
-                <button class="switch-operator" onclick="switchOperator()">🔄 Сменить</button>
+            <div class="header-info">
+                <div class="datetime" id="currentDateTime"></div>
+                <div class="operator">
+                    <span class="operator-label">Оператор</span>
+                    <span class="operator-name" id="currentOperator">Павел</span>
+                    <button class="operator-switch" onclick="switchOperator()">сменить</button>
+                </div>
             </div>
         </header>
 
-        <div class="main-screen">
-            <!-- КОРЗИНА -->
-            <div class="cart-section">
+        <!-- Основной контент -->
+        <main class="main">
+            <!-- Корзина -->
+            <div class="cart">
                 <div class="cart-header">
-                    <h2>🛒 ТЕКУЩИЙ ЗАКАЗ</h2>
-                    <div class="cart-client">
-                        <input type="text" id="clientName" placeholder="Клиент (ФИО)" class="client-input">
-                    </div>
+                    <h2>Корзина</h2>
+                    <input type="text" id="clientName" placeholder="ФИО клиента" class="client-input">
                 </div>
                 <div class="cart-items" id="cartItems">
-                    <div class="empty-cart">➕ Нажмите на услугу для добавления</div>
+                    <div class="cart-empty">Нажмите на услугу для добавления</div>
                 </div>
-                <div class="cart-total">
-                    <div class="total-row">
-                        <span>ИТОГО:</span>
-                        <span class="total-amount" id="cartTotal">0</span>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Итого</span>
+                        <span class="cart-total-amount" id="cartTotal">0</span>
                         <span>₽</span>
                     </div>
-                    <div class="payment-row">
-                        <button class="payment-btn cash-btn" onclick="setPayment('Наличные')">💵 НАЛИЧНЫЕ</button>
-                        <button class="payment-btn card-btn" onclick="setPayment('Карта')">💳 КАРТА</button>
+                    <div class="cart-actions">
+                        <button class="btn-payment cash" onclick="setPayment('Наличные')">Наличные</button>
+                        <button class="btn-payment card" onclick="setPayment('Карта')">Карта</button>
                     </div>
-                    <div class="action-buttons">
-                        <button class="action-btn clear-btn" onclick="clearCart()">🗑️ ОЧИСТИТЬ</button>
-                        <button class="action-btn checkout-btn" onclick="checkout()">✅ ОФОРМИТЬ ЗАКАЗ</button>
+                    <div class="cart-buttons">
+                        <button class="btn-clear" onclick="clearCart()">Очистить</button>
+                        <button class="btn-checkout" onclick="checkout()">Оформить</button>
                     </div>
                 </div>
             </div>
 
-            <!-- УСЛУГИ -->
-            <div class="services-section">
+            <!-- Услуги -->
+            <div class="services">
                 <div class="services-header">
-                    <h2>📋 ВЫБЕРИТЕ УСЛУГУ</h2>
-                    <div class="search-box">
-                        <input type="text" id="serviceSearch" placeholder="🔍 Поиск услуги..." onkeyup="filterServices()">
-                    </div>
+                    <h2>Услуги</h2>
+                    <input type="text" id="serviceSearch" placeholder="Поиск" class="search-input" oninput="filterServices()">
                 </div>
                 <div class="services-grid" id="servicesGrid"></div>
             </div>
-        </div>
+        </main>
 
+        <!-- Нижняя панель -->
         <footer class="footer">
-            <button class="footer-btn" onclick="showOrdersHistory()">📜 ИСТОРИЯ</button>
-            <button class="footer-btn" onclick="window.location.href='service.html'">🔧 СЕРВИС</button>
-            <button class="footer-btn" onclick="window.location.href='directories.html'">⚙️ НАСТРОЙКИ</button>
-            <button class="footer-btn" onclick="showStats()">📊 СТАТИСТИКА</button>
-            <button class="footer-btn" onclick="exportData()">📎 ЭКСПОРТ</button>
+            <button class="footer-btn" onclick="showOrdersHistory()">История</button>
+            <button class="footer-btn" onclick="window.location.href='service.html'">Сервис</button>
+            <button class="footer-btn" onclick="window.location.href='directories.html'">Настройки</button>
+            <button class="footer-btn" onclick="showStats()">Статистика</button>
+            <button class="footer-btn" onclick="exportData()">Экспорт</button>
         </footer>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО СТАТИСТИКИ -->
+    <!-- Модальное окно статистики -->
     <div id="statsModal" class="modal">
-        <div class="modal-content modal-stats">
-            <span class="close" onclick="closeStatsModal()">&times;</span>
-            <h2>📊 СТАТИСТИКА</h2>
-            <div id="statsContent"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Статистика</h2>
+                <button class="modal-close" onclick="closeStatsModal()">×</button>
+            </div>
+            <div class="modal-body" id="statsContent"></div>
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО БЛАНКА ЗАКАЗА -->
+    <!-- Модальное окно бланка заказа -->
     <div id="orderFormModal" class="modal">
-        <div class="modal-content modal-order-form">
-            <span class="close" onclick="closeOrderFormModal()">&times;</span>
-            <div class="order-form" id="orderFormContent"></div>
-            <div class="order-form-actions">
-                <button class="print-order-btn" onclick="printOrderForm()">🖨️ ПЕЧАТАТЬ БЛАНК</button>
-                <button class="close-order-btn" onclick="closeOrderFormModal()">❌ ЗАКРЫТЬ</button>
+        <div class="modal-content modal-order">
+            <div class="modal-header">
+                <h2>Бланк заказа</h2>
+                <button class="modal-close" onclick="closeOrderFormModal()">×</button>
+            </div>
+            <div class="modal-body" id="orderFormContent"></div>
+            <div class="modal-footer">
+                <button class="btn-print" onclick="printOrderForm()">Печать</button>
+                <button class="btn-secondary" onclick="closeOrderFormModal()">Закрыть</button>
             </div>
         </div>
     </div>
