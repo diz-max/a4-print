@@ -2,46 +2,46 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>A4-Print | Настройки</title>
     <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-mobile">
-        <header class="header-mobile">
-            <div class="logo-mobile">
-                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img-mobile">
-                <span class="logo-text-mobile">A4-PRINT</span>
+    <div class="app">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
+                <span class="logo-text">A4-PRINT</span>
             </div>
-            <div class="header-info-mobile">
-                <button class="back-btn-mobile" onclick="window.location.href='index.html'">← Назад</button>
+            <div class="header-info">
+                <button class="back-btn" onclick="window.location.href='index.html'">← Назад</button>
             </div>
         </header>
 
-        <main class="main-directories-mobile">
-            <div class="directories-grid-mobile">
-                <div class="directory-card-mobile">
-                    <div class="directory-header-mobile">
-                        <h2>📋 Услуги</h2>
-                        <button class="btn-add-mobile" onclick="addService()">+ Добавить</button>
+        <main class="main-directories">
+            <div class="directories-grid">
+                <div class="directory-card">
+                    <div class="directory-header">
+                        <h2>📋 Услуги и цены</h2>
+                        <button class="btn-add" onclick="addService()">+ Добавить</button>
                     </div>
-                    <div class="directory-list-mobile" id="servicesList"></div>
+                    <div class="directory-list" id="servicesList"></div>
                 </div>
 
-                <div class="directory-card-mobile">
-                    <div class="directory-header-mobile">
+                <div class="directory-card">
+                    <div class="directory-header">
                         <h2>👥 Сотрудники</h2>
-                        <button class="btn-add-mobile" onclick="addEmployee()">+ Добавить</button>
+                        <button class="btn-add" onclick="addEmployee()">+ Добавить</button>
                     </div>
-                    <div class="directory-list-mobile" id="employeesList"></div>
+                    <div class="directory-list" id="employeesList"></div>
                 </div>
             </div>
         </main>
 
-        <footer class="footer-mobile">
-            <button class="footer-btn-mobile" onclick="saveAllDirectories()">💾 Сохранить</button>
-            <button class="footer-btn-mobile" onclick="resetToDefault()">🔄 Сбросить</button>
+        <footer class="footer">
+            <button class="footer-btn" onclick="saveAllDirectories()">💾 Сохранить</button>
+            <button class="footer-btn" onclick="resetToDefault()">🔄 Сбросить</button>
         </footer>
     </div>
 
