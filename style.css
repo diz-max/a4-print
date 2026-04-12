@@ -6,7 +6,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: #f5f5f7;
+    background: white;
     color: #1d1d1f;
     height: 100vh;
     overflow: hidden;
@@ -16,14 +16,14 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    background: white;
 }
 
 /* ========== ХЕДЕР ========== */
 .header {
     background: white;
-    padding: 16px 24px;
+    padding: 20px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,14 +39,14 @@ body {
 }
 
 .logo-img {
-    height: 36px;
+    height: 44px;
     width: auto;
 }
 
 .logo-text {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
     background: linear-gradient(135deg, #e94560, #c82333);
     -webkit-background-clip: text;
     background-clip: text;
@@ -56,86 +56,88 @@ body {
 .header-info {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 32px;
 }
 
 .datetime {
-    font-size: 14px;
+    font-size: 16px;
     color: #86868b;
 }
 
 .operator {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     background: #f5f5f7;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 40px;
 }
 
 .operator-label {
-    font-size: 13px;
+    font-size: 14px;
     color: #86868b;
 }
 
 .operator-name {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-.operator-switch, .back-btn {
+.operator-switch {
     background: none;
     border: none;
     color: #e94560;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
     transition: 0.2s;
 }
 
-.operator-switch:hover, .back-btn:hover {
-    background: #f5f5f7;
+.operator-switch:hover {
+    background: #e9e9ef;
 }
 
-/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
-.main {
+/* ========== ОСНОВНОЙ КОНТЕНТ - ВЕСЬ ЭКРАН ========== */
+.main-full {
     flex: 1;
     display: flex;
-    gap: 24px;
-    padding: 24px;
+    gap: 32px;
+    padding: 32px;
     overflow: hidden;
+    background: white;
 }
 
-/* КОРЗИНА */
-.cart {
-    width: 380px;
+/* КОРЗИНА - ЛЕВАЯ ЧАСТЬ */
+.cart-full {
+    width: 420px;
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border: 1px solid #e9e9ef;
 }
 
 .cart-header {
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid #e9e9ef;
 }
 
 .cart-header h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .client-input {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #e9e9ef;
-    border-radius: 12px;
-    font-size: 14px;
+    border-radius: 14px;
+    font-size: 15px;
     transition: 0.2s;
 }
 
@@ -145,24 +147,24 @@ body {
     box-shadow: 0 0 0 3px rgba(233,69,96,0.1);
 }
 
-.cart-items {
+.cart-items-full {
     flex: 1;
     overflow-y: auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
 .cart-empty {
     text-align: center;
-    padding: 48px 20px;
+    padding: 60px 20px;
     color: #86868b;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 16px 0;
     border-bottom: 1px solid #f0f0f2;
 }
 
@@ -172,34 +174,34 @@ body {
 
 .cart-item-name {
     font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 4px;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
 .cart-item-details {
-    font-size: 12px;
+    font-size: 13px;
     color: #86868b;
 }
 
 .cart-item-price {
     text-align: right;
-    margin-right: 12px;
+    margin-right: 16px;
 }
 
 .cart-item-amount {
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 18px;
     color: #e94560;
 }
 
 .cart-item-remove {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     color: #86868b;
-    padding: 4px;
-    border-radius: 8px;
+    padding: 8px;
+    border-radius: 10px;
     transition: 0.2s;
 }
 
@@ -208,8 +210,8 @@ body {
     color: #e94560;
 }
 
-.cart-footer {
-    padding: 20px;
+.cart-footer-full {
+    padding: 24px;
     border-top: 1px solid #e9e9ef;
     background: white;
 }
@@ -218,29 +220,30 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 16px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .cart-total-amount {
-    font-size: 24px;
+    font-size: 32px;
+    font-weight: 700;
     color: #e94560;
 }
 
 .cart-actions {
     display: flex;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
 
 .btn-payment {
     flex: 1;
-    padding: 12px;
+    padding: 16px;
     border: none;
-    border-radius: 12px;
-    font-weight: 500;
-    font-size: 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -256,22 +259,22 @@ body {
 }
 
 .btn-payment:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     filter: brightness(0.98);
 }
 
 .cart-buttons {
     display: flex;
-    gap: 12px;
+    gap: 16px;
 }
 
 .btn-clear, .btn-checkout {
     flex: 1;
-    padding: 12px;
+    padding: 16px;
     border: none;
-    border-radius: 12px;
-    font-weight: 500;
-    font-size: 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -288,38 +291,38 @@ body {
 
 .btn-checkout:hover {
     background: #c82333;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
-/* УСЛУГИ */
-.services {
+/* УСЛУГИ - ПРАВАЯ ЧАСТЬ (ВЕСЬ ОСТАЛЬНОЙ ЭКРАН) */
+.services-full {
     flex: 1;
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border: 1px solid #e9e9ef;
 }
 
 .services-header {
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid #e9e9ef;
 }
 
 .services-header h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .search-input {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #e9e9ef;
-    border-radius: 12px;
-    font-size: 14px;
+    border-radius: 14px;
+    font-size: 15px;
 }
 
 .search-input:focus {
@@ -327,93 +330,101 @@ body {
     border-color: #e94560;
 }
 
-.services-grid {
+.services-grid-full {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 24px;
     overflow-y: auto;
 }
 
 .service-card {
-    background: #f5f5f7;
-    border-radius: 16px;
-    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 24px 20px;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
+    border: 1px solid #e9e9ef;
 }
 
 .service-card:hover {
-    background: #e9e9ef;
-    transform: translateY(-2px);
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: #e94560;
 }
 
 .service-name {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    line-height: 1.3;
 }
 
 .service-price {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
     color: #e94560;
 }
 
-/* НИЖНЯЯ ПАНЕЛЬ */
-.footer {
+/* НИЖНЯЯ ПАНЕЛЬ - КРУПНЫЕ КНОПКИ */
+.footer-full {
     background: white;
-    padding: 12px 24px;
+    padding: 16px 32px;
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
     border-top: 1px solid #e9e9ef;
 }
 
-.footer-btn {
-    background: none;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #86868b;
+.footer-btn-full {
+    background: #f8f9fa;
+    border: 1px solid #e9e9ef;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.footer-btn:hover {
-    background: #f5f5f7;
-    color: #e94560;
+.footer-btn-full:hover {
+    background: #e94560;
+    border-color: #e94560;
+    color: white;
+    transform: translateY(-2px);
 }
 
-/* ========== СЕРВИСНЫЙ ЦЕНТР ========== */
+/* ========== СЕРВИСНЫЙ ЦЕНТР (аналогично увеличенные кнопки) ========== */
 .main-service {
     flex: 1;
     display: flex;
-    gap: 24px;
-    padding: 24px;
+    gap: 32px;
+    padding: 32px;
     overflow: hidden;
+    background: white;
 }
 
 .service-form, .service-list {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow-y: auto;
     border: 1px solid #e9e9ef;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .service-form {
-    width: 380px;
-    padding: 24px;
+    width: 420px;
+    padding: 28px;
 }
 
 .service-form h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .service-list {
@@ -423,7 +434,7 @@ body {
 }
 
 .service-list-header {
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
@@ -431,21 +442,22 @@ body {
 }
 
 .service-list-header h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .list-actions {
     display: flex;
-    gap: 8px;
+    gap: 12px;
 }
 
 .btn-icon {
     background: none;
     border: none;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     color: #86868b;
 }
@@ -458,27 +470,27 @@ body {
 .form-row {
     display: flex;
     gap: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .form-group label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: #86868b;
 }
 
 .form-group input, .form-group textarea {
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #e9e9ef;
-    border-radius: 12px;
-    font-size: 14px;
+    border-radius: 14px;
+    font-size: 15px;
     font-family: inherit;
 }
 
@@ -489,75 +501,79 @@ body {
 
 .btn-submit {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background: #e94560;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 12px;
     transition: 0.2s;
 }
 
 .btn-submit:hover {
     background: #c82333;
+    transform: translateY(-2px);
 }
 
 .repairs-list {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 24px;
 }
 
 .repair-card {
-    background: #f5f5f7;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
+    background: #f8f9fa;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
     cursor: pointer;
     transition: 0.2s;
+    border: 1px solid #e9e9ef;
 }
 
 .repair-card:hover {
-    background: #e9e9ef;
-    transform: translateX(4px);
+    background: white;
+    transform: translateX(6px);
+    border-color: #e94560;
 }
 
 .repair-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .repair-id {
-    font-weight: 600;
+    font-weight: 700;
     color: #e94560;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .repair-date {
-    font-size: 12px;
+    font-size: 13px;
     color: #86868b;
 }
 
 .repair-client {
-    font-weight: 500;
-    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
 .repair-equipment {
-    font-size: 13px;
+    font-size: 14px;
     color: #86868b;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .repair-status {
     display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
     font-weight: 600;
 }
 
@@ -568,33 +584,36 @@ body {
 
 .repair-cost {
     text-align: right;
-    font-weight: 600;
+    font-weight: 700;
     color: #e94560;
-    margin-top: 8px;
+    margin-top: 12px;
+    font-size: 16px;
 }
 
 /* ========== НАСТРОЙКИ ========== */
 .main-directories {
     flex: 1;
-    padding: 24px;
+    padding: 32px;
     overflow-y: auto;
+    background: white;
 }
 
 .directories-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 32px;
 }
 
 .directory-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     border: 1px solid #e9e9ef;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .directory-header {
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
@@ -602,23 +621,24 @@ body {
 }
 
 .directory-header h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .btn-add {
     background: #e94560;
     border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
 }
 
 .directory-list {
-    padding: 20px;
-    max-height: 400px;
+    padding: 24px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
@@ -626,10 +646,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    background: #f5f5f7;
-    border-radius: 12px;
-    margin-bottom: 8px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    margin-bottom: 12px;
 }
 
 .directory-item-info {
@@ -638,11 +658,12 @@ body {
 
 .directory-item-info strong {
     display: block;
-    margin-bottom: 4px;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
 .directory-item-info span {
-    font-size: 13px;
+    font-size: 14px;
     color: #86868b;
 }
 
@@ -651,8 +672,8 @@ body {
     border: none;
     font-size: 18px;
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
     color: #86868b;
 }
 
@@ -678,24 +699,20 @@ body {
 
 .modal-content {
     background: white;
-    border-radius: 24px;
+    border-radius: 28px;
     width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
+    max-width: 700px;
+    max-height: 85vh;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .modal-order {
-    max-width: 700px;
-}
-
-.modal-small {
-    max-width: 400px;
+    max-width: 750px;
 }
 
 .modal-header {
-    padding: 20px 24px;
+    padding: 24px 28px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
@@ -703,17 +720,17 @@ body {
 }
 
 .modal-header h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
 }
 
 .modal-close {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     color: #86868b;
-    padding: 0 8px;
+    padding: 0 12px;
 }
 
 .modal-close:hover {
@@ -721,41 +738,41 @@ body {
 }
 
 .modal-body {
-    padding: 24px;
+    padding: 28px;
     overflow-y: auto;
     max-height: 60vh;
 }
 
 .modal-footer {
-    padding: 16px 24px;
+    padding: 20px 28px;
     border-top: 1px solid #e9e9ef;
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: flex-end;
 }
 
 /* Бланк заказа */
 .order-form-header {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .order-form-header h2 {
     color: #e94560;
-    font-size: 22px;
-    margin-bottom: 4px;
+    font-size: 26px;
+    margin-bottom: 6px;
 }
 
 .order-form-header h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: #86868b;
 }
 
 .order-row {
     display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
+    gap: 32px;
+    margin-bottom: 20px;
 }
 
 .order-field {
@@ -763,7 +780,7 @@ body {
 }
 
 .order-field label {
-    font-weight: 500;
+    font-weight: 600;
     color: #86868b;
     margin-right: 12px;
 }
@@ -771,25 +788,25 @@ body {
 .order-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 24px 0;
 }
 
 .order-table th, .order-table td {
     border: 1px solid #e9e9ef;
-    padding: 10px;
+    padding: 12px;
     text-align: left;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .order-table th {
-    background: #f5f5f7;
-    font-weight: 500;
+    background: #f8f9fa;
+    font-weight: 600;
 }
 
 .order-signatures {
     display: flex;
-    gap: 40px;
-    margin: 30px 0;
+    gap: 60px;
+    margin: 40px 0;
     justify-content: center;
 }
 
@@ -800,34 +817,35 @@ body {
 
 .sign-line {
     border-bottom: 1px solid #1d1d1f;
-    width: 200px;
-    margin: 0 auto 8px;
-    padding-top: 20px;
+    width: 220px;
+    margin: 0 auto 10px;
+    padding-top: 25px;
 }
 
 .sign-label {
-    font-size: 11px;
+    font-size: 12px;
     color: #86868b;
 }
 
 .order-footer {
     text-align: center;
-    margin-top: 20px;
-    padding-top: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid #e9e9ef;
 }
 
 .order-footer p {
-    font-weight: 500;
+    font-weight: 600;
     color: #e94560;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .btn-print, .btn-secondary {
-    padding: 10px 20px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 12px;
-    font-weight: 500;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
 }
 
@@ -843,12 +861,12 @@ body {
 
 .btn-print-large {
     width: 100%;
-    padding: 16px;
-    margin-bottom: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
     border: none;
-    border-radius: 16px;
-    font-weight: 600;
-    font-size: 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 18px;
     cursor: pointer;
     background: #e94560;
     color: white;
@@ -859,11 +877,11 @@ body {
 }
 
 /* Адаптивность */
-@media (max-width: 900px) {
-    .main, .main-service {
+@media (max-width: 1000px) {
+    .main-full, .main-service {
         flex-direction: column;
     }
-    .cart, .service-form {
+    .cart-full, .service-form {
         width: 100%;
     }
     .directories-grid {
@@ -871,11 +889,36 @@ body {
     }
     .order-row {
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
     }
     .order-signatures {
         flex-direction: column;
         align-items: center;
+        gap: 30px;
+    }
+    .footer-full {
+        flex-wrap: wrap;
+    }
+    .footer-btn-full {
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 700px) {
+    .services-grid-full {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+        padding: 16px;
+    }
+    .service-card {
+        padding: 16px 12px;
+    }
+    .service-price {
+        font-size: 20px;
+    }
+    .cart-total-amount {
+        font-size: 26px;
     }
 }
 
