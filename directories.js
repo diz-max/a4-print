@@ -38,10 +38,16 @@ function renderServices() {
     container.innerHTML = '';
     services.forEach(s => {
         const div = document.createElement('div');
-        div.className = 'directory-item';
+        div.className = 'directory-item-mobile';
         div.innerHTML = `
-            <div class="directory-item-info"><strong>${s.name}</strong><span>${s.price} ₽</span></div>
-            <div class="directory-item-actions"><button onclick="editService(${s.id})">✏️</button><button onclick="deleteService(${s.id})">🗑️</button></div>
+            <div class="directory-item-info-mobile">
+                <strong>${s.name}</strong>
+                <span>${s.price} ₽</span>
+            </div>
+            <div class="directory-item-actions-mobile">
+                <button onclick="editService(${s.id})">✏️</button>
+                <button onclick="deleteService(${s.id})">🗑️</button>
+            </div>
         `;
         container.appendChild(div);
     });
@@ -53,10 +59,16 @@ function renderEmployees() {
     container.innerHTML = '';
     employees.forEach(e => {
         const div = document.createElement('div');
-        div.className = 'directory-item';
+        div.className = 'directory-item-mobile';
         div.innerHTML = `
-            <div class="directory-item-info"><strong>${e.name}</strong><span>${e.salary} ₽/смена</span></div>
-            <div class="directory-item-actions"><button onclick="editEmployee(${e.id})">✏️</button><button onclick="deleteEmployee(${e.id})">🗑️</button></div>
+            <div class="directory-item-info-mobile">
+                <strong>${e.name}</strong>
+                <span>${e.salary} ₽/смена</span>
+            </div>
+            <div class="directory-item-actions-mobile">
+                <button onclick="editEmployee(${e.id})">✏️</button>
+                <button onclick="deleteEmployee(${e.id})">🗑️</button>
+            </div>
         `;
         container.appendChild(div);
     });
@@ -123,6 +135,7 @@ function deleteEmployee(id) {
 }
 
 function saveAllDirectories() { saveServices(); saveEmployees(); alert('Сохранено!'); }
+
 function resetToDefault() {
     if (confirm('Сбросить настройки?')) {
         localStorage.removeItem('a4print_services');
