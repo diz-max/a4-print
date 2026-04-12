@@ -7,7 +7,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: #f5f5f7;
+    background: white;
     color: #1d1d1f;
     height: 100vh;
     overflow: hidden;
@@ -15,25 +15,23 @@ body {
 
 /* ========== ОСНОВНОЙ КОНТЕЙНЕР ========== */
 .app {
-    max-width: 1400px;
-    margin: 0 auto;
-    background: white;
+    width: 100%;
     height: 100vh;
+    background: white;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 20px rgba(0,0,0,0.05);
     overflow: hidden;
 }
 
 /* ========== ХЕДЕР ========== */
 .header {
     background: white;
-    padding: 12px 20px;
+    padding: 12px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     border-bottom: 1px solid #e9e9ef;
     flex-shrink: 0;
 }
@@ -41,16 +39,16 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .logo-img {
-    height: 32px;
+    height: 28px;
     width: auto;
 }
 
 .logo-text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     background: linear-gradient(135deg, #e94560, #c82333);
     -webkit-background-clip: text;
@@ -61,41 +59,41 @@ body {
 .header-info {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .datetime {
-    font-size: 12px;
+    font-size: 11px;
     color: #86868b;
 }
 
 .operator {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: #f5f5f7;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 20px;
 }
 
 .operator-label {
-    font-size: 12px;
+    font-size: 11px;
     color: #86868b;
 }
 
 .operator-name {
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .operator-switch, .back-btn {
     background: none;
     border: none;
     color: #e94560;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 3px 6px;
     border-radius: 16px;
 }
 
@@ -103,43 +101,43 @@ body {
 .main {
     flex: 1;
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 16px;
+    padding: 16px;
     overflow: hidden;
     min-height: 0;
+    background: white;
 }
 
-/* КОРЗИНА - КВАДРАТНАЯ, ФИКСИРОВАННАЯ ШИРИНА */
+/* КОРЗИНА */
 .cart {
-    width: 360px;
+    width: 340px;
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     border: 1px solid #e9e9ef;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     flex-shrink: 0;
 }
 
 .cart-header {
-    padding: 16px;
+    padding: 14px;
     border-bottom: 1px solid #e9e9ef;
-    background: #f8f9fa;
+    background: #fafafa;
 }
 
 .cart-header h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .client-input {
     width: 100%;
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid #e9e9ef;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     background: white;
 }
 
@@ -157,9 +155,9 @@ body {
 
 .cart-empty {
     text-align: center;
-    padding: 40px 16px;
+    padding: 30px 12px;
     color: #86868b;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .cart-item {
@@ -207,7 +205,7 @@ body {
 }
 
 .cart-footer {
-    padding: 16px;
+    padding: 14px;
     border-top: 1px solid #e9e9ef;
     background: white;
 }
@@ -278,11 +276,11 @@ body {
     color: white;
 }
 
-/* УСЛУГИ - КВАДРАТНЫЕ КНОПКИ, 2 КОЛОНКИ НА ТЕЛЕФОНЕ */
+/* УСЛУГИ */
 .services {
     flex: 1;
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -291,24 +289,24 @@ body {
 }
 
 .services-header {
-    padding: 16px;
+    padding: 14px;
     border-bottom: 1px solid #e9e9ef;
-    background: #f8f9fa;
+    background: #fafafa;
     flex-shrink: 0;
 }
 
 .services-header h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .search-input {
     width: 100%;
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid #e9e9ef;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     background: white;
 }
 
@@ -321,81 +319,14 @@ body {
     min-height: 0;
 }
 
-/* ДЕСКТОП: 4-5 колонок */
-.service-card {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 16px 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-    border: 1px solid #e9e9ef;
-    min-width: 0;
-}
-
-.service-card:hover {
-    background: white;
-    transform: translateY(-2px);
-    border-color: #e94560;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.service-card:active {
-    transform: scale(0.98);
-}
-
-.service-name {
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    word-break: break-word;
-    line-height: 1.3;
-}
-
-.service-price {
-    font-size: 16px;
-    font-weight: 700;
-    color: #e94560;
-}
-
-/* НИЖНЯЯ ПАНЕЛЬ */
-.footer {
-    background: white;
-    padding: 10px 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    border-top: 1px solid #e9e9ef;
-    flex-shrink: 0;
-}
-
-.footer-btn {
-    background: none;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #86868b;
-    cursor: pointer;
-}
-
-.footer-btn:hover {
-    background: #f5f5f7;
-    color: #e94560;
-}
-
-/* ========== АДАПТИВНОСТЬ ========== */
-
-/* ДЕСКТОП (больше 900px) - 4 колонки */
+/* ДЕСКТОП: 4 колонки */
 @media (min-width: 901px) {
     .services-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-/* ПЛАНШЕТЫ (600px - 900px) - 3 колонки */
+/* ПЛАНШЕТЫ: 3 колонки */
 @media (min-width: 601px) and (max-width: 900px) {
     .services-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -406,18 +337,10 @@ body {
     }
 }
 
-/* МОБИЛЬНЫЕ ТЕЛЕФОНЫ (до 600px) - 2 КОЛОНКИ С ГОРИЗОНТАЛЬНЫМ СКРОЛЛОМ */
+/* МОБИЛЬНЫЕ: 2 колонки с горизонтальным скроллом, на всю ширину */
 @media (max-width: 600px) {
     .header {
-        padding: 10px 16px;
-    }
-    
-    .logo-text {
-        font-size: 16px;
-    }
-    
-    .logo-img {
-        height: 28px;
+        padding: 10px 12px;
     }
     
     .main {
@@ -426,16 +349,15 @@ body {
         gap: 12px;
     }
     
-    /* Корзина сверху - фиксированная высота */
+    /* Корзина сверху */
     .cart {
         width: 100%;
-        height: auto;
-        max-height: 35%;
+        max-height: 38%;
         flex-shrink: 0;
     }
     
     .cart-items {
-        max-height: 120px;
+        max-height: 100px;
     }
     
     /* Услуги - 2 колонки с горизонтальным скроллом */
@@ -455,30 +377,37 @@ body {
         -webkit-overflow-scrolling: touch;
     }
     
-    /* Квадратные кнопки услуг на мобильных */
+    /* Квадратные кнопки услуг */
     .service-card {
         flex: 0 0 auto;
-        width: 140px;
+        width: 130px;
         aspect-ratio: 1 / 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 12px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 1px solid #e9e9ef;
     }
     
     .service-name {
         font-size: 12px;
         margin-bottom: 6px;
+        text-align: center;
     }
     
     .service-price {
         font-size: 15px;
+        font-weight: 700;
+        color: #e94560;
     }
     
-    /* Скрываем скроллбар на мобильных, но оставляем функционал */
+    /* Скроллбар */
     .services-grid::-webkit-scrollbar {
-        height: 4px;
+        height: 3px;
     }
     
     .services-grid::-webkit-scrollbar-track {
@@ -491,21 +420,54 @@ body {
         border-radius: 2px;
     }
     
+    /* Кнопки внизу - на всю ширину, без отступов */
+    .cart-footer {
+        padding: 12px;
+    }
+    
+    .cart-total {
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    
+    .cart-total-amount {
+        font-size: 18px;
+    }
+    
+    .cart-actions {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .btn-payment {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    .cart-buttons {
+        gap: 8px;
+    }
+    
+    .btn-clear, .btn-checkout {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
     .footer {
         padding: 8px 12px;
         gap: 8px;
     }
     
     .footer-btn {
-        padding: 6px 12px;
+        padding: 6px 10px;
         font-size: 11px;
     }
 }
 
-/* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 380px) */
+/* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ */
 @media (max-width: 380px) {
     .service-card {
-        width: 120px;
+        width: 110px;
     }
     
     .service-name {
@@ -513,38 +475,99 @@ body {
     }
     
     .service-price {
-        font-size: 14px;
+        font-size: 13px;
     }
-    
-    .cart-total-amount {
-        font-size: 18px;
-    }
-    
-    .btn-payment, .btn-clear, .btn-checkout {
-        padding: 8px;
-        font-size: 12px;
-    }
+}
+
+/* КВАДРАТНЫЕ КНОПКИ УСЛУГ ДЛЯ ВСЕХ УСТРОЙСТВ */
+.service-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    border: 1px solid #e9e9ef;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-card:hover {
+    background: white;
+    transform: translateY(-2px);
+    border-color: #e94560;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.service-card:active {
+    transform: scale(0.97);
+}
+
+.service-name {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    word-break: break-word;
+    line-height: 1.3;
+}
+
+.service-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e94560;
+}
+
+/* НИЖНЯЯ ПАНЕЛЬ */
+.footer {
+    background: white;
+    padding: 10px 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #e9e9ef;
+    flex-shrink: 0;
+}
+
+.footer-btn {
+    background: none;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #86868b;
+    cursor: pointer;
+}
+
+.footer-btn:hover {
+    background: #f5f5f7;
+    color: #e94560;
 }
 
 /* ========== СЕРВИСНЫЙ ЦЕНТР ========== */
 .main-service {
     flex: 1;
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 16px;
+    padding: 16px;
     overflow: hidden;
     min-height: 0;
+    background: white;
 }
 
 .service-form, .service-list {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid #e9e9ef;
     overflow-y: auto;
 }
 
 .service-form {
-    width: 340px;
+    width: 320px;
     padding: 16px;
     flex-shrink: 0;
 }
@@ -563,19 +586,19 @@ body {
 }
 
 .service-list-header {
-    padding: 16px;
+    padding: 14px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    background: #f8f9fa;
+    background: #fafafa;
     flex-shrink: 0;
 }
 
 .service-list-header h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
@@ -587,7 +610,7 @@ body {
 .btn-icon {
     background: none;
     border: none;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 8px;
     font-size: 12px;
     cursor: pointer;
@@ -716,28 +739,25 @@ body {
         flex-direction: column;
         gap: 10px;
     }
-    
-    .repair-card {
-        padding: 10px;
-    }
 }
 
 /* ========== НАСТРОЙКИ ========== */
 .main-directories {
     flex: 1;
-    padding: 20px;
+    padding: 16px;
     overflow-y: auto;
+    background: white;
 }
 
 .directories-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 16px;
 }
 
 .directory-card {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid #e9e9ef;
     overflow: hidden;
     display: flex;
@@ -746,24 +766,24 @@ body {
 }
 
 .directory-header {
-    padding: 16px;
+    padding: 14px;
     border-bottom: 1px solid #e9e9ef;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8f9fa;
+    background: #fafafa;
     flex-shrink: 0;
 }
 
 .directory-header h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .btn-add {
     background: #e94560;
     border: none;
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 8px;
     color: white;
     font-size: 12px;
@@ -809,7 +829,7 @@ body {
 @media (max-width: 700px) {
     .directories-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 12px;
     }
     
     .main-directories {
@@ -835,7 +855,7 @@ body {
 
 .modal-content {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     width: 100%;
     max-width: 550px;
     max-height: 85vh;
@@ -1062,18 +1082,18 @@ body {
 
 /* СКРОЛЛБАР */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
 }
 
 ::-webkit-scrollbar-track {
     background: #e9e9ef;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
