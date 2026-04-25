@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Платёжная ведомость | A4-PRINT</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <style>
+        body { background: #fff; padding: 30px; font-family: system-ui; }
+        .invoice { max-width: 1000px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 20px;}
+        button { margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="invoice">
+    <h2>A4-PRINT: Платёжная ведомость</h2>
+    <div>
+        <label>Период с: <input type="date" id="periodStart"></label>
+        <label>по: <input type="date" id="periodEnd"></label>
+        <button id="calcPayrollBtn">📅 Рассчитать зарплату</button>
+        <button id="exportPayrollExcel">📎 Excel</button>
+        <button onclick="window.print()">🖨️ Печать</button>
+    </div>
+    <div id="payrollResult"></div>
+</div>
+<script>
+    function loadAllData() {
+        const raw = localStorage.getItem('A4PRINT_full');
+        return raw ? JSON.parse(raw) : {};
+    }
+    function buildPayrollTable(start, end) {
+        const data = loadAllData();
+        const s = new Date(start), e = new Date(end);
+        let summary = {};
+        for (let [date, val] of Object.entries(data)) {
+            let d = new Date(date);
+            if (d >= s && d <= e) {
+                let op = val.operator;
+                if (!summary[op]) summary[op] = { shifts: 0, revenue: 0 };
+                summary[op].shifts++;
+                summary[op].revenue += val.totalIncome || 0;
+            }
+        }
+        let html = `<table><thead><tr><th>Оператор</th><th>Смен</th><th>Оклад/смена</th><th>Зарплата</th><th>Выручка (доход)</th><th>Эффективность</th></tr></thead><tbody>`;
+        for (let [op, st] of Object.entries(summary)) {
+            let salaryPerShift = (op === 'Павел') ? 2500 : 2000;
+            let totalSalary = st.shifts * salaryPerShift;
+            let eff = (st.revenue > 0) ? ((st.revenue - totalSalary)/totalSalary*100).toFixed(1) : 0;
+            html += `<tr><td>${op}</td><td>${st.shifts}</td><td>${salaryPerShift}₽</td><td>${totalSalary}₽</td><td>${st.revenue}₽</td><td>${eff}%</td></tr>`;
+        }
+        html += `</tbody></table>`;
+        document.getElementById('payrollResult').innerHTML = html;
+        window.payrollData = { summary, start, end };
+    }
+    document.getElementById('calcPayrollBtn')?.addEventListener('click', () => {
+        let start = document.getElementById('periodStart').value;
+        let end = document.getElementById('periodEnd').value;
+        if(start && end) buildPayrollTable(start, end);
+        else alert("Выберите период");
+    });
+    document.getElementById('exportPayrollExcel')?.addEventListener('click', () => {
+        if(!window.payrollData) return;
+        let rows = [["Оператор","Смен","Оклад/смена","Зарплата","Выручка","Эффективность"]];
+        for(let [op, st] of Object.entries(window.payrollData.summary)) {
+            let rate = op === 'Павел' ? 2500 : 2000;
+            rows.push([op, st.shifts, rate, st.shifts*rate, st.revenue, ((st.revenue - st.shifts*rate)/(st.shifts*rate)*100).toFixed(1)+"%"]);
+        }
+        let ws = XLSX.utils.aoa_to_sheet(rows);
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Ведомость");
+        XLSX.writeFile(wb, `payroll_${window.payrollData.start}_${window.payrollData.end}.xlsx`);
+    });
+</script>
+</body>
+</html>
