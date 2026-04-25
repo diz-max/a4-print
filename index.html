@@ -3,101 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>A4-Print | Касса</title>
-    <link rel="icon" type="image/png" href="images/logo_mini_a4_print.png">
+    <title>A4-PRINT | Учёт заказов и смен</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Библиотека для работы с Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!-- Простой график (Chart.js) для дашборда -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <div class="app">
-        <!-- Верхняя панель -->
-        <header class="header">
-            <div class="logo">
-                <img src="images/logo_mini_a4_print.png" alt="A4-Print" class="logo-img">
-                <span class="logo-text">A4-PRINT</span>
-            </div>
-            <div class="header-info">
-                <div class="datetime" id="currentDateTime"></div>
-                <div class="operator">
-                    <span class="operator-label">Оператор</span>
-                    <span class="operator-name" id="currentOperator">Павел</span>
-                    <button class="operator-switch" onclick="switchOperator()">Сменить</button>
-                </div>
-            </div>
-        </header>
 
-        <!-- Основной контент -->
-        <main class="main">
-            <!-- Корзина -->
-            <div class="cart">
-                <div class="cart-header">
-                    <h2>🛒 Корзина</h2>
-                    <input type="text" id="clientName" placeholder="ФИО клиента" class="client-input">
-                </div>
-                <div class="cart-items" id="cartItems">
-                    <div class="cart-empty">➕ Нажмите на услугу для добавления</div>
-                </div>
-                <div class="cart-footer">
-                    <div class="cart-total">
-                        <span>ИТОГО</span>
-                        <span class="cart-total-amount" id="cartTotal">0</span>
-                        <span>₽</span>
-                    </div>
-                    <div class="cart-actions">
-                        <button class="btn-payment cash" onclick="setPayment('Наличные')">💵 Наличные</button>
-                        <button class="btn-payment card" onclick="setPayment('Карта')">💳 Карта</button>
-                    </div>
-                    <div class="cart-buttons">
-                        <button class="btn-clear" onclick="clearCart()">Очистить</button>
-                        <button class="btn-checkout" onclick="checkout()">Оформить</button>
-                    </div>
-                </div>
-            </div>
+<div class="app-container">
 
-            <!-- Услуги -->
-            <div class="services">
-                <div class="services-header">
-                    <h2>📋 Услуги</h2>
-                    <input type="text" id="serviceSearch" placeholder="🔍 Поиск услуги" class="search-input" oninput="filterServices()">
-                </div>
-                <div class="services-grid" id="servicesGrid"></div>
-            </div>
-        </main>
-
-        <!-- Нижняя панель -->
-        <footer class="footer">
-            <button class="footer-btn" onclick="showOrdersHistory()">📜 История</button>
-            <button class="footer-btn" onclick="window.location.href='service.html'">🔧 Сервис</button>
-            <button class="footer-btn" onclick="window.location.href='directories.html'">⚙️ Настройки</button>
-            <button class="footer-btn" onclick="showStats()">📊 Статистика</button>
-            <button class="footer-btn" onclick="exportData()">📎 Экспорт</button>
-        </footer>
-    </div>
-
-    <!-- Модальные окна -->
-    <div id="statsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Статистика</h2>
-                <button class="modal-close" onclick="closeStatsModal()">×</button>
-            </div>
-            <div class="modal-body" id="statsContent"></div>
+    <!-- ШАПКА С ЛОГОТИПОМ -->
+    <div class="header">
+        <img src="images/logo_mini_a4_print.png" alt="A4-PRINT Logo" class="logo">
+        <div class="title-block">
+            <h1>A4-PRINT</h1>
+            <p>Фото‑копировальный центр • Учёт заказов и зарплаты</p>
         </div>
     </div>
 
-    <div id="orderFormModal" class="modal">
-        <div class="modal-content modal-order">
-            <div class="modal-header">
-                <h2>Бланк заказа</h2>
-                <button class="modal-close" onclick="closeOrderFormModal()">×</button>
+    <!-- Панель управления сменой -->
+    <div class="control-bar">
+        <div class="row">
+            <div class="field">
+                <label>📅 Дата смены</label>
+                <input type="date" id="workDate">
             </div>
-            <div class="modal-body" id="orderFormContent"></div>
-            <div class="modal-footer">
-                <button class="btn-print" onclick="printOrderForm()">🖨️ Печать</button>
-                <button class="btn-secondary" onclick="closeOrderFormModal()">Закрыть</button>
+            <div class="field">
+                <label>👤 Оператор</label>
+                <select id="operatorSelect">
+                    <option value="Наталья">Наталья (оклад 2000₽/смена)</option>
+                    <option value="Павел">Павел (оклад 2500₽/смена)</option>
+                    <option value="Семён">Семён (оклад 2000₽/смена)</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>💰 Расходы из кассы (₽)</label>
+                <input type="number" id="expenses" value="0" step="100">
+            </div>
+            <div class="actions">
+                <button id="saveDayBtn" class="btn save">💾 Сохранить день</button>
+                <button id="clearDayBtn" class="btn clear">🗑️ Очистить</button>
+                <button id="exportExcelBtn" class="btn excel">📎 Excel</button>
+                <button id="payrollBtn" class="btn payroll">💰 Платёжная ведомость</button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Таблица заказов (15 строк, как вы хотели) -->
+    <div class="orders-section">
+        <h3>📋 ЗАКАЗЫ (до 15 операций в смену)</h3>
+        <div class="table-wrapper">
+            <table id="ordersTable">
+                <thead>
+                    <tr><th>№</th><th>🕒 Время</th><th>Услуга</th><th>Цена</th><th>Кол‑во</th><th>Сумма</th><th>Оплата</th></tr>
+                </thead>
+                <tbody id="ordersBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ИТОГИ ЗА ДЕНЬ (быстро, наглядно) -->
+    <div class="daily-summary">
+        <div class="summary-card">
+            <span>💵 Доход</span>
+            <strong id="totalIncome">0 ₽</strong>
+        </div>
+        <div class="summary-card">
+            <span>💸 Расход</span>
+            <strong id="totalExpenses">0 ₽</strong>
+        </div>
+        <div class="summary-card">
+            <span>📈 Чистая прибыль</span>
+            <strong id="netProfit">0 ₽</strong>
+        </div>
+        <div class="summary-card">
+            <span>💳 Наличные</span>
+            <strong id="cashTotal">0 ₽</strong>
+        </div>
+        <div class="summary-card">
+            <span>💳 Карта</span>
+            <strong id="cardTotal">0 ₽</strong>
+        </div>
+        <div class="summary-card">
+            <span>📦 Заказов</span>
+            <strong id="ordersCount">0</strong>
+        </div>
+    </div>
+
+    <!-- ДАШБОРД: график выручки по дням -->
+    <div class="dashboard">
+        <h3>📊 Динамика чистой прибыли (последние 7 дней)</h3>
+        <canvas id="profitChart" width="400" height="180" style="max-height: 220px;"></canvas>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
